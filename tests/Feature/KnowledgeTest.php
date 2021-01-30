@@ -16,12 +16,11 @@ class KnowledgeTest extends TestCase
     public function knowledge_record_created()
     {
         $response = $this->post('api/knowledge/create');
+        $json = $response->decodeResponseJson();
 
-        $inserted_knowledge_response = json_decode($response->getContent());
-        $this->assertEquals( "Untitled knowledge", $inserted_knowledge_response->data->title);
-        $this->assertEquals("Untitled knowledge", $inserted_knowledge_response->data->title);
-        $this->assertTrue($inserted_knowledge_response->success);
+        $this->assertEquals( "Untitled knowledge", $json['data']['title']);
+        $this->assertEquals("No description", $json['data']['description']);
+        $this->assertTrue($json['success']);
         $response->assertStatus(201);
-
     }
 }
