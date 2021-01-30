@@ -8,7 +8,7 @@ use App\Models\Knowledge;
 
 interface IKnowledgeRepository
 {
-    public function create($data):Knowledge;
+    public function create(array $data):Knowledge;
 
-    public function findById($id):Knowledge;
+    public function findById(int $id):Knowledge;
 }

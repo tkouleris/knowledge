@@ -21,12 +21,20 @@ class KnowledgeRepository implements IKnowledgeRepository
     }
 
 
-    public function create($data): Knowledge
+    /**
+     * @param array $data
+     * @return Knowledge
+     */
+    public function create(array $data): Knowledge
     {
         return $this->model->create($data);
     }
 
-    public function findById($id): Knowledge
+    /**
+     * @param int $id
+     * @return Knowledge
+     */
+    public function findById(int $id): Knowledge
     {
         return $this->model::where('id',$id)->first();
     }

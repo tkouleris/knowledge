@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Models\Knowledge;
 use App\Repositories\Contracts\IKnowledgeRepository;
 
 class KnowledgeService
@@ -19,14 +20,21 @@ class KnowledgeService
         $this->knowledgeRepository = $knowledgeRepository;
     }
 
-    public function createDefaultRecord()
+    /**
+     * @return Knowledge
+     */
+    public function createDefaultRecord(): Knowledge
     {
         $data['title'] = "Untitled knowledge";
         $data['description'] = "No description";
         return $this->knowledgeRepository->create($data);
     }
 
-    public function show($id)
+    /**
+     * @param int $id
+     * @return Knowledge
+     */
+    public function show(int $id): Knowledge
     {
         return $this->knowledgeRepository->findById($id);
     }

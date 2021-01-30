@@ -4,6 +4,8 @@
 namespace App\Traits;
 
 
+use Symfony\Component\HttpFoundation\Response;
+
 trait ApiResponse
 {
     public function success($data, string $message)
