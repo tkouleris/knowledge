@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Knowledge;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -23,4 +24,31 @@ class KnowledgeTest extends TestCase
         $this->assertTrue($json['success']);
         $response->assertStatus(201);
     }
+
+    /**
+     * @test
+     */
+    public function knowledge_record_exists()
+    {
+        $this->create_single_record();
+
+        $response = $this->get('api/knowledge/1');
+        $json = $response->decodeResponseJson();
+
+
+
+        $this->assertEquals( "Untitled knowledge", $json['data']['title']);
+        $this->assertEquals("No description", $json['data']['description']);
+        $this->assertTrue($json['success'],true);
+        $response->assertStatus(200);
+    }
+
+    private function create_single_record()
+    {
+        $knowledge = new Knowledge();
+        $knowledge->title = "Untitled knowledge";
+        $knowledge->description = "No description";
+        $knowledge->save();
+    }
+
 }

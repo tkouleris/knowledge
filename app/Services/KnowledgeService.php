@@ -26,5 +26,10 @@ class KnowledgeService
         return $this->knowledgeRepository->create($data);
     }
 
+    public function show($id)
+    {
+        return $this->knowledgeRepository->findById($id);
+    }
+
 
 }

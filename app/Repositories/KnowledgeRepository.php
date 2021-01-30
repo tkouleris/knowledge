@@ -25,4 +25,9 @@ class KnowledgeRepository implements IKnowledgeRepository
     {
         return $this->model->create($data);
     }
+
+    public function findById($id): Knowledge
+    {
+        return $this->model::where('id',$id)->first();
+    }
 }

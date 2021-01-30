@@ -30,4 +30,10 @@ class KnowledgeController extends Controller
         $knowledge = $this->knowledgeService->createDefaultRecord();
         return new Response($this->success($knowledge,"record created"),201);
     }
+
+    public function show($id)
+    {
+        $found_record = $this->knowledgeService->show($id);
+        return new Response($this->success($found_record,"record"),200);
+    }
 }
