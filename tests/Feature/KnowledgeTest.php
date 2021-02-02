@@ -43,6 +43,35 @@ class KnowledgeTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @test
+     */
+    public function knowledge_record_updated()
+    {
+        $this->create_single_record();
+//        $knowledge = Knowledge::where('id',1);
+
+        $data['title'] = "test title";
+        $data['description'] = "test description";
+        $response = $this->call(
+            'POST',
+            'api/knowledge/1',
+            [],
+            [],
+            [],
+            $headers = [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json'
+            ],
+            $json = json_encode($data)
+        );
+
+        $knowledgeUpdated = Knowledge::where('id',1)->first();
+        $this->assertEquals("test title",$knowledgeUpdated->title);
+        $this->assertEquals("test description",$knowledgeUpdated->description);
+        $response->assertStatus(200);
+    }
+
     private function create_single_record()
     {
         $knowledge = new Knowledge();

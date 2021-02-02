@@ -38,4 +38,13 @@ class KnowledgeRepository implements IKnowledgeRepository
     {
         return $this->model::where('id',$id)->first();
     }
+
+    public function update(array $data): Knowledge
+    {
+        $knowledge = Knowledge::where('id',$data['id'])->first();
+        if(isset($data['title'])) $knowledge->title = $data['title'];
+        if(isset($data['description'])) $knowledge->description = $data['description'];
+        $knowledge->save();
+        return $knowledge;
+    }
 }
