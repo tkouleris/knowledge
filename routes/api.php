@@ -22,3 +22,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('knowledge/create', [KnowledgeController::class, 'create']);
 Route::get('knowledge/{id}', [KnowledgeController::class, 'show']);
 Route::post('knowledge/{id}', [KnowledgeController::class, 'update']);
+Route::delete('knowledge/{id}', [KnowledgeController::class, 'delete']);

@@ -39,5 +39,23 @@ class KnowledgeService
         return $this->knowledgeRepository->findById($id);
     }
 
+    /**
+     * @param int $id
+     * @return Knowledge
+     */
+    public function delete(int $id): Knowledge
+    {
+        return $this->knowledgeRepository->delete($id);
+    }
+
+    /**
+     * @param array $data
+     * @return Knowledge
+     */
+    public function update(array $data): Knowledge
+    {
+        return $this->knowledgeRepository->update($data);
+    }
+
 
 }

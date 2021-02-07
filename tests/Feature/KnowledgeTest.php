@@ -49,7 +49,6 @@ class KnowledgeTest extends TestCase
     public function knowledge_record_updated()
     {
         $this->create_single_record();
-//        $knowledge = Knowledge::where('id',1);
 
         $data['title'] = "test title";
         $data['description'] = "test description";
@@ -70,6 +69,37 @@ class KnowledgeTest extends TestCase
         $this->assertEquals("test title",$knowledgeUpdated->title);
         $this->assertEquals("test description",$knowledgeUpdated->description);
         $response->assertStatus(200);
+    }
+
+
+    /**
+     * @test
+     */
+    public function knowledge_record_deleted()
+    {
+        $this->create_single_record();
+        $knowledge_collection = Knowledge::all();
+        $this->assertEquals(1,$knowledge_collection->count());
+
+        $data['title'] = "test title";
+        $data['description'] = "test description";
+
+        $response = $this->call(
+            'DELETE',
+            'api/knowledge/1',
+            [],
+            [],
+            [],
+            $headers = [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json'
+            ],
+            null
+        );
+
+        $knowledge_collection = Knowledge::all();
+        $this->assertEquals(0,$knowledge_collection->count());
+        $response->assertStatus(204);
     }
 
     private function create_single_record()

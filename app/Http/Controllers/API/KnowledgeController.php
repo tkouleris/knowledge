@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Knowledge;
-use App\Repositories\Contracts\IKnowledgeRepository;
 use App\Services\KnowledgeService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Response;
@@ -44,10 +42,27 @@ class KnowledgeController extends Controller
         return new Response($this->success($found_record,"record"),200);
     }
 
-    public function update($id, Request $request, IKnowledgeRepository $knowledgeRepository)
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @return Response
+     */
+    public function update($id, Request $request): Response
     {
         $data = $request->input();
         $data['id'] = $id;
-        return $knowledgeRepository->update($data);
+        $updatedKnowledge = $this->knowledgeService->update($data);
+        return new Response($this->success($updatedKnowledge,"record"),200);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     */
+    public function delete($id): Response
+    {
+        $knowledge = $this->knowledgeService->delete($id);
+        return new Response($this->success($knowledge,"record deleted"),204);
     }
 }
