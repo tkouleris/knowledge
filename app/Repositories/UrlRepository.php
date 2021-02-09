@@ -23,9 +23,24 @@ class UrlRepository implements IUrlRepository
 
     public function create(array $data): Url
     {
-        return Url::create([
+        return $this->model::create([
             'knowledge_id' => $data['knowledge_id'],
             'url' => $data['url']
         ]);
+    }
+
+    public function findById(int $id):Url
+    {
+        return $this->model::where('id',$id)->first();
+    }
+
+    public function delete(int $id): Url
+    {
+        $url = $this->model::where('id',$id)->first();
+        if($url)
+        {
+            $url->delete();
+        }
+        return $url;
     }
 }

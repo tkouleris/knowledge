@@ -5,6 +5,7 @@ namespace Tests\Feature;
 
 
 use App\Models\Knowledge;
+use App\Models\Url;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -41,6 +42,37 @@ class UrlTest extends TestCase
         $this->assertEquals($knowledge->id,$url_response->data->knowledge_id);
         $this->assertEquals("http://www.google.com",$url_response->data->url);
         $response->assertStatus(201);
+    }
 
+    /**
+     * @test
+     */
+    public function delete_url_for_knowledge()
+    {
+        $knowledge = Knowledge::create([
+            'title' => "Untitled",
+            'description' => "no descritpion"
+        ]);
+
+        $url = Url::create([
+            'knowledge_id' => $knowledge->id,
+            'url' => 'http://www.google.com'
+        ]);
+
+        $response = $this->call(
+            'DELETE',
+            'api/knowledge/'.$knowledge->id.'/url/'.$url->id,
+            [],
+            [],
+            [],
+            $headers = [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json'
+            ],
+            null
+        );
+        $url_collection = Url::all();
+        $this->assertEquals(0,$url_collection->count());
+        $response->assertStatus(204);
     }
 }

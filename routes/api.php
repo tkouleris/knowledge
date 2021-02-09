@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+
 Route::post('knowledge/{id}/url', [UrlController::class, 'create']);
+Route::delete('knowledge/{id}/url/{url_id}', [UrlController::class, 'delete']);
 Route::post('knowledge/create', [KnowledgeController::class, 'create']);
 Route::get('knowledge/{id}', [KnowledgeController::class, 'show']);
 Route::post('knowledge/{id}', [KnowledgeController::class, 'update']);

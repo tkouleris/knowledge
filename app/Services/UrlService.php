@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Models\Url;
 use App\Repositories\Contracts\IUrlRepository;
 
 class UrlService
@@ -20,8 +21,21 @@ class UrlService
     }
 
 
-    public function create($data)
+    /**
+     * @param $data
+     * @return Url
+     */
+    public function create($data): Url
     {
         return $this->urlRepository->create($data);
+    }
+
+    /**
+     * @param $id
+     * @return Url
+     */
+    public function delete($id): Url
+    {
+        return $this->urlRepository->delete($id);
     }
 }

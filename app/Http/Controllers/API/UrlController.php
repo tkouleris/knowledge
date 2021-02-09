@@ -39,4 +39,15 @@ class UrlController extends Controller
 
         return new Response($this->success($url,"created"),201);
     }
+
+    /**
+     * @param $id
+     * @param $url_id
+     * @return Response
+     */
+    public function delete($id, $url_id): Response
+    {
+        $url = $this->urlService->delete($url_id);
+        return new Response($this->success($url,"deleted"),204);
+    }
 }
