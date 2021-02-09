@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\KnowledgeController;
+use App\Http\Controllers\API\UrlController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+Route::post('knowledge/{id}/url', [UrlController::class, 'create']);
 Route::post('knowledge/create', [KnowledgeController::class, 'create']);
 Route::get('knowledge/{id}', [KnowledgeController::class, 'show']);
 Route::post('knowledge/{id}', [KnowledgeController::class, 'update']);

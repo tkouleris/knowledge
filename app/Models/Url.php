@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Url extends Model
 {
     use HasFactory;
+
+    protected $table = 'url';
+
+    protected $fillable = [
+        'url',
+        'knowledge_id'
+    ];
 }
