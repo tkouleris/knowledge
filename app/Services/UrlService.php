@@ -47,4 +47,13 @@ class UrlService
     {
         return $this->urlRepository->findById($url_id);
     }
+
+    /**
+     * @param array $data
+     * @return Url
+     */
+    public function update(array $data): Url
+    {
+        return $this->urlRepository->update($data);
+    }
 }

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Url;
-use App\Repositories\Contracts\IUrlRepository;
 use App\Services\UrlService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -51,9 +49,28 @@ class UrlController extends Controller
         return new Response($this->success($url,"deleted"),204);
     }
 
-    public function show($id, $url_id)
+    /**
+     * @param $id
+     * @param $url_id
+     * @return Response
+     */
+    public function show($id, $url_id): Response
     {
         $url_record = $this->urlService->find($url_id);
         return new Response($this->success($url_record,"record"),200);
+    }
+
+    /**
+     * @param $id
+     * @param $url_id
+     * @param Request $request
+     * @return Response
+     */
+    public function update($id, $url_id, Request $request): Response
+    {
+        $data = $request->all();
+        $data['id'] = $url_id;
+        $updateUrl = $this->urlService->update($data);
+        return new Response($this->success($updateUrl,"record"),200);
     }
 }

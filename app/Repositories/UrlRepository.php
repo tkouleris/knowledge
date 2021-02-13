@@ -21,6 +21,10 @@ class UrlRepository implements IUrlRepository
     }
 
 
+    /**
+     * @param array $data
+     * @return Url
+     */
     public function create(array $data): Url
     {
         return $this->model::create([
@@ -29,11 +33,19 @@ class UrlRepository implements IUrlRepository
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return Url
+     */
     public function findById(int $id):Url
     {
         return $this->model::where('id',$id)->first();
     }
 
+    /**
+     * @param int $id
+     * @return Url
+     */
     public function delete(int $id): Url
     {
         $url = $this->model::where('id',$id)->first();
@@ -42,5 +54,21 @@ class UrlRepository implements IUrlRepository
             $url->delete();
         }
         return $url;
+    }
+
+    /**
+     * @param array $data
+     * @return Url
+     */
+    public function update(array $data): Url
+    {
+        $id = $data['id']??0;
+        $url_record = $this->model::where('id',$id)->first();
+
+        if(isset($data['url'])) $url_record->url = (string)$data['url'];
+
+        $url_record->save();
+
+        return $url_record;
     }
 }
