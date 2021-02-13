@@ -33,6 +33,7 @@ class UrlController extends Controller
     {
         $data['knowledge_id'] = $id;
         $data['url'] = $request->has('url')?$request->input('url'):'';
+        $data['description'] = $request->has('description')?$request->input('description'):"";
         $url = $this->urlService->create($data);
 
         return new Response($this->success($url,"created"),201);

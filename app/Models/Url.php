@@ -13,6 +13,7 @@ class Url extends Model
 
     protected $fillable = [
         'url',
-        'knowledge_id'
+        'knowledge_id',
+        'description'
     ];
 }
