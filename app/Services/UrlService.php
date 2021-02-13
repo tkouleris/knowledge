@@ -38,4 +38,13 @@ class UrlService
     {
         return $this->urlRepository->delete($id);
     }
+
+    /**
+     * @param $url_id
+     * @return Url
+     */
+    public function find($url_id): Url
+    {
+        return $this->urlRepository->findById($url_id);
+    }
 }

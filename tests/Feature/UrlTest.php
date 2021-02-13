@@ -75,4 +75,37 @@ class UrlTest extends TestCase
         $this->assertEquals(0,$url_collection->count());
         $response->assertStatus(204);
     }
+
+    /**
+     * @test
+     */
+    public function show_url_for_knowledge()
+    {
+        $knowledge = Knowledge::create([
+            'title' => "Untitled",
+            'description' => "no descritpion"
+        ]);
+
+        $url = Url::create([
+            'knowledge_id' => $knowledge->id,
+            'url' => 'http://www.google.com'
+        ]);
+
+        $response = $this->call(
+            'GET',
+            'api/knowledge/'.$knowledge->id.'/url/'.$url->id,
+            [],
+            [],
+            [],
+            $headers = [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT' => 'application/json'
+            ],
+            null
+        );
+        $url_response = json_decode($response->getContent());
+
+        $this->assertEquals('http://www.google.com', $url_response->data->url);
+        $response->assertStatus(200);
+    }
 }

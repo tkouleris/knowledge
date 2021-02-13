@@ -50,4 +50,10 @@ class UrlController extends Controller
         $url = $this->urlService->delete($url_id);
         return new Response($this->success($url,"deleted"),204);
     }
+
+    public function show($id, $url_id)
+    {
+        $url_record = $this->urlService->find($url_id);
+        return new Response($this->success($url_record,"record"),200);
+    }
 }
