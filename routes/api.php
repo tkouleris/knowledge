@@ -17,20 +17,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
 
-
-Route::post('knowledge/{id}/url', [UrlController::class, 'create']);
-Route::get('knowledge/{id}/url/{url_id}', [UrlController::class, 'show']);
-Route::put('knowledge/{id}/url/{url_id}', [UrlController::class, 'update']);
-Route::delete('knowledge/{id}/url/{url_id}', [UrlController::class, 'delete']);
-Route::post('knowledge/{id}/video', [VideoController::class, 'create']);
-Route::delete('knowledge/{id}/video/{video_id}', [VideoController::class, 'delete']);
-Route::get('knowledge/{id}/video/{video_id}', [VideoController::class, 'show']);
-Route::put('knowledge/{id}/video/{video_id}', [VideoController::class, 'update']);
-Route::post('knowledge/create', [KnowledgeController::class, 'create']);
-Route::get('knowledge/{id}', [KnowledgeController::class, 'show']);
-Route::post('knowledge/{id}', [KnowledgeController::class, 'update']);
-Route::delete('knowledge/{id}', [KnowledgeController::class, 'delete']);
+Route::prefix('knowledge')->group(function () {
+    Route::post('{id}/url', [UrlController::class, 'create']);
+    Route::get('{id}/url/{url_id}', [UrlController::class, 'show']);
+    Route::put('{id}/url/{url_id}', [UrlController::class, 'update']);
+    Route::delete('{id}/url/{url_id}', [UrlController::class, 'delete']);
+    Route::post('{id}/video', [VideoController::class, 'create']);
+    Route::delete('{id}/video/{video_id}', [VideoController::class, 'delete']);
+    Route::get('{id}/video/{video_id}', [VideoController::class, 'show']);
+    Route::put('{id}/video/{video_id}', [VideoController::class, 'update']);
+    Route::post('create', [KnowledgeController::class, 'create']);
+    Route::get('{id}', [KnowledgeController::class, 'show']);
+    Route::post('{id}', [KnowledgeController::class, 'update']);
+    Route::delete('{id}', [KnowledgeController::class, 'delete']);
+});
+//Route::post('knowledge/{id}/url', [UrlController::class, 'create']);
+//Route::get('knowledge/{id}/url/{url_id}', [UrlController::class, 'show']);
+//Route::put('knowledge/{id}/url/{url_id}', [UrlController::class, 'update']);
+//Route::delete('knowledge/{id}/url/{url_id}', [UrlController::class, 'delete']);
+//Route::post('knowledge/{id}/video', [VideoController::class, 'create']);
+//Route::delete('knowledge/{id}/video/{video_id}', [VideoController::class, 'delete']);
+//Route::get('knowledge/{id}/video/{video_id}', [VideoController::class, 'show']);
+//Route::put('knowledge/{id}/video/{video_id}', [VideoController::class, 'update']);
+//Route::post('knowledge/create', [KnowledgeController::class, 'create']);
+//Route::get('knowledge/{id}', [KnowledgeController::class, 'show']);
+//Route::post('knowledge/{id}', [KnowledgeController::class, 'update']);
+//Route::delete('knowledge/{id}', [KnowledgeController::class, 'delete']);
