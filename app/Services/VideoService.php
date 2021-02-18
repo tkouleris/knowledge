@@ -37,5 +37,22 @@ class VideoService
         return $this->videoRepository->create($data);
     }
 
+    /**
+     * @param int $video_id
+     * @return Video
+     */
+    public function delete(int $video_id): Video
+    {
+        return $this->videoRepository->delete($video_id);
+    }
 
+    public function findById(int $id):Video
+    {
+        return $this->videoRepository->findById($id);
+    }
+
+    public function update(array $data)
+    {
+        return $this->videoRepository->update($data);
+    }
 }

@@ -47,7 +47,7 @@ class UrlTest extends TestCase
     /**
      * @test
      */
-    public function delete_url_for_knowledge()
+    public function delete_url_for_knowledge(): void
     {
         $knowledge = Knowledge::create([
             'title' => "Untitled",
@@ -79,7 +79,7 @@ class UrlTest extends TestCase
     /**
      * @test
      */
-    public function show_url_for_knowledge()
+    public function show_url_for_knowledge(): void
     {
         $knowledge = Knowledge::create([
             'title' => "Untitled",
@@ -112,7 +112,7 @@ class UrlTest extends TestCase
     /**
      * @test
      */
-    public function update_url_for_knowledge()
+    public function update_url_for_knowledge(): void
     {
         $knowledge = Knowledge::create([
             'title' => "Untitled",

@@ -20,7 +20,6 @@ class UrlRepository implements IUrlRepository
         $this->model = $model;
     }
 
-
     /**
      * @param array $data
      * @return Url
@@ -67,7 +66,7 @@ class UrlRepository implements IUrlRepository
         $url_record = $this->model::where('id',$id)->first();
 
         if(isset($data['url'])) $url_record->url = (string)$data['url'];
-        if(isset($data['description'])) $url_record->url = (string)$data['description'];
+        if(isset($data['description'])) $url_record->description = (string)$data['description'];
 
         $url_record->save();
 
