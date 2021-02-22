@@ -12,6 +12,7 @@ use Tests\TestCase;
 class VideoTest extends TestCase
 {
     use RefreshDatabase;
+    use Helpers;
 
     /**
      * @test
@@ -26,6 +27,7 @@ class VideoTest extends TestCase
         $data['url'] = "http://youtube.com/";
         $data['title'] = "My Video";
         $data['description'] = "Video Description";
+        $token = $this->getToken();
         $response = $this->call(
             'POST',
             'api/knowledge/'.$knowledge->id.'/video',
@@ -34,7 +36,8 @@ class VideoTest extends TestCase
             [],
             $headers = [
                 'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => 'Bearer '.$token['token']
             ],
             $json = json_encode($data)
         );
@@ -57,7 +60,6 @@ class VideoTest extends TestCase
             'title' => "Untitled",
             'description' => "no descritpion"
         ]);
-
         $video_record = Video::create([
             'knowledge_id' => $knowledge->id,
             'url' => 'http://www.google.com',
@@ -65,6 +67,7 @@ class VideoTest extends TestCase
             'description' => 'description',
         ]);
 
+        $token = $this->getToken();
         $response = $this->call(
             'DELETE',
             'api/knowledge/'.$knowledge->id.'/video/'.$video_record->id,
@@ -73,7 +76,8 @@ class VideoTest extends TestCase
             [],
             $headers = [
                 'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => 'Bearer '.$token['token']
             ],
             null
         );
@@ -91,7 +95,6 @@ class VideoTest extends TestCase
             'title' => "Untitled",
             'description' => "no descritpion"
         ]);
-
         $video_record = Video::create([
             'knowledge_id' => $knowledge->id,
             'url' => 'http://www.google.com',
@@ -99,6 +102,7 @@ class VideoTest extends TestCase
             'description' => 'description',
         ]);
 
+        $token = $this->getToken();
         $response = $this->call(
             'GET',
             'api/knowledge/'.$knowledge->id.'/video/'.$video_record->id,
@@ -107,12 +111,14 @@ class VideoTest extends TestCase
             [],
             $headers = [
                 'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => 'Bearer '.$token['token']
             ],
             null
         );
-        $video_response = json_decode($response->getContent());
 
+
+        $video_response = json_decode($response->getContent());
         $this->assertEquals(1,Video::all()->count());
         $this->assertEquals($knowledge->id,$video_response->data->knowledge_id);
         $this->assertEquals('http://www.google.com',$video_response->data->url);
@@ -130,7 +136,6 @@ class VideoTest extends TestCase
             'title' => "Untitled",
             'description' => "no descritpion"
         ]);
-
         $video_record = Video::create([
             'knowledge_id' => $knowledge->id,
             'url' => 'http://www.google.com',
@@ -141,6 +146,7 @@ class VideoTest extends TestCase
         $data['title'] = "updated_title";
         $data['url'] = "updated_url";
         $data['description'] = "updated_description";
+        $token = $this->getToken();
         $response = $this->call(
             'PUT',
             'api/knowledge/'.$knowledge->id.'/video/'.$video_record->id,
@@ -149,7 +155,8 @@ class VideoTest extends TestCase
             [],
             $headers = [
                 'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => 'Bearer '.$token['token']
             ],
             $json = json_encode($data)
         );

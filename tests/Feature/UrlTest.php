@@ -12,6 +12,7 @@ use Tests\TestCase;
 class UrlTest extends TestCase
 {
     use RefreshDatabase;
+    use Helpers;
 
     /**
      * @test
@@ -23,7 +24,7 @@ class UrlTest extends TestCase
             'description' => "no descritpion"
         ]);
 
-
+        $token = $this->getToken();
         $data['url'] = "http://www.google.com";
         $response = $this->call(
             'POST',
@@ -33,7 +34,8 @@ class UrlTest extends TestCase
             [],
             $headers = [
                 'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => 'Bearer '.$token['token']
             ],
             $json = json_encode($data)
         );
@@ -53,12 +55,12 @@ class UrlTest extends TestCase
             'title' => "Untitled",
             'description' => "no descritpion"
         ]);
-
         $url = Url::create([
             'knowledge_id' => $knowledge->id,
             'url' => 'http://www.google.com'
         ]);
 
+        $token = $this->getToken();
         $response = $this->call(
             'DELETE',
             'api/knowledge/'.$knowledge->id.'/url/'.$url->id,
@@ -67,10 +69,12 @@ class UrlTest extends TestCase
             [],
             $headers = [
                 'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => 'Bearer '.$token['token']
             ],
             null
         );
+
         $url_collection = Url::all();
         $this->assertEquals(0,$url_collection->count());
         $response->assertStatus(204);
@@ -85,12 +89,12 @@ class UrlTest extends TestCase
             'title' => "Untitled",
             'description' => "no descritpion"
         ]);
-
         $url = Url::create([
             'knowledge_id' => $knowledge->id,
             'url' => 'http://www.google.com'
         ]);
 
+        $token = $this->getToken();
         $response = $this->call(
             'GET',
             'api/knowledge/'.$knowledge->id.'/url/'.$url->id,
@@ -99,7 +103,8 @@ class UrlTest extends TestCase
             [],
             $headers = [
                 'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => 'Bearer '.$token['token']
             ],
             null
         );
@@ -118,13 +123,13 @@ class UrlTest extends TestCase
             'title' => "Untitled",
             'description' => "no descritpion"
         ]);
-
         $url = Url::create([
             'knowledge_id' => $knowledge->id,
             'url' => 'http://www.google.com'
         ]);
 
         $data['url'] = "http://www.google.gr";
+        $token = $this->getToken();
         $response = $this->call(
             'PUT',
             'api/knowledge/'.$knowledge->id.'/url/'.$url->id,
@@ -133,7 +138,8 @@ class UrlTest extends TestCase
             [],
             $headers = [
                 'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => 'Bearer '.$token['token']
             ],
             $json = json_encode($data)
         );

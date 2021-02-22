@@ -4,19 +4,21 @@ namespace Tests\Feature;
 
 use App\Models\Knowledge;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class KnowledgeTest extends TestCase
 {
     use RefreshDatabase;
+    use Helpers;
 
     /**
      * @test
      */
     public function knowledge_record_created()
     {
-        $response = $this->post('api/knowledge/create');
+        $token = $this->getToken();
+
+        $response = $this->post('api/knowledge/create',[],['HTTP_Authorization' => 'Bearer '.$token['token']]);
         $json = $response->decodeResponseJson();
 
         $this->assertEquals( "Untitled knowledge", $json['data']['title']);
@@ -30,11 +32,11 @@ class KnowledgeTest extends TestCase
      */
     public function knowledge_record_exists()
     {
-        $this->create_single_record();
+        $this->create_single_knowledge_record();
 
-        $response = $this->get('api/knowledge/1');
+        $token = $this->getToken();
+        $response = $this->get('api/knowledge/1',['HTTP_Authorization' => 'Bearer '.$token['token']]);
         $json = $response->decodeResponseJson();
-
 
 
         $this->assertEquals( "Untitled knowledge", $json['data']['title']);
@@ -48,10 +50,11 @@ class KnowledgeTest extends TestCase
      */
     public function knowledge_record_updated()
     {
-        $this->create_single_record();
+        $this->create_single_knowledge_record();
 
         $data['title'] = "test title";
         $data['description'] = "test description";
+        $token = $this->getToken();
         $response = $this->call(
             'POST',
             'api/knowledge/1',
@@ -60,7 +63,8 @@ class KnowledgeTest extends TestCase
             [],
             $headers = [
                 'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => 'Bearer '.$token['token']
             ],
             $json = json_encode($data)
         );
@@ -77,13 +81,13 @@ class KnowledgeTest extends TestCase
      */
     public function knowledge_record_deleted()
     {
-        $this->create_single_record();
+        $this->create_single_knowledge_record();
         $knowledge_collection = Knowledge::all();
         $this->assertEquals(1,$knowledge_collection->count());
 
         $data['title'] = "test title";
         $data['description'] = "test description";
-
+        $token = $this->getToken();
         $response = $this->call(
             'DELETE',
             'api/knowledge/1',
@@ -92,7 +96,8 @@ class KnowledgeTest extends TestCase
             [],
             $headers = [
                 'CONTENT_TYPE' => 'application/json',
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/json',
+                'HTTP_Authorization' => 'Bearer '.$token['token']
             ],
             null
         );
@@ -100,14 +105,6 @@ class KnowledgeTest extends TestCase
         $knowledge_collection = Knowledge::all();
         $this->assertEquals(0,$knowledge_collection->count());
         $response->assertStatus(204);
-    }
-
-    private function create_single_record()
-    {
-        $knowledge = new Knowledge();
-        $knowledge->title = "Untitled knowledge";
-        $knowledge->description = "No description";
-        $knowledge->save();
     }
 
 }
