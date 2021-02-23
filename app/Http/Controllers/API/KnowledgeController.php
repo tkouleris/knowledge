@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Services\KnowledgeService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class KnowledgeController extends Controller
 {
@@ -28,7 +30,9 @@ class KnowledgeController extends Controller
      */
     public function create(): Response
     {
-        $knowledge = $this->knowledgeService->createDefaultRecord();
+        /** @var User $currentUser */
+        $currentUser = auth()->user();
+        $knowledge = $this->knowledgeService->createDefaultRecord($currentUser);
         return new Response($this->success($knowledge,"record created"),201);
     }
 

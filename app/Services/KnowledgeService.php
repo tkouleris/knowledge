@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use App\Models\Knowledge;
+use App\Models\User;
 use App\Repositories\Contracts\IKnowledgeRepository;
 
 class KnowledgeService
@@ -21,12 +22,14 @@ class KnowledgeService
     }
 
     /**
+     * @param User $user
      * @return Knowledge
      */
-    public function createDefaultRecord(): Knowledge
+    public function createDefaultRecord(User $user): Knowledge
     {
         $data['title'] = "Untitled knowledge";
         $data['description'] = "No description";
+        $data['user_id'] = $user->id;
         return $this->knowledgeRepository->create($data);
     }
 

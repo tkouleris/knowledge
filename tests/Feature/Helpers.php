@@ -21,16 +21,16 @@ trait Helpers
         $User->save();
 
         $response = $this->post('api/login',$credentials);
-        $token = $response->decodeResponseJson('token');
 
-        return $token;
+        return $response->decodeResponseJson();
     }
 
-    public function create_single_knowledge_record()
+    public function create_single_knowledge_record($id)
     {
         $knowledge = new Knowledge();
         $knowledge->title = "Untitled knowledge";
         $knowledge->description = "No description";
+        $knowledge->user_id = $id;
         $knowledge->save();
     }
 }

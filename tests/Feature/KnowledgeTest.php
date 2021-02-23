@@ -23,6 +23,7 @@ class KnowledgeTest extends TestCase
 
         $this->assertEquals( "Untitled knowledge", $json['data']['title']);
         $this->assertEquals("No description", $json['data']['description']);
+        $this->assertEquals($token['id'], $json['data']['user_id']);
         $this->assertTrue($json['success']);
         $response->assertStatus(201);
     }
@@ -32,15 +33,15 @@ class KnowledgeTest extends TestCase
      */
     public function knowledge_record_exists()
     {
-        $this->create_single_knowledge_record();
-
         $token = $this->getToken();
+        $this->create_single_knowledge_record($token['id']);
+
         $response = $this->get('api/knowledge/1',['HTTP_Authorization' => 'Bearer '.$token['token']]);
         $json = $response->decodeResponseJson();
 
-
         $this->assertEquals( "Untitled knowledge", $json['data']['title']);
         $this->assertEquals("No description", $json['data']['description']);
+        $this->assertEquals($token['id'], $json['data']['user_id']);
         $this->assertTrue($json['success'],true);
         $response->assertStatus(200);
     }
@@ -50,11 +51,11 @@ class KnowledgeTest extends TestCase
      */
     public function knowledge_record_updated()
     {
-        $this->create_single_knowledge_record();
+        $token = $this->getToken();
+        $this->create_single_knowledge_record($token['id']);
 
         $data['title'] = "test title";
         $data['description'] = "test description";
-        $token = $this->getToken();
         $response = $this->call(
             'POST',
             'api/knowledge/1',
@@ -72,6 +73,7 @@ class KnowledgeTest extends TestCase
         $knowledgeUpdated = Knowledge::where('id',1)->first();
         $this->assertEquals("test title",$knowledgeUpdated->title);
         $this->assertEquals("test description",$knowledgeUpdated->description);
+        $this->assertEquals($token['id'],$knowledgeUpdated->user_id);
         $response->assertStatus(200);
     }
 
@@ -81,13 +83,13 @@ class KnowledgeTest extends TestCase
      */
     public function knowledge_record_deleted()
     {
-        $this->create_single_knowledge_record();
+        $token = $this->getToken();
+        $this->create_single_knowledge_record($token['id']);
         $knowledge_collection = Knowledge::all();
         $this->assertEquals(1,$knowledge_collection->count());
 
         $data['title'] = "test title";
         $data['description'] = "test description";
-        $token = $this->getToken();
         $response = $this->call(
             'DELETE',
             'api/knowledge/1',
