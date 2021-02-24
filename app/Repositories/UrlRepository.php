@@ -9,6 +9,9 @@ use App\Repositories\Contracts\IUrlRepository;
 
 class UrlRepository implements IUrlRepository
 {
+    /**
+     * @var Url
+     */
     private $model;
 
     /**

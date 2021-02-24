@@ -9,8 +9,9 @@ use App\Repositories\Contracts\IUserRepository;
 
 class UserRepository implements IUserRepository
 {
-
-
+    /**
+     * @var User
+     */
     protected $model;
 
     /**

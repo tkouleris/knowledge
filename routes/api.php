@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\KnowledgeController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\TagController;
 use App\Http\Controllers\API\UrlController;
 use App\Http\Controllers\API\VideoController;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login',[AuthController::class,'login']);
 
 Route::group(['middleware' => ['jwtauth']], function() {
+
     Route::prefix('knowledge')->group(function () {
         Route::post('{id}/url', [UrlController::class, 'create']);
         Route::get('{id}/url/{url_id}', [UrlController::class, 'show']);
@@ -35,6 +37,14 @@ Route::group(['middleware' => ['jwtauth']], function() {
         Route::post('{id}', [KnowledgeController::class, 'update']);
         Route::delete('{id}', [KnowledgeController::class, 'delete']);
     });
+
+    Route::prefix('tag')->group(function () {
+        Route::post('/create', [TagController::class, 'create']);
+        Route::delete('/{id}', [TagController::class, 'delete']);
+        Route::get('/{id}', [TagController::class, 'show']);
+        Route::put('/{id}', [TagController::class, 'update']);
+    });
+
 });
 
 //Route::post('knowledge/{id}/url', [UrlController::class, 'create']);

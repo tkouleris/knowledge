@@ -9,6 +9,9 @@ use App\Repositories\Contracts\IVideoRepository;
 
 class VideoRepository implements IVideoRepository
 {
+    /**
+     * @var Video
+     */
     private $model;
 
     /**
