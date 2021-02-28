@@ -1,0 +1,172 @@
+<template>
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+
+                <form action="../../index3.html" method="post">
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Email">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <div class="social-auth-links text-center mt-2 mb-3">
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                    </a>
+                </div>
+                <!-- /.social-auth-links -->
+
+                <p class="mb-1">
+                    <a href="forgot-password.html">I forgot my password</a>
+                </p>
+                <p class="mb-0">
+                    <a href="register.html" class="text-center">Register a new membership</a>
+                </p>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</template>
+
+<script>
+import Vue from 'vue'
+import axios from 'axios'
+import config from '../config'
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios,axios)
+
+export default {
+    name: "LoginComponent",
+    data(){
+        return {
+            email: null,
+            password: null
+        }
+    },
+    methods:{
+        login_attempt: function (){
+
+            let credentials = {
+                'email': this.email,
+                'password': this.password
+            }
+
+            Vue.axios.post(config.API_URL + "/api/login", credentials)
+                .then(
+                    response =>{
+                        localStorage.token = response.data.token;
+                        localStorage.name = response.data.name;
+                        localStorage.id = response.data.id;
+                        this.$router.push('/vue/newsfeed');
+                    }
+
+                ).catch(
+                error=>alert('Wrong Username or Password')
+            );
+        },
+        loginAtEnterPressed(event){
+            if(event.keyCode !== 13){
+                return;
+            }
+            this.login_attempt();
+        }
+    }
+}
+</script>
+
+<style scoped>
+body
+{
+    margin: 0;
+    padding: 0;
+    background-color:#6abadeba;
+    font-family: 'Arial',serif;
+}
+.login{
+    width: 500px;
+    overflow: hidden;
+    margin: auto;
+    margin-top: 15px;
+    padding: 80px;
+    background: #808080;
+    border-radius: 15px ;
+
+}
+h2{
+    text-align: center;
+    color: #277582;
+    padding: 20px;
+}
+label{
+    color: black;
+    font-size: 17px;
+}
+#Uname{
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+}
+#Pass{
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+
+}
+#log{
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 17px;
+    padding-left: 7px;
+    color: black;
+}
+span{
+    color: white;
+    font-size: 17px;
+}
+a{
+    float: right;
+    color: blue;
+}
+</style>
