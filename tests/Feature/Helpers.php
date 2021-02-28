@@ -5,6 +5,7 @@ namespace Tests\Feature;
 
 
 use App\Models\Knowledge;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -32,5 +33,19 @@ trait Helpers
         $knowledge->description = "No description";
         $knowledge->user_id = $id;
         $knowledge->save();
+    }
+
+
+    /**
+     * @param $user_id
+     * @return Tag
+     */
+    public function create_single_tag($user_id): Tag
+    {
+        $tag = new Tag();
+        $tag->tag = 'tag name';
+        $tag->user_id = $user_id;
+        $tag->save();
+        return $tag;
     }
 }

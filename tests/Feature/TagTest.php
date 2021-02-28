@@ -129,18 +129,4 @@ class TagTest extends TestCase
         $this->assertEquals($data['tag'],$tag_response->data->tag);
         $response->assertStatus(200);
     }
-
-    /**
-     * @param $id
-     */
-    private function create_single_tag($id): void
-    {
-        $tag = new Tag();
-        $tag->tag = 'tag name';
-        $tag->user_id = $id;
-        $tag->save();
-    }
-
-
-
 }

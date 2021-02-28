@@ -53,9 +53,11 @@ class KnowledgeTest extends TestCase
     {
         $token = $this->getToken();
         $this->create_single_knowledge_record($token['id']);
+        $tag = $this->create_single_tag($token['id']);
 
         $data['title'] = "test title";
         $data['description'] = "test description";
+        $data['tag_id'] = $tag->id;
         $response = $this->call(
             'POST',
             'api/knowledge/1',
@@ -69,11 +71,13 @@ class KnowledgeTest extends TestCase
             ],
             $json = json_encode($data)
         );
-
+        $json = $response->decodeResponseJson();
         $knowledgeUpdated = Knowledge::where('id',1)->first();
+
         $this->assertEquals("test title",$knowledgeUpdated->title);
         $this->assertEquals("test description",$knowledgeUpdated->description);
         $this->assertEquals($token['id'],$knowledgeUpdated->user_id);
+        $this->assertEquals($tag->id,$json['data']['tags'][0]['id']);
         $response->assertStatus(200);
     }
 

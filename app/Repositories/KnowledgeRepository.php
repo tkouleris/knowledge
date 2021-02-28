@@ -36,7 +36,7 @@ class KnowledgeRepository implements IKnowledgeRepository
      */
     public function findById(int $id): Knowledge
     {
-        return $this->model::where('id',$id)->first();
+        return $this->model::with('tags')->where('id',$id)->first();
     }
 
     public function update(array $data): Knowledge
@@ -44,7 +44,11 @@ class KnowledgeRepository implements IKnowledgeRepository
         $knowledge = $this->model::where('id',$data['id'])->first();
         if(isset($data['title'])) $knowledge->title = $data['title'];
         if(isset($data['description'])) $knowledge->description = $data['description'];
+        if(isset($data['tag_id'])){
+            $knowledge->tags()->attach([$data['tag_id']]);
+        }
         $knowledge->save();
+
         return $knowledge;
     }
 

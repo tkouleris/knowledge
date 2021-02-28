@@ -56,7 +56,7 @@ class TagService
 
     public function update(array $data)
     {
-        return $this->tagRepository->update($data);
+        return $this->tagRepository->update($data);;
     }
 
 
