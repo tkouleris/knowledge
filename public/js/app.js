@@ -2065,9 +2065,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODUL
     };
   },
   methods: {
-    login_attempt: function login_attempt() {
-      var _this = this;
-
+    login_attempt: function login_attempt(event) {
+      event.preventDefault();
       var credentials = {
         'email': this.email,
         'password': this.password
@@ -2075,9 +2074,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODUL
       vue__WEBPACK_IMPORTED_MODULE_0___default.a.axios.post(_config__WEBPACK_IMPORTED_MODULE_2___default.a.API_URL + "/api/login", credentials).then(function (response) {
         localStorage.token = response.data.token;
         localStorage.name = response.data.name;
-        localStorage.id = response.data.id;
-
-        _this.$router.push('/vue/newsfeed');
+        localStorage.id = response.data.id; // this.$router.push('/vue/newsfeed');
       })["catch"](function (error) {
         return alert('Wrong Username or Password');
       });
@@ -2087,7 +2084,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODUL
         return;
       }
 
-      this.login_attempt();
+      this.login_attempt(event);
     }
   }
 });
@@ -6551,7 +6548,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, "\nbody[data-v-4d2414bf]\n{\n    margin: 0;\n    padding: 0;\n    background-color:#6abadeba;\n    font-family: 'Arial',serif;\n}\n.login[data-v-4d2414bf]{\n    width: 500px;\n    overflow: hidden;\n    margin: auto;\n    margin-top: 15px;\n    padding: 80px;\n    background: #808080;\n    border-radius: 15px ;\n}\nh2[data-v-4d2414bf]{\n    text-align: center;\n    color: #277582;\n    padding: 20px;\n}\nlabel[data-v-4d2414bf]{\n    color: black;\n    font-size: 17px;\n}\n#Uname[data-v-4d2414bf]{\n    width: 300px;\n    height: 30px;\n    border: none;\n    border-radius: 3px;\n    padding-left: 8px;\n}\n#Pass[data-v-4d2414bf]{\n    width: 300px;\n    height: 30px;\n    border: none;\n    border-radius: 3px;\n    padding-left: 8px;\n}\n#log[data-v-4d2414bf]{\n    width: 300px;\n    height: 30px;\n    border: none;\n    border-radius: 17px;\n    padding-left: 7px;\n    color: black;\n}\nspan[data-v-4d2414bf]{\n    color: white;\n    font-size: 17px;\n}\na[data-v-4d2414bf]{\n    float: right;\n    color: blue;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*body*/\n/*{*/\n/*    margin: 0;*/\n/*    padding: 0;*/\n/*    background-color:#6abadeba;*/\n/*    font-family: 'Arial',serif;*/\n/*}*/\n/*.login{*/\n/*    width: 500px;*/\n/*    overflow: hidden;*/\n/*    margin: auto;*/\n/*    margin-top: 15px;*/\n/*    padding: 80px;*/\n/*    background: #808080;*/\n/*    border-radius: 15px ;*/\n\n/*}*/\n/*h2{*/\n/*    text-align: center;*/\n/*    color: #277582;*/\n/*    padding: 20px;*/\n/*}*/\n/*label{*/\n/*    color: black;*/\n/*    font-size: 17px;*/\n/*}*/\n/*#Uname{*/\n/*    width: 300px;*/\n/*    height: 30px;*/\n/*    border: none;*/\n/*    border-radius: 3px;*/\n/*    padding-left: 8px;*/\n/*}*/\n/*#Pass{*/\n/*    width: 300px;*/\n/*    height: 30px;*/\n/*    border: none;*/\n/*    border-radius: 3px;*/\n/*    padding-left: 8px;*/\n\n/*}*/\n/*#log{*/\n/*    width: 300px;*/\n/*    height: 30px;*/\n/*    border: none;*/\n/*    border-radius: 17px;*/\n/*    padding-left: 7px;*/\n/*    color: black;*/\n/*}*/\n/*span{*/\n/*    color: white;*/\n/*    font-size: 17px;*/\n/*}*/\n/*a{*/\n/*    float: right;*/\n/*    color: blue;*/\n/*}*/\n", ""]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -38422,131 +38419,169 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "login-box" }, [
+    _c("div", { staticClass: "card card-outline card-primary" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("p", { staticClass: "login-box-msg" }, [
+          _vm._v("Sign in to start your session")
+        ]),
+        _vm._v(" "),
+        _c("form", { attrs: { id: "login" } }, [
+          _c("div", { staticClass: "input-group mb-3" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.email,
+                  expression: "email"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "email", placeholder: "Email" },
+              domProps: { value: _vm.email },
+              on: {
+                keypress: function($event) {
+                  return _vm.loginAtEnterPressed($event)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.email = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(1)
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group mb-3" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.password,
+                  expression: "password"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "password", placeholder: "Password" },
+              domProps: { value: _vm.password },
+              on: {
+                keypress: function($event) {
+                  return _vm.loginAtEnterPressed($event)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.password = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(2)
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-4" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-block",
+                  on: {
+                    click: function($event) {
+                      return _vm.login_attempt($event)
+                    }
+                  }
+                },
+                [_vm._v("Sign In")]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(4),
+        _vm._v(" "),
+        _vm._m(5)
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "login-box" }, [
-      _c("div", { staticClass: "card card-outline card-primary" }, [
-        _c("div", { staticClass: "card-header text-center" }, [
-          _c("a", { staticClass: "h1", attrs: { href: "../../index2.html" } }, [
-            _c("b", [_vm._v("Admin")]),
-            _vm._v("LTE")
-          ])
-        ]),
+    return _c("div", { staticClass: "card-header text-center" }, [
+      _c("a", { staticClass: "h1", attrs: { href: "" } }, [
+        _c("b", [_vm._v("Admin")]),
+        _vm._v("LTE")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("div", { staticClass: "input-group-text" }, [
+        _c("span", { staticClass: "fas fa-envelope" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("div", { staticClass: "input-group-text" }, [
+        _c("span", { staticClass: "fas fa-lock" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-8" }, [
+      _c("div", { staticClass: "icheck-primary" }, [
+        _c("input", { attrs: { type: "checkbox", id: "remember" } }),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("p", { staticClass: "login-box-msg" }, [
-            _vm._v("Sign in to start your session")
-          ]),
-          _vm._v(" "),
-          _c(
-            "form",
-            { attrs: { action: "../../index3.html", method: "post" } },
-            [
-              _c("div", { staticClass: "input-group mb-3" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "email", placeholder: "Email" }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group-append" }, [
-                  _c("div", { staticClass: "input-group-text" }, [
-                    _c("span", { staticClass: "fas fa-envelope" })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group mb-3" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "password", placeholder: "Password" }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group-append" }, [
-                  _c("div", { staticClass: "input-group-text" }, [
-                    _c("span", { staticClass: "fas fa-lock" })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-8" }, [
-                  _c("div", { staticClass: "icheck-primary" }, [
-                    _c("input", {
-                      attrs: { type: "checkbox", id: "remember" }
-                    }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "remember" } }, [
-                      _vm._v(
-                        "\n                                Remember Me\n                            "
-                      )
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-4" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary btn-block",
-                      attrs: { type: "submit" }
-                    },
-                    [_vm._v("Sign In")]
-                  )
-                ])
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "social-auth-links text-center mt-2 mb-3" },
-            [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-block btn-primary",
-                  attrs: { href: "#" }
-                },
-                [
-                  _c("i", { staticClass: "fab fa-facebook mr-2" }),
-                  _vm._v(" Sign in using Facebook\n                ")
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-block btn-danger",
-                  attrs: { href: "#" }
-                },
-                [
-                  _c("i", { staticClass: "fab fa-google-plus mr-2" }),
-                  _vm._v(" Sign in using Google+\n                ")
-                ]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("p", { staticClass: "mb-1" }, [
-            _c("a", { attrs: { href: "forgot-password.html" } }, [
-              _vm._v("I forgot my password")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "mb-0" }, [
-            _c(
-              "a",
-              { staticClass: "text-center", attrs: { href: "register.html" } },
-              [_vm._v("Register a new membership")]
-            )
-          ])
+        _c("label", { attrs: { for: "remember" } }, [
+          _vm._v(
+            "\n                                    Remember Me\n                                "
+          )
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mb-1" }, [
+      _c("a", { attrs: { href: "forgot-password.html" } }, [
+        _vm._v("I forgot my password")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mb-0" }, [
+      _c(
+        "a",
+        { staticClass: "text-center", attrs: { href: "register.html" } },
+        [_vm._v("Register a new membership")]
+      )
     ])
   }
 ]
@@ -54131,7 +54166,7 @@ module.exports = config[env];
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  API_URL: 'http://localhost'
+  API_URL: 'http://localhost:8000'
 });
 
 /***/ }),
@@ -54161,7 +54196,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  API_URL: 'http://localhost'
+  API_URL: 'http://localhost:8080'
 });
 
 /***/ }),

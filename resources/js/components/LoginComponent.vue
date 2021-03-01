@@ -3,14 +3,14 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+                <a href="" class="h1"><b>Admin</b>LTE</a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form action="../../index3.html" method="post">
+                <form id="login" >
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input  v-model="email" @keypress="loginAtEnterPressed($event)" type="email" class="form-control" placeholder="Email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input v-model="password" @keypress="loginAtEnterPressed($event)" type="password" class="form-control" placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -36,20 +36,20 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button @click="login_attempt($event)" class="btn btn-primary btn-block">Sign In</button>
                         </div>
                         <!-- /.col -->
                     </div>
                 </form>
 
-                <div class="social-auth-links text-center mt-2 mb-3">
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                    </a>
-                </div>
+<!--                <div class="social-auth-links text-center mt-2 mb-3">-->
+<!--                    <a href="#" class="btn btn-block btn-primary">-->
+<!--                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook-->
+<!--                    </a>-->
+<!--                    <a href="#" class="btn btn-block btn-danger">-->
+<!--                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+-->
+<!--                    </a>-->
+<!--                </div>-->
                 <!-- /.social-auth-links -->
 
                 <p class="mb-1">
@@ -81,8 +81,8 @@ export default {
         }
     },
     methods:{
-        login_attempt: function (){
-
+        login_attempt: function (event){
+            event.preventDefault();
             let credentials = {
                 'email': this.email,
                 'password': this.password
@@ -94,7 +94,7 @@ export default {
                         localStorage.token = response.data.token;
                         localStorage.name = response.data.name;
                         localStorage.id = response.data.id;
-                        this.$router.push('/vue/newsfeed');
+                        // this.$router.push('/vue/newsfeed');
                     }
 
                 ).catch(
@@ -102,71 +102,72 @@ export default {
             );
         },
         loginAtEnterPressed(event){
+
             if(event.keyCode !== 13){
                 return;
             }
-            this.login_attempt();
+            this.login_attempt(event);
         }
     }
 }
 </script>
 
 <style scoped>
-body
-{
-    margin: 0;
-    padding: 0;
-    background-color:#6abadeba;
-    font-family: 'Arial',serif;
-}
-.login{
-    width: 500px;
-    overflow: hidden;
-    margin: auto;
-    margin-top: 15px;
-    padding: 80px;
-    background: #808080;
-    border-radius: 15px ;
+/*body*/
+/*{*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    background-color:#6abadeba;*/
+/*    font-family: 'Arial',serif;*/
+/*}*/
+/*.login{*/
+/*    width: 500px;*/
+/*    overflow: hidden;*/
+/*    margin: auto;*/
+/*    margin-top: 15px;*/
+/*    padding: 80px;*/
+/*    background: #808080;*/
+/*    border-radius: 15px ;*/
 
-}
-h2{
-    text-align: center;
-    color: #277582;
-    padding: 20px;
-}
-label{
-    color: black;
-    font-size: 17px;
-}
-#Uname{
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    padding-left: 8px;
-}
-#Pass{
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    padding-left: 8px;
+/*}*/
+/*h2{*/
+/*    text-align: center;*/
+/*    color: #277582;*/
+/*    padding: 20px;*/
+/*}*/
+/*label{*/
+/*    color: black;*/
+/*    font-size: 17px;*/
+/*}*/
+/*#Uname{*/
+/*    width: 300px;*/
+/*    height: 30px;*/
+/*    border: none;*/
+/*    border-radius: 3px;*/
+/*    padding-left: 8px;*/
+/*}*/
+/*#Pass{*/
+/*    width: 300px;*/
+/*    height: 30px;*/
+/*    border: none;*/
+/*    border-radius: 3px;*/
+/*    padding-left: 8px;*/
 
-}
-#log{
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 17px;
-    padding-left: 7px;
-    color: black;
-}
-span{
-    color: white;
-    font-size: 17px;
-}
-a{
-    float: right;
-    color: blue;
-}
+/*}*/
+/*#log{*/
+/*    width: 300px;*/
+/*    height: 30px;*/
+/*    border: none;*/
+/*    border-radius: 17px;*/
+/*    padding-left: 7px;*/
+/*    color: black;*/
+/*}*/
+/*span{*/
+/*    color: white;*/
+/*    font-size: 17px;*/
+/*}*/
+/*a{*/
+/*    float: right;*/
+/*    color: blue;*/
+/*}*/
 </style>
