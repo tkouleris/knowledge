@@ -2,8 +2,7 @@ import Vue from 'vue';
 import VueRouter from "vue-router";
 import LoginComponent from "./components/LoginComponent";
 import DashboardComponent from "./components/DashboardComponent";
-// import NewsfeedComponent from "./components/NewsfeedComponent";
-// import SettingsComponent from "./components/SettingsComponent";
+import KnowledgeFormComponent from "./components/KnowledgeFormComponent";
 
 Vue.use(VueRouter);
 var vue_url = "/"
@@ -15,7 +14,7 @@ export default new VueRouter({
             component: LoginComponent,
             beforeEnter:(to, from, next) =>{
                 if(localStorage.token != null){
-                    next(vue_url + 'newsfeed');
+                    next(vue_url + 'dashboard');
                 }else{
                     next();
                 }
@@ -24,18 +23,25 @@ export default new VueRouter({
         {
             path: vue_url + 'dashboard',
             component: DashboardComponent,
-            beforeEnter:(to, from, next) =>{
-                if(localStorage.token == null){
-                    next(vue_url);
-                }else{
-                    next();
-                }
-            }
+            // beforeEnter:(to, from, next) =>{
+            //     if(localStorage.token == null){
+            //         next(vue_url);
+            //     }else{
+            //         next();
+            //     }
+            // }
         },
-        // {
-        //     path:vue_url + 'settings',
-        //     component: SettingsComponent
-        // },
+        {
+            path: vue_url + 'knowledge/form',
+            component: KnowledgeFormComponent,
+            // beforeEnter:(to, from, next) =>{
+            //     if(localStorage.token == null){
+            //         next(vue_url);
+            //     }else{
+            //         next();
+            //     }
+            // }
+        },
     ]
 
 
