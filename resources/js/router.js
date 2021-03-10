@@ -32,7 +32,7 @@ export default new VueRouter({
             // }
         },
         {
-            path: vue_url + 'knowledge/form',
+            path: vue_url + 'knowledge/form/:id',
             component: KnowledgeFormComponent,
             // beforeEnter:(to, from, next) =>{
             //     if(localStorage.token == null){

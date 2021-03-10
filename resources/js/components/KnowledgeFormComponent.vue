@@ -8,45 +8,46 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-<!--            <section class="content-header">-->
-<!--                <div class="container-fluid">-->
-<!--                    <div class="row mb-2">-->
-<!--                        <div class="col-sm-6">-->
-<!--                            <h1>General Form</h1>-->
-<!--                        </div>-->
-<!--                        <div class="col-sm-6">-->
-<!--                            <ol class="breadcrumb float-sm-right">-->
-<!--                                <li class="breadcrumb-item"><a href="#">Home</a></li>-->
-<!--                                <li class="breadcrumb-item active">General Form</li>-->
-<!--                            </ol>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
-<!--            </section>-->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Knowledge</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">General Form</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
 
-<!--            &lt;!&ndash; Main content &ndash;&gt;-->
-<!--            <section class="content">-->
-<!--                <div class="container-fluid">-->
-<!--                    <div class="row">-->
-<!--                        &lt;!&ndash; left column &ndash;&gt;-->
-<!--                        <div class="col-md-6">-->
-<!--                            &lt;!&ndash; general form elements &ndash;&gt;-->
-<!--                            <div class="card card-primary">-->
-<!--                                <div class="card-header">-->
-<!--                                    <h3 class="card-title">Quick Example</h3>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; /.card-header &ndash;&gt;-->
-<!--                                &lt;!&ndash; form start &ndash;&gt;-->
-<!--                                <form>-->
-<!--                                    <div class="card-body">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="exampleInputEmail1">Email address</label>-->
-<!--                                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">-->
-<!--                                        </div>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="exampleInputPassword1">Password</label>-->
-<!--                                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">-->
-<!--                                        </div>-->
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- left column -->
+                        <div class="col-md-12">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">General</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <form>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="title">Title</label>
+                                            <input v-model="title" type="text" class="form-control" id="title" placeholder="Title">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <textarea v-model="description" class="form-control" rows="3" id="description" placeholder="Description ..."></textarea>
+<!--                                            <input type="text" class="form-control" id="description" placeholder="description">-->
+                                        </div>
 <!--                                        <div class="form-group">-->
 <!--                                            <label for="exampleInputFile">File input</label>-->
 <!--                                            <div class="input-group">-->
@@ -63,17 +64,17 @@
 <!--                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
 <!--                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>-->
 <!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    &lt;!&ndash; /.card-body &ndash;&gt;-->
+                                    </div>
+                                    <!-- /.card-body -->
 
-<!--                                    <div class="card-footer">-->
-<!--                                        <button type="submit" class="btn btn-primary">Submit</button>-->
-<!--                                    </div>-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.card &ndash;&gt;-->
+                                    <div class="card-footer">
+                                        <button @click="submit_form($event)" id='btn_submit' class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.card -->
 
-<!--                            &lt;!&ndash; general form elements &ndash;&gt;-->
+                            <!-- general form elements -->
 <!--                            <div class="card card-primary">-->
 <!--                                <div class="card-header">-->
 <!--                                    <h3 class="card-title">Different Styles</h3>-->
@@ -121,9 +122,9 @@
 <!--                                </div>-->
 <!--                                &lt;!&ndash; /.card-body &ndash;&gt;-->
 <!--                            </div>-->
-<!--                            &lt;!&ndash; /.card &ndash;&gt;-->
+                            <!-- /.card -->
 
-<!--                            &lt;!&ndash; Input addon &ndash;&gt;-->
+                            <!-- Input addon -->
 <!--                            <div class="card card-info">-->
 <!--                                <div class="card-header">-->
 <!--                                    <h3 class="card-title">Input Addon</h3>-->
@@ -252,8 +253,8 @@
 <!--                                </div>-->
 <!--                                &lt;!&ndash; /.card-body &ndash;&gt;-->
 <!--                            </div>-->
-<!--                            &lt;!&ndash; /.card &ndash;&gt;-->
-<!--                            &lt;!&ndash; Horizontal Form &ndash;&gt;-->
+                            <!-- /.card -->
+                            <!-- Horizontal Form -->
 <!--                            <div class="card card-info">-->
 <!--                                <div class="card-header">-->
 <!--                                    <h3 class="card-title">Horizontal Form</h3>-->
@@ -291,370 +292,370 @@
 <!--                                    &lt;!&ndash; /.card-footer &ndash;&gt;-->
 <!--                                </form>-->
 <!--                            </div>-->
-<!--                            &lt;!&ndash; /.card &ndash;&gt;-->
+                            <!-- /.card -->
 
-<!--                        </div>-->
-<!--                        &lt;!&ndash;/.col (left) &ndash;&gt;-->
-<!--                        &lt;!&ndash; right column &ndash;&gt;-->
-<!--                        <div class="col-md-6">-->
-<!--                            &lt;!&ndash; Form Element sizes &ndash;&gt;-->
-<!--                            <div class="card card-success">-->
-<!--                                <div class="card-header">-->
-<!--                                    <h3 class="card-title">Different Height</h3>-->
-<!--                                </div>-->
-<!--                                <div class="card-body">-->
-<!--                                    <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg">-->
-<!--                                    <br>-->
-<!--                                    <input class="form-control" type="text" placeholder="Default input">-->
-<!--                                    <br>-->
-<!--                                    <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; /.card-body &ndash;&gt;-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.card &ndash;&gt;-->
+                        </div>
+                        <!--/.col (left) -->
+                        <!-- right column -->
+                        <div class="col-md-6">
+                            <!-- Form Element sizes -->
+                            <div class="card card-success">
+                                <div class="card-header">
+                                    <h3 class="card-title">Different Height</h3>
+                                </div>
+                                <div class="card-body">
+                                    <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg">
+                                    <br>
+                                    <input class="form-control" type="text" placeholder="Default input">
+                                    <br>
+                                    <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
 
-<!--                            <div class="card card-danger">-->
-<!--                                <div class="card-header">-->
-<!--                                    <h3 class="card-title">Different Width</h3>-->
-<!--                                </div>-->
-<!--                                <div class="card-body">-->
-<!--                                    <div class="row">-->
-<!--                                        <div class="col-3">-->
-<!--                                            <input type="text" class="form-control" placeholder=".col-3">-->
-<!--                                        </div>-->
-<!--                                        <div class="col-4">-->
-<!--                                            <input type="text" class="form-control" placeholder=".col-4">-->
-<!--                                        </div>-->
-<!--                                        <div class="col-5">-->
-<!--                                            <input type="text" class="form-control" placeholder=".col-5">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; /.card-body &ndash;&gt;-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.card &ndash;&gt;-->
+                            <div class="card card-danger">
+                                <div class="card-header">
+                                    <h3 class="card-title">Different Width</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <input type="text" class="form-control" placeholder=".col-3">
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="text" class="form-control" placeholder=".col-4">
+                                        </div>
+                                        <div class="col-5">
+                                            <input type="text" class="form-control" placeholder=".col-5">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
 
-<!--                            &lt;!&ndash; general form elements disabled &ndash;&gt;-->
-<!--                            <div class="card card-warning">-->
-<!--                                <div class="card-header">-->
-<!--                                    <h3 class="card-title">General Elements</h3>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; /.card-header &ndash;&gt;-->
-<!--                                <div class="card-body">-->
-<!--                                    <form>-->
-<!--                                        <div class="row">-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                &lt;!&ndash; text input &ndash;&gt;-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Text</label>-->
-<!--                                                    <input type="text" class="form-control" placeholder="Enter ...">-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Text Disabled</label>-->
-<!--                                                    <input type="text" class="form-control" placeholder="Enter ..." disabled>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="row">-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                &lt;!&ndash; textarea &ndash;&gt;-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Textarea</label>-->
-<!--                                                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Textarea Disabled</label>-->
-<!--                                                    <textarea class="form-control" rows="3" placeholder="Enter ..." disabled></textarea>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                            <!-- general form elements disabled -->
+                            <div class="card card-warning">
+                                <div class="card-header">
+                                    <h3 class="card-title">General Elements</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <!-- text input -->
+                                                <div class="form-group">
+                                                    <label>Text</label>
+                                                    <input type="text" class="form-control" placeholder="Enter ...">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Text Disabled</label>
+                                                    <input type="text" class="form-control" placeholder="Enter ..." disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <!-- textarea -->
+                                                <div class="form-group">
+                                                    <label>Textarea</label>
+                                                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Textarea Disabled</label>
+                                                    <textarea class="form-control" rows="3" placeholder="Enter ..." disabled></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<!--                                        &lt;!&ndash; input states &ndash;&gt;-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label class="col-form-label" for="inputSuccess"><i class="fas fa-check"></i> Input with-->
-<!--                                                success</label>-->
-<!--                                            <input type="text" class="form-control is-valid" id="inputSuccess" placeholder="Enter ...">-->
-<!--                                        </div>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label class="col-form-label" for="inputWarning"><i class="far fa-bell"></i> Input with-->
-<!--                                                warning</label>-->
-<!--                                            <input type="text" class="form-control is-warning" id="inputWarning" placeholder="Enter ...">-->
-<!--                                        </div>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label class="col-form-label" for="inputError"><i class="far fa-times-circle"></i> Input with-->
-<!--                                                error</label>-->
-<!--                                            <input type="text" class="form-control is-invalid" id="inputError" placeholder="Enter ...">-->
-<!--                                        </div>-->
+                                        <!-- input states -->
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="inputSuccess"><i class="fas fa-check"></i> Input with
+                                                success</label>
+                                            <input type="text" class="form-control is-valid" id="inputSuccess" placeholder="Enter ...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="inputWarning"><i class="far fa-bell"></i> Input with
+                                                warning</label>
+                                            <input type="text" class="form-control is-warning" id="inputWarning" placeholder="Enter ...">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="inputError"><i class="far fa-times-circle"></i> Input with
+                                                error</label>
+                                            <input type="text" class="form-control is-invalid" id="inputError" placeholder="Enter ...">
+                                        </div>
 
-<!--                                        <div class="row">-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                &lt;!&ndash; checkbox &ndash;&gt;-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <div class="form-check">-->
-<!--                                                        <input class="form-check-input" type="checkbox">-->
-<!--                                                        <label class="form-check-label">Checkbox</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="form-check">-->
-<!--                                                        <input class="form-check-input" type="checkbox" checked>-->
-<!--                                                        <label class="form-check-label">Checkbox checked</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="form-check">-->
-<!--                                                        <input class="form-check-input" type="checkbox" disabled>-->
-<!--                                                        <label class="form-check-label">Checkbox disabled</label>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                &lt;!&ndash; radio &ndash;&gt;-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <div class="form-check">-->
-<!--                                                        <input class="form-check-input" type="radio" name="radio1">-->
-<!--                                                        <label class="form-check-label">Radio</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="form-check">-->
-<!--                                                        <input class="form-check-input" type="radio" name="radio1" checked>-->
-<!--                                                        <label class="form-check-label">Radio checked</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="form-check">-->
-<!--                                                        <input class="form-check-input" type="radio" disabled>-->
-<!--                                                        <label class="form-check-label">Radio disabled</label>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <!-- checkbox -->
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox">
+                                                        <label class="form-check-label">Checkbox</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" checked>
+                                                        <label class="form-check-label">Checkbox checked</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" disabled>
+                                                        <label class="form-check-label">Checkbox disabled</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <!-- radio -->
+                                                <div class="form-group">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="radio1">
+                                                        <label class="form-check-label">Radio</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="radio1" checked>
+                                                        <label class="form-check-label">Radio checked</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" disabled>
+                                                        <label class="form-check-label">Radio disabled</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<!--                                        <div class="row">-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                &lt;!&ndash; select &ndash;&gt;-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Select</label>-->
-<!--                                                    <select class="form-control">-->
-<!--                                                        <option>option 1</option>-->
-<!--                                                        <option>option 2</option>-->
-<!--                                                        <option>option 3</option>-->
-<!--                                                        <option>option 4</option>-->
-<!--                                                        <option>option 5</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Select Disabled</label>-->
-<!--                                                    <select class="form-control" disabled>-->
-<!--                                                        <option>option 1</option>-->
-<!--                                                        <option>option 2</option>-->
-<!--                                                        <option>option 3</option>-->
-<!--                                                        <option>option 4</option>-->
-<!--                                                        <option>option 5</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <!-- select -->
+                                                <div class="form-group">
+                                                    <label>Select</label>
+                                                    <select class="form-control">
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Select Disabled</label>
+                                                    <select class="form-control" disabled>
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<!--                                        <div class="row">-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                &lt;!&ndash; Select multiple&ndash;&gt;-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Select Multiple</label>-->
-<!--                                                    <select multiple class="form-control">-->
-<!--                                                        <option>option 1</option>-->
-<!--                                                        <option>option 2</option>-->
-<!--                                                        <option>option 3</option>-->
-<!--                                                        <option>option 4</option>-->
-<!--                                                        <option>option 5</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Select Multiple Disabled</label>-->
-<!--                                                    <select multiple class="form-control" disabled>-->
-<!--                                                        <option>option 1</option>-->
-<!--                                                        <option>option 2</option>-->
-<!--                                                        <option>option 3</option>-->
-<!--                                                        <option>option 4</option>-->
-<!--                                                        <option>option 5</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </form>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; /.card-body &ndash;&gt;-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.card &ndash;&gt;-->
-<!--                            &lt;!&ndash; general form elements disabled &ndash;&gt;-->
-<!--                            <div class="card card-secondary">-->
-<!--                                <div class="card-header">-->
-<!--                                    <h3 class="card-title">Custom Elements</h3>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; /.card-header &ndash;&gt;-->
-<!--                                <div class="card-body">-->
-<!--                                    <form>-->
-<!--                                        <div class="row">-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                &lt;!&ndash; checkbox &ndash;&gt;-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <div class="custom-control custom-checkbox">-->
-<!--                                                        <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">-->
-<!--                                                        <label for="customCheckbox1" class="custom-control-label">Custom Checkbox</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="custom-control custom-checkbox">-->
-<!--                                                        <input class="custom-control-input" type="checkbox" id="customCheckbox2" checked>-->
-<!--                                                        <label for="customCheckbox2" class="custom-control-label">Custom Checkbox checked</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="custom-control custom-checkbox">-->
-<!--                                                        <input class="custom-control-input" type="checkbox" id="customCheckbox3" disabled>-->
-<!--                                                        <label for="customCheckbox3" class="custom-control-label">Custom Checkbox disabled</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="custom-control custom-checkbox">-->
-<!--                                                        <input class="custom-control-input custom-control-input-danger" type="checkbox" id="customCheckbox4" checked>-->
-<!--                                                        <label for="customCheckbox4" class="custom-control-label">Custom Checkbox with custom color</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="custom-control custom-checkbox">-->
-<!--                                                        <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="customCheckbox5" checked>-->
-<!--                                                        <label for="customCheckbox5" class="custom-control-label">Custom Checkbox with custom color outline</label>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                &lt;!&ndash; radio &ndash;&gt;-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <div class="custom-control custom-radio">-->
-<!--                                                        <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio">-->
-<!--                                                        <label for="customRadio1" class="custom-control-label">Custom Radio</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="custom-control custom-radio">-->
-<!--                                                        <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio" checked>-->
-<!--                                                        <label for="customRadio2" class="custom-control-label">Custom Radio checked</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="custom-control custom-radio">-->
-<!--                                                        <input class="custom-control-input" type="radio" id="customRadio3" disabled>-->
-<!--                                                        <label for="customRadio3" class="custom-control-label">Custom Radio disabled</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="custom-control custom-radio">-->
-<!--                                                        <input class="custom-control-input custom-control-input-danger" type="radio" id="customRadio4" name="customRadio2" checked>-->
-<!--                                                        <label for="customRadio4" class="custom-control-label">Custom Radio with custom color</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="custom-control custom-radio">-->
-<!--                                                        <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="radio" id="customRadio5" name="customRadio2">-->
-<!--                                                        <label for="customRadio5" class="custom-control-label">Custom Radio with custom color outline</label>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <!-- Select multiple-->
+                                                <div class="form-group">
+                                                    <label>Select Multiple</label>
+                                                    <select multiple class="form-control">
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Select Multiple Disabled</label>
+                                                    <select multiple class="form-control" disabled>
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                            <!-- general form elements disabled -->
+                            <div class="card card-secondary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Custom Elements</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <!-- checkbox -->
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
+                                                        <label for="customCheckbox1" class="custom-control-label">Custom Checkbox</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input class="custom-control-input" type="checkbox" id="customCheckbox2" checked>
+                                                        <label for="customCheckbox2" class="custom-control-label">Custom Checkbox checked</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input class="custom-control-input" type="checkbox" id="customCheckbox3" disabled>
+                                                        <label for="customCheckbox3" class="custom-control-label">Custom Checkbox disabled</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input class="custom-control-input custom-control-input-danger" type="checkbox" id="customCheckbox4" checked>
+                                                        <label for="customCheckbox4" class="custom-control-label">Custom Checkbox with custom color</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="customCheckbox5" checked>
+                                                        <label for="customCheckbox5" class="custom-control-label">Custom Checkbox with custom color outline</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <!-- radio -->
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-radio">
+                                                        <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio">
+                                                        <label for="customRadio1" class="custom-control-label">Custom Radio</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio" checked>
+                                                        <label for="customRadio2" class="custom-control-label">Custom Radio checked</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input class="custom-control-input" type="radio" id="customRadio3" disabled>
+                                                        <label for="customRadio3" class="custom-control-label">Custom Radio disabled</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input class="custom-control-input custom-control-input-danger" type="radio" id="customRadio4" name="customRadio2" checked>
+                                                        <label for="customRadio4" class="custom-control-label">Custom Radio with custom color</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input class="custom-control-input custom-control-input-danger custom-control-input-outline" type="radio" id="customRadio5" name="customRadio2">
+                                                        <label for="customRadio5" class="custom-control-label">Custom Radio with custom color outline</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<!--                                        <div class="row">-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                &lt;!&ndash; select &ndash;&gt;-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Custom Select</label>-->
-<!--                                                    <select class="custom-select">-->
-<!--                                                        <option>option 1</option>-->
-<!--                                                        <option>option 2</option>-->
-<!--                                                        <option>option 3</option>-->
-<!--                                                        <option>option 4</option>-->
-<!--                                                        <option>option 5</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Custom Select Disabled</label>-->
-<!--                                                    <select class="custom-select" disabled>-->
-<!--                                                        <option>option 1</option>-->
-<!--                                                        <option>option 2</option>-->
-<!--                                                        <option>option 3</option>-->
-<!--                                                        <option>option 4</option>-->
-<!--                                                        <option>option 5</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <!-- select -->
+                                                <div class="form-group">
+                                                    <label>Custom Select</label>
+                                                    <select class="custom-select">
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Custom Select Disabled</label>
+                                                    <select class="custom-select" disabled>
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<!--                                        <div class="row">-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                &lt;!&ndash; Select multiple&ndash;&gt;-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Custom Select Multiple</label>-->
-<!--                                                    <select multiple class="custom-select">-->
-<!--                                                        <option>option 1</option>-->
-<!--                                                        <option>option 2</option>-->
-<!--                                                        <option>option 3</option>-->
-<!--                                                        <option>option 4</option>-->
-<!--                                                        <option>option 5</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            <div class="col-sm-6">-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label>Custom Select Multiple Disabled</label>-->
-<!--                                                    <select multiple class="custom-select" disabled>-->
-<!--                                                        <option>option 1</option>-->
-<!--                                                        <option>option 2</option>-->
-<!--                                                        <option>option 3</option>-->
-<!--                                                        <option>option 4</option>-->
-<!--                                                        <option>option 5</option>-->
-<!--                                                    </select>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <!-- Select multiple-->
+                                                <div class="form-group">
+                                                    <label>Custom Select Multiple</label>
+                                                    <select multiple class="custom-select">
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Custom Select Multiple Disabled</label>
+                                                    <select multiple class="custom-select" disabled>
+                                                        <option>option 1</option>
+                                                        <option>option 2</option>
+                                                        <option>option 3</option>
+                                                        <option>option 4</option>
+                                                        <option>option 5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<!--                                        <div class="form-group">-->
-<!--                                            <div class="custom-control custom-switch">-->
-<!--                                                <input type="checkbox" class="custom-control-input" id="customSwitch1">-->
-<!--                                                <label class="custom-control-label" for="customSwitch1">Toggle this custom switch element</label>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">-->
-<!--                                                <input type="checkbox" class="custom-control-input" id="customSwitch3">-->
-<!--                                                <label class="custom-control-label" for="customSwitch3">Toggle this custom switch element with custom colors danger/success</label>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <div class="custom-control custom-switch">-->
-<!--                                                <input type="checkbox" class="custom-control-input" disabled id="customSwitch2">-->
-<!--                                                <label class="custom-control-label" for="customSwitch2">Disabled custom switch element</label>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="customRange1">Custom range</label>-->
-<!--                                            <input type="range" class="custom-range" id="customRange1">-->
-<!--                                        </div>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="customRange2">Custom range (custom-range-danger)</label>-->
-<!--                                            <input type="range" class="custom-range custom-range-danger" id="customRange2">-->
-<!--                                        </div>-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="customRange3">Custom range (custom-range-teal)</label>-->
-<!--                                            <input type="range" class="custom-range custom-range-teal" id="customRange3">-->
-<!--                                        </div>-->
-<!--                                        <div class="form-group">-->
-<!--                                            &lt;!&ndash; <label for="customFile">Custom File</label> &ndash;&gt;-->
+                                        <div class="form-group">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                                <label class="custom-control-label" for="customSwitch1">Toggle this custom switch element</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                <input type="checkbox" class="custom-control-input" id="customSwitch3">
+                                                <label class="custom-control-label" for="customSwitch3">Toggle this custom switch element with custom colors danger/success</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" disabled id="customSwitch2">
+                                                <label class="custom-control-label" for="customSwitch2">Disabled custom switch element</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="customRange1">Custom range</label>
+                                            <input type="range" class="custom-range" id="customRange1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="customRange2">Custom range (custom-range-danger)</label>
+                                            <input type="range" class="custom-range custom-range-danger" id="customRange2">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="customRange3">Custom range (custom-range-teal)</label>
+                                            <input type="range" class="custom-range custom-range-teal" id="customRange3">
+                                        </div>
+                                        <div class="form-group">
+                                            <!-- <label for="customFile">Custom File</label> -->
 
-<!--                                            <div class="custom-file">-->
-<!--                                                <input type="file" class="custom-file-input" id="customFile">-->
-<!--                                                <label class="custom-file-label" for="customFile">Choose file</label>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="form-group">-->
-<!--                                        </div>-->
-<!--                                    </form>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; /.card-body &ndash;&gt;-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.card &ndash;&gt;-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash;/.col (right) &ndash;&gt;-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; /.row &ndash;&gt;-->
-<!--                </div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
-<!--            </section>-->
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="customFile">
+                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!--/.col (right) -->
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -667,9 +668,58 @@
 import FooterComponent from "./FooterComponent";
 import NavbarComponent from "./NavbarComponent";
 import MenuComponent from "./MenuComponent";
+import config from "../config";
 export default {
-name: "KnowledgeFormComponent",
-    components: {MenuComponent, NavbarComponent, FooterComponent}
+    name: "KnowledgeFormComponent",
+    components: {MenuComponent, NavbarComponent, FooterComponent},
+    data: function() {
+        return {
+            id: this.$route.params.id,
+            title:null,
+            description:null,
+            header:{
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                },
+            }
+        }
+    },
+    mounted() {
+        this.load_knowledge();
+    },
+    methods:{
+        submit_form: function (event){
+            event.preventDefault();
+            this.save_knowledge();
+        },
+        load_knowledge: function (){
+            let full_url = config.API_URL + "/api/knowledge/"+this.id;
+            axios.get(full_url, this.header)
+                .then(response =>{
+                    this.title = response.data.data.title;
+                    this.description = response.data.data.description;
+                })
+                .catch(
+                    error=>alert(error)
+                );
+        },
+        save_knowledge: function (){
+            let data = {
+                'title': this.title,
+                'description': this.description
+            }
+            let full_url = config.API_URL + "/api/knowledge/" + this.id;
+            axios.post(full_url, data, this.header)
+                .then(
+                    response =>{
+                        this.$router.go();
+                    }
+
+                ).catch(
+                error=>alert('Wrong Username or Password')
+            );
+        }
+    }
 }
 </script>
 

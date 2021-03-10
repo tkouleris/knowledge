@@ -17,28 +17,14 @@
         <ul class="navbar-nav ml-auto">
             <!-- Navbar Search -->
             <li class="nav-item">
-                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                    <i class="fas fa-search"></i>
+                <a class="nav-link" @click="create_knowledge($event)" data-toggle="dropdown" href="#">
+                    <i class="far fa-plus-square"></i> New
                 </a>
-                <div class="navbar-search-block">
-                    <form class="form-inline">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-navbar" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
             </li>
 
             <!-- Messages Dropdown Menu -->
             <li class="nav-item dropdown">
+
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-comments"></i>
                     <span class="badge badge-danger navbar-badge">3</span>
@@ -137,8 +123,33 @@
 </template>
 
 <script>
+import config from "../config";
+import Vue from "vue";
 export default {
-    name: "NavbarComponent"
+    name: "NavbarComponent",
+    data: function () {
+        return {
+            header:{
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                },
+            }
+        }
+    },
+    methods:{
+        create_knowledge: function (event){
+            let full_url = config.API_URL + "/api/knowledge/create";
+            let data = null;
+            axios.post(full_url, data, this.header)
+                .then(response =>{
+                    this.$router.push('/knowledge/form/'+response.data.data.id);
+
+                })
+                .catch(
+                    error=>alert('there was an error')
+                );
+        }
+    }
 }
 </script>
 

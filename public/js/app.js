@@ -2116,6 +2116,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FooterComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FooterComponent */ "./resources/js/components/FooterComponent.vue");
 /* harmony import */ var _NavbarComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavbarComponent */ "./resources/js/components/NavbarComponent.vue");
 /* harmony import */ var _MenuComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MenuComponent */ "./resources/js/components/MenuComponent.vue");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./resources/js/config.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_config__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -2781,6 +2783,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -2790,6 +2794,52 @@ __webpack_require__.r(__webpack_exports__);
     MenuComponent: _MenuComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
     NavbarComponent: _NavbarComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
     FooterComponent: _FooterComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      id: this.$route.params.id,
+      title: null,
+      description: null,
+      header: {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.load_knowledge();
+  },
+  methods: {
+    submit_form: function submit_form(event) {
+      event.preventDefault();
+      this.save_knowledge();
+    },
+    load_knowledge: function load_knowledge() {
+      var _this = this;
+
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id;
+      axios.get(full_url, this.header).then(function (response) {
+        _this.title = response.data.data.title;
+        _this.description = response.data.data.description;
+      })["catch"](function (error) {
+        return alert(error);
+      });
+    },
+    save_knowledge: function save_knowledge() {
+      var _this2 = this;
+
+      var data = {
+        'title': this.title,
+        'description': this.description
+      };
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id;
+      axios.post(full_url, data, this.header).then(function (response) {
+        _this2.$router.go();
+      })["catch"](function (error) {
+        return alert('Wrong Username or Password');
+      });
+    }
   }
 });
 
@@ -3625,6 +3675,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../config */ "./resources/js/config.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_config__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -3749,22 +3803,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "NavbarComponent"
+  name: "NavbarComponent",
+  data: function data() {
+    return {
+      header: {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      }
+    };
+  },
+  methods: {
+    create_knowledge: function create_knowledge(event) {
+      var _this = this;
+
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_0___default.a.API_URL + "/api/knowledge/create";
+      var data = null;
+      axios.post(full_url, data, this.header).then(function (response) {
+        _this.$router.push('/knowledge/form/' + response.data.data.id);
+      })["catch"](function (error) {
+        return alert('there was an error');
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -39710,7 +39774,107 @@ var render = function() {
         _vm._v(" "),
         _c("menu-component"),
         _vm._v(" "),
-        _c("div", { staticClass: "content-wrapper" }),
+        _c("div", { staticClass: "content-wrapper" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("section", { staticClass: "content" }, [
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "card card-primary" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("form", [
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "title" } }, [
+                            _vm._v("Title")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.title,
+                                expression: "title"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "title",
+                              placeholder: "Title"
+                            },
+                            domProps: { value: _vm.title },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.title = $event.target.value
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "description" } }, [
+                            _vm._v("Description")
+                          ]),
+                          _vm._v(" "),
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.description,
+                                expression: "description"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              rows: "3",
+                              id: "description",
+                              placeholder: "Description ..."
+                            },
+                            domProps: { value: _vm.description },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.description = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { id: "btn_submit" },
+                            on: {
+                              click: function($event) {
+                                return _vm.submit_form($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Submit")]
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(2)
+              ])
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c("footer-component")
       ],
@@ -39718,7 +39882,838 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "content-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row mb-2" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("h1", [_vm._v("Knowledge")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item active" }, [
+                _vm._v("General Form")
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("General")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "card card-success" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("h3", { staticClass: "card-title" }, [_vm._v("Different Height")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("input", {
+            staticClass: "form-control form-control-lg",
+            attrs: { type: "text", placeholder: ".form-control-lg" }
+          }),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Default input" }
+          }),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control form-control-sm",
+            attrs: { type: "text", placeholder: ".form-control-sm" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card card-danger" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("h3", { staticClass: "card-title" }, [_vm._v("Different Width")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-3" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: ".col-3" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-4" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: ".col-4" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-5" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: ".col-5" }
+              })
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card card-warning" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("h3", { staticClass: "card-title" }, [_vm._v("General Elements")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("form", [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Text")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Enter ..." }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Text Disabled")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Enter ...",
+                      disabled: ""
+                    }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Textarea")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    staticClass: "form-control",
+                    attrs: { rows: "3", placeholder: "Enter ..." }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Textarea Disabled")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    staticClass: "form-control",
+                    attrs: { rows: "3", placeholder: "Enter ...", disabled: "" }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-form-label",
+                  attrs: { for: "inputSuccess" }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-check" }),
+                  _vm._v(
+                    " Input with\n                                                success"
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "form-control is-valid",
+                attrs: {
+                  type: "text",
+                  id: "inputSuccess",
+                  placeholder: "Enter ..."
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-form-label",
+                  attrs: { for: "inputWarning" }
+                },
+                [
+                  _c("i", { staticClass: "far fa-bell" }),
+                  _vm._v(
+                    " Input with\n                                                warning"
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "form-control is-warning",
+                attrs: {
+                  type: "text",
+                  id: "inputWarning",
+                  placeholder: "Enter ..."
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "col-form-label", attrs: { for: "inputError" } },
+                [
+                  _c("i", { staticClass: "far fa-times-circle" }),
+                  _vm._v(
+                    " Input with\n                                                error"
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "form-control is-invalid",
+                attrs: {
+                  type: "text",
+                  id: "inputError",
+                  placeholder: "Enter ..."
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "form-check" }, [
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: { type: "checkbox" }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-check-label" }, [
+                      _vm._v("Checkbox")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check" }, [
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: { type: "checkbox", checked: "" }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-check-label" }, [
+                      _vm._v("Checkbox checked")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check" }, [
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: { type: "checkbox", disabled: "" }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-check-label" }, [
+                      _vm._v("Checkbox disabled")
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "form-check" }, [
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: { type: "radio", name: "radio1" }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-check-label" }, [
+                      _vm._v("Radio")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check" }, [
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: { type: "radio", name: "radio1", checked: "" }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-check-label" }, [
+                      _vm._v("Radio checked")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check" }, [
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: { type: "radio", disabled: "" }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-check-label" }, [
+                      _vm._v("Radio disabled")
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Select")]),
+                  _vm._v(" "),
+                  _c("select", { staticClass: "form-control" }, [
+                    _c("option", [_vm._v("option 1")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("option 2")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("option 3")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("option 4")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("option 5")])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Select Disabled")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    { staticClass: "form-control", attrs: { disabled: "" } },
+                    [
+                      _c("option", [_vm._v("option 1")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 2")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 3")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 4")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 5")])
+                    ]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Select Multiple")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    { staticClass: "form-control", attrs: { multiple: "" } },
+                    [
+                      _c("option", [_vm._v("option 1")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 2")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 3")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 4")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 5")])
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Select Multiple Disabled")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      staticClass: "form-control",
+                      attrs: { multiple: "", disabled: "" }
+                    },
+                    [
+                      _c("option", [_vm._v("option 1")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 2")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 3")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 4")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 5")])
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card card-secondary" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("h3", { staticClass: "card-title" }, [_vm._v("Custom Elements")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("form", [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "custom-control custom-checkbox" }, [
+                    _c("input", {
+                      staticClass: "custom-control-input",
+                      attrs: {
+                        type: "checkbox",
+                        id: "customCheckbox1",
+                        value: "option1"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "customCheckbox1" }
+                      },
+                      [_vm._v("Custom Checkbox")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "custom-control custom-checkbox" }, [
+                    _c("input", {
+                      staticClass: "custom-control-input",
+                      attrs: {
+                        type: "checkbox",
+                        id: "customCheckbox2",
+                        checked: ""
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "customCheckbox2" }
+                      },
+                      [_vm._v("Custom Checkbox checked")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "custom-control custom-checkbox" }, [
+                    _c("input", {
+                      staticClass: "custom-control-input",
+                      attrs: {
+                        type: "checkbox",
+                        id: "customCheckbox3",
+                        disabled: ""
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "customCheckbox3" }
+                      },
+                      [_vm._v("Custom Checkbox disabled")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "custom-control custom-checkbox" }, [
+                    _c("input", {
+                      staticClass:
+                        "custom-control-input custom-control-input-danger",
+                      attrs: {
+                        type: "checkbox",
+                        id: "customCheckbox4",
+                        checked: ""
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "customCheckbox4" }
+                      },
+                      [_vm._v("Custom Checkbox with custom color")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "custom-control custom-checkbox" }, [
+                    _c("input", {
+                      staticClass:
+                        "custom-control-input custom-control-input-danger custom-control-input-outline",
+                      attrs: {
+                        type: "checkbox",
+                        id: "customCheckbox5",
+                        checked: ""
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "customCheckbox5" }
+                      },
+                      [_vm._v("Custom Checkbox with custom color outline")]
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "custom-control custom-radio" }, [
+                    _c("input", {
+                      staticClass: "custom-control-input",
+                      attrs: {
+                        type: "radio",
+                        id: "customRadio1",
+                        name: "customRadio"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "customRadio1" }
+                      },
+                      [_vm._v("Custom Radio")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "custom-control custom-radio" }, [
+                    _c("input", {
+                      staticClass: "custom-control-input",
+                      attrs: {
+                        type: "radio",
+                        id: "customRadio2",
+                        name: "customRadio",
+                        checked: ""
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "customRadio2" }
+                      },
+                      [_vm._v("Custom Radio checked")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "custom-control custom-radio" }, [
+                    _c("input", {
+                      staticClass: "custom-control-input",
+                      attrs: { type: "radio", id: "customRadio3", disabled: "" }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "customRadio3" }
+                      },
+                      [_vm._v("Custom Radio disabled")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "custom-control custom-radio" }, [
+                    _c("input", {
+                      staticClass:
+                        "custom-control-input custom-control-input-danger",
+                      attrs: {
+                        type: "radio",
+                        id: "customRadio4",
+                        name: "customRadio2",
+                        checked: ""
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "customRadio4" }
+                      },
+                      [_vm._v("Custom Radio with custom color")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "custom-control custom-radio" }, [
+                    _c("input", {
+                      staticClass:
+                        "custom-control-input custom-control-input-danger custom-control-input-outline",
+                      attrs: {
+                        type: "radio",
+                        id: "customRadio5",
+                        name: "customRadio2"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "customRadio5" }
+                      },
+                      [_vm._v("Custom Radio with custom color outline")]
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Custom Select")]),
+                  _vm._v(" "),
+                  _c("select", { staticClass: "custom-select" }, [
+                    _c("option", [_vm._v("option 1")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("option 2")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("option 3")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("option 4")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("option 5")])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Custom Select Disabled")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    { staticClass: "custom-select", attrs: { disabled: "" } },
+                    [
+                      _c("option", [_vm._v("option 1")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 2")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 3")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 4")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 5")])
+                    ]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Custom Select Multiple")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    { staticClass: "custom-select", attrs: { multiple: "" } },
+                    [
+                      _c("option", [_vm._v("option 1")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 2")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 3")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 4")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 5")])
+                    ]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("Custom Select Multiple Disabled")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      staticClass: "custom-select",
+                      attrs: { multiple: "", disabled: "" }
+                    },
+                    [
+                      _c("option", [_vm._v("option 1")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 2")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 3")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 4")]),
+                      _vm._v(" "),
+                      _c("option", [_vm._v("option 5")])
+                    ]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "custom-control custom-switch" }, [
+                _c("input", {
+                  staticClass: "custom-control-input",
+                  attrs: { type: "checkbox", id: "customSwitch1" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "custom-control-label",
+                    attrs: { for: "customSwitch1" }
+                  },
+                  [_vm._v("Toggle this custom switch element")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "custom-control custom-switch custom-switch-off-danger custom-switch-on-success"
+                },
+                [
+                  _c("input", {
+                    staticClass: "custom-control-input",
+                    attrs: { type: "checkbox", id: "customSwitch3" }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "custom-control-label",
+                      attrs: { for: "customSwitch3" }
+                    },
+                    [
+                      _vm._v(
+                        "Toggle this custom switch element with custom colors danger/success"
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "custom-control custom-switch" }, [
+                _c("input", {
+                  staticClass: "custom-control-input",
+                  attrs: { type: "checkbox", disabled: "", id: "customSwitch2" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "custom-control-label",
+                    attrs: { for: "customSwitch2" }
+                  },
+                  [_vm._v("Disabled custom switch element")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "customRange1" } }, [
+                _vm._v("Custom range")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "custom-range",
+                attrs: { type: "range", id: "customRange1" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "customRange2" } }, [
+                _vm._v("Custom range (custom-range-danger)")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "custom-range custom-range-danger",
+                attrs: { type: "range", id: "customRange2" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "customRange3" } }, [
+                _vm._v("Custom range (custom-range-teal)")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "custom-range custom-range-teal",
+                attrs: { type: "range", id: "customRange3" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("div", { staticClass: "custom-file" }, [
+                _c("input", {
+                  staticClass: "custom-file-input",
+                  attrs: { type: "file", id: "customFile" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "custom-file-label",
+                    attrs: { for: "customFile" }
+                  },
+                  [_vm._v("Choose file")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" })
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -41318,380 +42313,316 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "nav",
+    {
+      staticClass: "main-header navbar navbar-expand navbar-white navbar-light"
+    },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              attrs: { "data-toggle": "dropdown", href: "#" },
+              on: {
+                click: function($event) {
+                  return _vm.create_knowledge($event)
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "far fa-plus-square" }),
+              _vm._v(" New\n            ")
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _vm._m(4)
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "nav",
-      {
-        staticClass:
-          "main-header navbar navbar-expand navbar-white navbar-light"
-      },
-      [
-        _c("ul", { staticClass: "navbar-nav" }, [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { "data-widget": "pushmenu", href: "#", role: "button" }
-              },
-              [_c("i", { staticClass: "fas fa-bars" })]
-            )
-          ]),
+    return _c("ul", { staticClass: "navbar-nav" }, [
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            attrs: { "data-widget": "pushmenu", href: "#", role: "button" }
+          },
+          [_c("i", { staticClass: "fas fa-bars" })]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item d-none d-sm-inline-block" }, [
+        _c("a", { staticClass: "nav-link", attrs: { href: "index3.html" } }, [
+          _vm._v("Home")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "nav-item d-none d-sm-inline-block" }, [
+        _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+          _vm._v("Contact")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item dropdown" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          attrs: { "data-toggle": "dropdown", href: "#" }
+        },
+        [
+          _c("i", { staticClass: "far fa-comments" }),
           _vm._v(" "),
-          _c("li", { staticClass: "nav-item d-none d-sm-inline-block" }, [
-            _c(
-              "a",
-              { staticClass: "nav-link", attrs: { href: "index3.html" } },
-              [_vm._v("Home")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "nav-item d-none d-sm-inline-block" }, [
-            _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-              _vm._v("Contact")
-            ])
+          _c("span", { staticClass: "badge badge-danger navbar-badge" }, [
+            _vm._v("3")
           ])
-        ]),
-        _vm._v(" "),
-        _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  "data-widget": "navbar-search",
-                  href: "#",
-                  role: "button"
-                }
-              },
-              [_c("i", { staticClass: "fas fa-search" })]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "navbar-search-block" }, [
-              _c("form", { staticClass: "form-inline" }, [
-                _c("div", { staticClass: "input-group input-group-sm" }, [
-                  _c("input", {
-                    staticClass: "form-control form-control-navbar",
-                    attrs: {
-                      type: "search",
-                      placeholder: "Search",
-                      "aria-label": "Search"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group-append" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-navbar",
-                        attrs: { type: "submit" }
-                      },
-                      [_c("i", { staticClass: "fas fa-search" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-navbar",
-                        attrs: {
-                          type: "button",
-                          "data-widget": "navbar-search"
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-times" })]
-                    )
-                  ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right" },
+        [
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _c("div", { staticClass: "media" }, [
+              _c("img", {
+                staticClass: "img-size-50 mr-3 img-circle",
+                attrs: { src: "dist/img/user1-128x128.jpg", alt: "User Avatar" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "media-body" }, [
+                _c("h3", { staticClass: "dropdown-item-title" }, [
+                  _vm._v(
+                    "\n                                Brad Diesel\n                                "
+                  ),
+                  _c(
+                    "span",
+                    { staticClass: "float-right text-sm text-danger" },
+                    [_c("i", { staticClass: "fas fa-star" })]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-sm" }, [
+                  _vm._v("Call me whenever you can...")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-sm text-muted" }, [
+                  _c("i", { staticClass: "far fa-clock mr-1" }),
+                  _vm._v(" 4 Hours Ago")
                 ])
               ])
             ])
           ]),
           _vm._v(" "),
-          _c("li", { staticClass: "nav-item dropdown" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { "data-toggle": "dropdown", href: "#" }
-              },
-              [
-                _c("i", { staticClass: "far fa-comments" }),
-                _vm._v(" "),
-                _c("span", { staticClass: "badge badge-danger navbar-badge" }, [
-                  _vm._v("3")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "dropdown-menu dropdown-menu-lg dropdown-menu-right"
-              },
-              [
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("div", { staticClass: "media" }, [
-                      _c("img", {
-                        staticClass: "img-size-50 mr-3 img-circle",
-                        attrs: {
-                          src: "dist/img/user1-128x128.jpg",
-                          alt: "User Avatar"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "media-body" }, [
-                        _c("h3", { staticClass: "dropdown-item-title" }, [
-                          _vm._v(
-                            "\n                                Brad Diesel\n                                "
-                          ),
-                          _c(
-                            "span",
-                            { staticClass: "float-right text-sm text-danger" },
-                            [_c("i", { staticClass: "fas fa-star" })]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm" }, [
-                          _vm._v("Call me whenever you can...")
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm text-muted" }, [
-                          _c("i", { staticClass: "far fa-clock mr-1" }),
-                          _vm._v(" 4 Hours Ago")
-                        ])
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("div", { staticClass: "media" }, [
-                      _c("img", {
-                        staticClass: "img-size-50 img-circle mr-3",
-                        attrs: {
-                          src: "dist/img/user8-128x128.jpg",
-                          alt: "User Avatar"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "media-body" }, [
-                        _c("h3", { staticClass: "dropdown-item-title" }, [
-                          _vm._v(
-                            "\n                                John Pierce\n                                "
-                          ),
-                          _c(
-                            "span",
-                            { staticClass: "float-right text-sm text-muted" },
-                            [_c("i", { staticClass: "fas fa-star" })]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm" }, [
-                          _vm._v("I got your message bro")
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm text-muted" }, [
-                          _c("i", { staticClass: "far fa-clock mr-1" }),
-                          _vm._v(" 4 Hours Ago")
-                        ])
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("div", { staticClass: "media" }, [
-                      _c("img", {
-                        staticClass: "img-size-50 img-circle mr-3",
-                        attrs: {
-                          src: "dist/img/user3-128x128.jpg",
-                          alt: "User Avatar"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "media-body" }, [
-                        _c("h3", { staticClass: "dropdown-item-title" }, [
-                          _vm._v(
-                            "\n                                Nora Silvester\n                                "
-                          ),
-                          _c(
-                            "span",
-                            { staticClass: "float-right text-sm text-warning" },
-                            [_c("i", { staticClass: "fas fa-star" })]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm" }, [
-                          _vm._v("The subject goes here")
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "text-sm text-muted" }, [
-                          _c("i", { staticClass: "far fa-clock mr-1" }),
-                          _vm._v(" 4 Hours Ago")
-                        ])
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item dropdown-footer",
-                    attrs: { href: "#" }
-                  },
-                  [_vm._v("See All Messages")]
-                )
-              ]
-            )
-          ]),
+          _c("div", { staticClass: "dropdown-divider" }),
           _vm._v(" "),
-          _c("li", { staticClass: "nav-item dropdown" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: { "data-toggle": "dropdown", href: "#" }
-              },
-              [
-                _c("i", { staticClass: "far fa-bell" }),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  { staticClass: "badge badge-warning navbar-badge" },
-                  [_vm._v("15")]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "dropdown-menu dropdown-menu-lg dropdown-menu-right"
-              },
-              [
-                _c("span", { staticClass: "dropdown-item dropdown-header" }, [
-                  _vm._v("15 Notifications")
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _c("div", { staticClass: "media" }, [
+              _c("img", {
+                staticClass: "img-size-50 img-circle mr-3",
+                attrs: { src: "dist/img/user8-128x128.jpg", alt: "User Avatar" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "media-body" }, [
+                _c("h3", { staticClass: "dropdown-item-title" }, [
+                  _vm._v(
+                    "\n                                John Pierce\n                                "
+                  ),
+                  _c(
+                    "span",
+                    { staticClass: "float-right text-sm text-muted" },
+                    [_c("i", { staticClass: "fas fa-star" })]
+                  )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
+                _c("p", { staticClass: "text-sm" }, [
+                  _vm._v("I got your message bro")
+                ]),
                 _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("i", { staticClass: "fas fa-envelope mr-2" }),
-                    _vm._v(" 4 new messages\n                    "),
-                    _c(
-                      "span",
-                      { staticClass: "float-right text-muted text-sm" },
-                      [_vm._v("3 mins")]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("i", { staticClass: "fas fa-users mr-2" }),
-                    _vm._v(" 8 friend requests\n                    "),
-                    _c(
-                      "span",
-                      { staticClass: "float-right text-muted text-sm" },
-                      [_vm._v("12 hours")]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [
-                    _c("i", { staticClass: "fas fa-file mr-2" }),
-                    _vm._v(" 3 new reports\n                    "),
-                    _c(
-                      "span",
-                      { staticClass: "float-right text-muted text-sm" },
-                      [_vm._v("2 days")]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "dropdown-item dropdown-footer",
-                    attrs: { href: "#" }
-                  },
-                  [_vm._v("See All Notifications")]
-                )
-              ]
-            )
+                _c("p", { staticClass: "text-sm text-muted" }, [
+                  _c("i", { staticClass: "far fa-clock mr-1" }),
+                  _vm._v(" 4 Hours Ago")
+                ])
+              ])
+            ])
           ]),
           _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  "data-widget": "fullscreen",
-                  href: "#",
-                  role: "button"
-                }
-              },
-              [_c("i", { staticClass: "fas fa-expand-arrows-alt" })]
-            )
+          _c("div", { staticClass: "dropdown-divider" }),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _c("div", { staticClass: "media" }, [
+              _c("img", {
+                staticClass: "img-size-50 img-circle mr-3",
+                attrs: { src: "dist/img/user3-128x128.jpg", alt: "User Avatar" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "media-body" }, [
+                _c("h3", { staticClass: "dropdown-item-title" }, [
+                  _vm._v(
+                    "\n                                Nora Silvester\n                                "
+                  ),
+                  _c(
+                    "span",
+                    { staticClass: "float-right text-sm text-warning" },
+                    [_c("i", { staticClass: "fas fa-star" })]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-sm" }, [
+                  _vm._v("The subject goes here")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-sm text-muted" }, [
+                  _c("i", { staticClass: "far fa-clock mr-1" }),
+                  _vm._v(" 4 Hours Ago")
+                ])
+              ])
+            ])
           ]),
           _vm._v(" "),
-          _c("li", { staticClass: "nav-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "nav-link",
-                attrs: {
-                  "data-widget": "control-sidebar",
-                  "data-slide": "true",
-                  href: "#",
-                  role: "button"
-                }
-              },
-              [_c("i", { staticClass: "fas fa-th-large" })]
-            )
+          _c("div", { staticClass: "dropdown-divider" }),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item dropdown-footer",
+              attrs: { href: "#" }
+            },
+            [_vm._v("See All Messages")]
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item dropdown" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          attrs: { "data-toggle": "dropdown", href: "#" }
+        },
+        [
+          _c("i", { staticClass: "far fa-bell" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "badge badge-warning navbar-badge" }, [
+            _vm._v("15")
           ])
-        ])
-      ]
-    )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right" },
+        [
+          _c("span", { staticClass: "dropdown-item dropdown-header" }, [
+            _vm._v("15 Notifications")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "dropdown-divider" }),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _c("i", { staticClass: "fas fa-envelope mr-2" }),
+            _vm._v(" 4 new messages\n                    "),
+            _c("span", { staticClass: "float-right text-muted text-sm" }, [
+              _vm._v("3 mins")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "dropdown-divider" }),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _c("i", { staticClass: "fas fa-users mr-2" }),
+            _vm._v(" 8 friend requests\n                    "),
+            _c("span", { staticClass: "float-right text-muted text-sm" }, [
+              _vm._v("12 hours")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "dropdown-divider" }),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _c("i", { staticClass: "fas fa-file mr-2" }),
+            _vm._v(" 3 new reports\n                    "),
+            _c("span", { staticClass: "float-right text-muted text-sm" }, [
+              _vm._v("2 days")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "dropdown-divider" }),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item dropdown-footer",
+              attrs: { href: "#" }
+            },
+            [_vm._v("See All Notifications")]
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          attrs: { "data-widget": "fullscreen", href: "#", role: "button" }
+        },
+        [_c("i", { staticClass: "fas fa-expand-arrows-alt" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          attrs: {
+            "data-widget": "control-sidebar",
+            "data-slide": "true",
+            href: "#",
+            role: "button"
+          }
+        },
+        [_c("i", { staticClass: "fas fa-th-large" })]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -57682,7 +58613,7 @@ var vue_url = "/";
     // }
 
   }, {
-    path: vue_url + 'knowledge/form',
+    path: vue_url + 'knowledge/form/:id',
     component: _components_KnowledgeFormComponent__WEBPACK_IMPORTED_MODULE_4__["default"] // beforeEnter:(to, from, next) =>{
     //     if(localStorage.token == null){
     //         next(vue_url);
