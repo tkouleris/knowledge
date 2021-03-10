@@ -295,25 +295,35 @@
                             <!-- /.card -->
 
                         </div>
+                    </div>
+                </div>
                         <!--/.col (left) -->
                         <!-- right column -->
+                <div class="container-fluid">
+                    <div class="row">
                         <div class="col-md-6">
                             <!-- Form Element sizes -->
                             <div class="card card-success">
                                 <div class="card-header">
-                                    <h3 class="card-title">Different Height</h3>
+                                    <h3 class="card-title">  Urls</h3>
                                 </div>
                                 <div class="card-body">
-                                    <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg">
-                                    <br>
-                                    <input class="form-control" type="text" placeholder="Default input">
-                                    <br>
-                                    <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+                                    <button @click="create_url($event)" class="btn btn-primary" style="margin-bottom: 10px;">Add</button>
+
+                                    <div id="url_form" style="display: none;">
+                                        <input class="form-control" type="text" placeholder="Url description...">
+                                        <br/>
+                                        <input class="form-control form-control-sm" type="text" placeholder="url...">
+                                        <br/>
+                                        <button id="btn_save_url" class="btn btn-primary">save</button>
+                                        <button id="btn_cancel_url" class="btn btn-danger">cancel</button>
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
+                        </div>
                             <!-- /.card -->
-
+                        <div class="col-md-6">
                             <div class="card card-danger">
                                 <div class="card-header">
                                     <h3 class="card-title">Different Width</h3>
@@ -718,6 +728,9 @@ export default {
                 ).catch(
                 error=>alert('Wrong Username or Password')
             );
+        },
+        create_url: function (event){
+            console.log('create url')
         }
     }
 }

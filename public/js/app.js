@@ -2784,6 +2784,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2839,6 +2849,9 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         return alert('Wrong Username or Password');
       });
+    },
+    create_url: function create_url(event) {
+      console.log('create url');
     }
   }
 });
@@ -39868,9 +39881,37 @@ var render = function() {
                       ])
                     ])
                   ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "card card-success" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          staticStyle: { "margin-bottom": "10px" },
+                          on: {
+                            click: function($event) {
+                              return _vm.create_url($event)
+                            }
+                          }
+                        },
+                        [_vm._v("Add")]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(3)
+                    ])
+                  ])
                 ]),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(4)
               ])
             ])
           ])
@@ -39921,34 +39962,51 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
-      _c("div", { staticClass: "card card-success" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("h3", { staticClass: "card-title" }, [_vm._v("Different Height")])
-        ]),
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("  Urls")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticStyle: { display: "none" }, attrs: { id: "url_form" } },
+      [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", placeholder: "Url description..." }
+        }),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("input", {
-            staticClass: "form-control form-control-lg",
-            attrs: { type: "text", placeholder: ".form-control-lg" }
-          }),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "Default input" }
-          }),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control form-control-sm",
-            attrs: { type: "text", placeholder: ".form-control-sm" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control form-control-sm",
+          attrs: { type: "text", placeholder: "url..." }
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { id: "btn_save_url" } },
+          [_vm._v("save")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-danger", attrs: { id: "btn_cancel_url" } },
+          [_vm._v("cancel")]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
       _c("div", { staticClass: "card card-danger" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("h3", { staticClass: "card-title" }, [_vm._v("Different Width")])
