@@ -331,20 +331,25 @@
                         <div class="col-md-6">
                             <div class="card card-danger">
                                 <div class="card-header">
-                                    <h3 class="card-title">Different Width</h3>
+                                    <h3 class="card-title">YouTube Videos</h3>
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <input type="text" class="form-control" placeholder=".col-3">
-                                        </div>
-                                        <div class="col-4">
-                                            <input type="text" class="form-control" placeholder=".col-4">
-                                        </div>
-                                        <div class="col-5">
-                                            <input type="text" class="form-control" placeholder=".col-5">
-                                        </div>
+                                    <table width="100%">
+                                        <tr>
+                                            <td><a target="_blank">Test</a></td>
+                                            <td width="10%"><button class="btn btn-secondary">Edit</button></td>
+                                            <td width="10%"><button class="btn btn-danger">X</button></td>
+                                        </tr>
+                                    </table>
+                                    <hr>
+                                    <div>
+                                        <input class="form-control" type="text" placeholder="Url description...">
+                                        <br/>
+                                        <input class="form-control form-control-sm" type="text" placeholder="url...">
                                     </div>
+                                    <button @click="create_video($event)" class="btn btn-primary" style="margin-top: 10px;">Add</button>
+                                    <button class="btn btn-danger" style="margin-top: 10px;">Clear</button>
+
                                 </div>
                                 <!-- /.card-body -->
                             </div>

@@ -36,11 +36,15 @@ class KnowledgeRepository implements IKnowledgeRepository
      */
     public function findById(int $id): Knowledge
     {
-        return $this->model::with(['tags','urls'])
+        return $this->model::with(['tags','urls','videos'])
             ->where('id',$id)
             ->first();
     }
 
+    /**
+     * @param array $data
+     * @return Knowledge
+     */
     public function update(array $data): Knowledge
     {
         $knowledge = $this->model::where('id',$data['id'])->first();
@@ -54,6 +58,10 @@ class KnowledgeRepository implements IKnowledgeRepository
         return $knowledge;
     }
 
+    /**
+     * @param int $id
+     * @return Knowledge
+     */
     public function delete(int $id): Knowledge
     {
         $knowledge = $this->model::where('id',$id)->first();
