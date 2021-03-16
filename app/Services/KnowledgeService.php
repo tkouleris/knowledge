@@ -58,8 +58,7 @@ class KnowledgeService
     public function update(array $data): Knowledge
     {
         $updated_knowledge = $this->knowledgeRepository->update($data);
-        $knowledge = $this->knowledgeRepository->findById($updated_knowledge->id);
-        return $knowledge;
+        return $this->knowledgeRepository->findById($updated_knowledge->id);
     }
 
 

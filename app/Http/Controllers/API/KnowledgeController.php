@@ -8,7 +8,6 @@ use App\Services\KnowledgeService;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class KnowledgeController extends Controller
 {
