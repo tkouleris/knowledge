@@ -308,16 +308,21 @@
                                     <h3 class="card-title">  Urls</h3>
                                 </div>
                                 <div class="card-body">
-                                    <button @click="create_url($event)" class="btn btn-primary" style="margin-bottom: 10px;">Add</button>
-
-                                    <div id="url_form" style="display: none;">
-                                        <input class="form-control" type="text" placeholder="Url description...">
+                                    <table width="100%">
+                                        <tr v-for="url in urls" :key="url.id">
+                                            <td><a :href="url.url" target="_blank">{{url.description}}</a></td>
+                                            <td width="10%"><button class="btn btn-secondary">Edit</button></td>
+                                            <td width="10%"><button @click="delete_url_confirmation(url.id)" class="btn btn-danger">X</button></td>
+                                        </tr>
+                                    </table>
+                                    <hr>
+                                    <div id="url_form">
+                                        <input v-model="url_description" class="form-control" type="text" placeholder="Url description...">
                                         <br/>
-                                        <input class="form-control form-control-sm" type="text" placeholder="url...">
-                                        <br/>
-                                        <button id="btn_save_url" class="btn btn-primary">save</button>
-                                        <button id="btn_cancel_url" class="btn btn-danger">cancel</button>
+                                        <input v-model="url_string" class="form-control form-control-sm" type="text" placeholder="url...">
                                     </div>
+                                    <button @click="create_url($event)" class="btn btn-primary" style="margin-top: 10px;">Add</button>
+                                    <button class="btn btn-danger" style="margin-top: 10px;">Clear</button>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -687,6 +692,9 @@ export default {
             id: this.$route.params.id,
             title:null,
             description:null,
+            urls:null,
+            url_string:null,
+            url_description:null,
             header:{
                 headers: {
                     Authorization: "Bearer " + localStorage.token
@@ -708,6 +716,7 @@ export default {
                 .then(response =>{
                     this.title = response.data.data.title;
                     this.description = response.data.data.description;
+                    this.urls = response.data.data.urls;
                 })
                 .catch(
                     error=>alert(error)
@@ -730,7 +739,37 @@ export default {
             );
         },
         create_url: function (event){
-            console.log('create url')
+
+            let data = {
+                'url': this.url_string,
+                'description': this.url_description
+            }
+            let full_url = config.API_URL + "/api/knowledge/" + this.id +'/url';
+            axios.post(full_url, data, this.header)
+                .then(
+                    response =>{
+                        this.$router.go();
+                    }
+
+                ).catch(
+                error=>alert('Wrong Username or Password')
+            );
+        },
+        delete_url_confirmation(url_id){
+            if(confirm("Do you really want to delete this url ?")){
+                this.delete_url(url_id);
+            }
+        },
+        delete_url(){
+            let full_url = config.API_URL + "/api/knowledge/" + this.id +'/url/' + url_id;
+            axios.delete(full_url,this.header)
+                .then(
+                    response =>{
+                        this.$router.go();
+                    }
+                ).catch(
+                error=>alert('Wrong Username or Password')
+            );
         }
     }
 }

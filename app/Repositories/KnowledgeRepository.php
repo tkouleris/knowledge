@@ -27,7 +27,7 @@ class KnowledgeRepository implements IKnowledgeRepository
      */
     public function create(array $data): Knowledge
     {
-        return $this->model->create($data);
+        return $this->model::create($data);
     }
 
     /**
@@ -36,7 +36,9 @@ class KnowledgeRepository implements IKnowledgeRepository
      */
     public function findById(int $id): Knowledge
     {
-        return $this->model::with('tags')->where('id',$id)->first();
+        return $this->model::with(['tags','urls'])
+            ->where('id',$id)
+            ->first();
     }
 
     public function update(array $data): Knowledge

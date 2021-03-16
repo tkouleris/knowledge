@@ -2794,6 +2794,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2810,6 +2815,9 @@ __webpack_require__.r(__webpack_exports__);
       id: this.$route.params.id,
       title: null,
       description: null,
+      urls: null,
+      url_string: null,
+      url_description: null,
       header: {
         headers: {
           Authorization: "Bearer " + localStorage.token
@@ -2832,6 +2840,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(full_url, this.header).then(function (response) {
         _this.title = response.data.data.title;
         _this.description = response.data.data.description;
+        _this.urls = response.data.data.urls;
       })["catch"](function (error) {
         return alert(error);
       });
@@ -2851,7 +2860,33 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     create_url: function create_url(event) {
-      console.log('create url');
+      var _this3 = this;
+
+      var data = {
+        'url': this.url_string,
+        'description': this.url_description
+      };
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/url';
+      axios.post(full_url, data, this.header).then(function (response) {
+        _this3.$router.go();
+      })["catch"](function (error) {
+        return alert('Wrong Username or Password');
+      });
+    },
+    delete_url_confirmation: function delete_url_confirmation(url_id) {
+      if (confirm("Do you really want to delete this url ?")) {
+        this.delete_url(url_id);
+      }
+    },
+    delete_url: function delete_url() {
+      var _this4 = this;
+
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/url/' + url_id;
+      axios["delete"](full_url, this.header).then(function (response) {
+        _this4.$router.go();
+      })["catch"](function (error) {
+        return alert('Wrong Username or Password');
+      });
     }
   }
 });
@@ -39893,10 +39928,97 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "card-body" }, [
                       _c(
+                        "table",
+                        { attrs: { width: "100%" } },
+                        _vm._l(_vm.urls, function(url) {
+                          return _c("tr", { key: url.id }, [
+                            _c("td", [
+                              _c(
+                                "a",
+                                { attrs: { href: url.url, target: "_blank" } },
+                                [_vm._v(_vm._s(url.description))]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(3, true),
+                            _vm._v(" "),
+                            _c("td", { attrs: { width: "10%" } }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.delete_url_confirmation(url.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("X")]
+                              )
+                            ])
+                          ])
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("div", { attrs: { id: "url_form" } }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.url_description,
+                              expression: "url_description"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Url description..."
+                          },
+                          domProps: { value: _vm.url_description },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.url_description = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.url_string,
+                              expression: "url_string"
+                            }
+                          ],
+                          staticClass: "form-control form-control-sm",
+                          attrs: { type: "text", placeholder: "url..." },
+                          domProps: { value: _vm.url_string },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.url_string = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
                         "button",
                         {
                           staticClass: "btn btn-primary",
-                          staticStyle: { "margin-bottom": "10px" },
+                          staticStyle: { "margin-top": "10px" },
                           on: {
                             click: function($event) {
                               return _vm.create_url($event)
@@ -39906,7 +40028,14 @@ var render = function() {
                         [_vm._v("Add")]
                       ),
                       _vm._v(" "),
-                      _vm._m(3)
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          staticStyle: { "margin-top": "10px" }
+                        },
+                        [_vm._v("Clear")]
+                      )
                     ])
                   ])
                 ]),
@@ -39970,37 +40099,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticStyle: { display: "none" }, attrs: { id: "url_form" } },
-      [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Url description..." }
-        }),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control form-control-sm",
-          attrs: { type: "text", placeholder: "url..." }
-        }),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { id: "btn_save_url" } },
-          [_vm._v("save")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-danger", attrs: { id: "btn_cancel_url" } },
-          [_vm._v("cancel")]
-        )
-      ]
-    )
+    return _c("td", { attrs: { width: "10%" } }, [
+      _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Edit")])
+    ])
   },
   function() {
     var _vm = this

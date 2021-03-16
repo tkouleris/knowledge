@@ -25,4 +25,9 @@ class Knowledge extends Model
     {
         return $this->belongsToMany(Tag::class, 'knowledge_tag', 'knowledge_id', 'tag_id');
     }
+
+    public function urls()
+    {
+        return $this->hasMany(Url::class, 'knowledge_id', 'id');
+    }
 }
