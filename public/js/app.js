@@ -2804,6 +2804,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2823,6 +2825,10 @@ __webpack_require__.r(__webpack_exports__);
       urls: null,
       url_string: null,
       url_description: null,
+      videos: null,
+      video_title: null,
+      video_url: null,
+      video_description: null,
       header: {
         headers: {
           Authorization: "Bearer " + localStorage.token
@@ -2846,6 +2852,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.title = response.data.data.title;
         _this.description = response.data.data.description;
         _this.urls = response.data.data.urls;
+        console.log(response.data.data.videos);
+        _this.videos = response.data.data.videos;
       })["catch"](function (error) {
         return alert(error);
       });
@@ -2883,12 +2891,42 @@ __webpack_require__.r(__webpack_exports__);
         this.delete_url(url_id);
       }
     },
-    delete_url: function delete_url() {
+    delete_url: function delete_url(url_id) {
       var _this4 = this;
 
       var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/url/' + url_id;
       axios["delete"](full_url, this.header).then(function (response) {
         _this4.$router.go();
+      })["catch"](function (error) {
+        return alert('Wrong Username or Password');
+      });
+    },
+    create_video: function create_video(event) {
+      var _this5 = this;
+
+      var data = {
+        'title': this.video_title,
+        'url': this.video_url,
+        'description': this.video_description
+      };
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/video';
+      axios.post(full_url, data, this.header).then(function (response) {
+        _this5.$router.go();
+      })["catch"](function (error) {
+        return alert('Wrong Username or Password');
+      });
+    },
+    delete_video_confirmation: function delete_video_confirmation(video_id) {
+      if (confirm("Do you really want to delete this video ?")) {
+        this.delete_video(video_id);
+      }
+    },
+    delete_video: function delete_video(video_id) {
+      var _this6 = this;
+
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/video/' + video_id;
+      axios["delete"](full_url, this.header).then(function (response) {
+        _this6.$router.go();
       })["catch"](function (error) {
         return alert('Wrong Username or Password');
       });
@@ -39927,7 +39965,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "container-fluid" }, [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "col-md-12" }, [
                   _c("div", { staticClass: "card card-success" }, [
                     _vm._m(2),
                     _vm._v(" "),
@@ -40045,16 +40083,128 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "col-md-12" }, [
                   _c("div", { staticClass: "card card-danger" }, [
                     _vm._m(4),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-body" }, [
-                      _vm._m(5),
+                      _c(
+                        "table",
+                        { attrs: { width: "100%" } },
+                        _vm._l(_vm.videos, function(video) {
+                          return _c("tr", { key: video.id }, [
+                            _c("td", [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: video.url, target: "_blank" }
+                                },
+                                [_vm._v(_vm._s(video.description))]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(5, true),
+                            _vm._v(" "),
+                            _c("td", { attrs: { width: "10%" } }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.delete_video_confirmation(
+                                        video.id
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._v("X")]
+                              )
+                            ])
+                          ])
+                        }),
+                        0
+                      ),
                       _vm._v(" "),
                       _c("hr"),
                       _vm._v(" "),
-                      _vm._m(6),
+                      _c("div", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.video_title,
+                              expression: "video_title"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Video title..."
+                          },
+                          domProps: { value: _vm.video_title },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.video_title = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.video_url,
+                              expression: "video_url"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "Video url..." },
+                          domProps: { value: _vm.video_url },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.video_url = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.video_description,
+                              expression: "video_description"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            placeholder: "Video description..."
+                          },
+                          domProps: { value: _vm.video_description },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.video_description = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
                       _vm._v(" "),
                       _c(
                         "button",
@@ -40081,9 +40231,9 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(7),
+                  _vm._m(6),
                   _vm._v(" "),
-                  _vm._m(8)
+                  _vm._m(7)
                 ])
               ])
             ])
@@ -40152,43 +40302,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("YouTube Videos")])
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Videos")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { attrs: { width: "100%" } }, [
-      _c("tr", [
-        _c("td", [_c("a", { attrs: { target: "_blank" } }, [_vm._v("Test")])]),
-        _vm._v(" "),
-        _c("td", { attrs: { width: "10%" } }, [
-          _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Edit")])
-        ]),
-        _vm._v(" "),
-        _c("td", { attrs: { width: "10%" } }, [
-          _c("button", { staticClass: "btn btn-danger" }, [_vm._v("X")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: "Url description..." }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control form-control-sm",
-        attrs: { type: "text", placeholder: "url..." }
-      })
+    return _c("td", { attrs: { width: "10%" } }, [
+      _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Edit")])
     ])
   },
   function() {

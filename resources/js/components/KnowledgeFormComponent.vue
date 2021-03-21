@@ -301,7 +301,7 @@
                         <!-- right column -->
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <!-- Form Element sizes -->
                             <div class="card card-success">
                                 <div class="card-header">
@@ -328,24 +328,26 @@
                             </div>
                         </div>
                             <!-- /.card -->
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="card card-danger">
                                 <div class="card-header">
-                                    <h3 class="card-title">YouTube Videos</h3>
+                                    <h3 class="card-title">Videos</h3>
                                 </div>
                                 <div class="card-body">
                                     <table width="100%">
-                                        <tr>
-                                            <td><a target="_blank">Test</a></td>
+                                        <tr v-for="video in videos" :key="video.id">
+                                            <td><a :href="video.url" target="_blank">{{video.description}}</a></td>
                                             <td width="10%"><button class="btn btn-secondary">Edit</button></td>
-                                            <td width="10%"><button class="btn btn-danger">X</button></td>
+                                            <td width="10%"><button @click="delete_video_confirmation(video.id)" class="btn btn-danger">X</button></td>
                                         </tr>
                                     </table>
                                     <hr>
                                     <div>
-                                        <input class="form-control" type="text" placeholder="Url description...">
+                                        <input v-model="video_title" class="form-control" type="text" placeholder="Video title...">
                                         <br/>
-                                        <input class="form-control form-control-sm" type="text" placeholder="url...">
+                                        <input v-model="video_url" class="form-control" type="text" placeholder="Video url...">
+                                        <br/>
+                                        <input v-model="video_description" class="form-control" type="text" placeholder="Video description...">
                                     </div>
                                     <button @click="create_video($event)" class="btn btn-primary" style="margin-top: 10px;">Add</button>
                                     <button class="btn btn-danger" style="margin-top: 10px;">Clear</button>
@@ -700,6 +702,10 @@ export default {
             urls:null,
             url_string:null,
             url_description:null,
+            videos:null,
+            video_title:null,
+            video_url:null,
+            video_description:null,
             header:{
                 headers: {
                     Authorization: "Bearer " + localStorage.token
@@ -722,6 +728,8 @@ export default {
                     this.title = response.data.data.title;
                     this.description = response.data.data.description;
                     this.urls = response.data.data.urls;
+                    console.log(response.data.data.videos);
+                    this.videos = response.data.data.videos;
                 })
                 .catch(
                     error=>alert(error)
@@ -765,7 +773,7 @@ export default {
                 this.delete_url(url_id);
             }
         },
-        delete_url(){
+        delete_url(url_id){
             let full_url = config.API_URL + "/api/knowledge/" + this.id +'/url/' + url_id;
             axios.delete(full_url,this.header)
                 .then(
@@ -775,7 +783,38 @@ export default {
                 ).catch(
                 error=>alert('Wrong Username or Password')
             );
-        }
+        },
+        create_video(event){
+            let data = {
+                'title': this.video_title,
+                'url': this.video_url,
+                'description': this.video_description
+            }
+            let full_url = config.API_URL + "/api/knowledge/" + this.id +'/video';
+            axios.post(full_url, data, this.header)
+                .then(
+                    response =>{
+                        this.$router.go();
+                    }
+
+                ).catch(error=>alert('Wrong Username or Password'));
+        },
+        delete_video_confirmation(video_id){
+            if(confirm("Do you really want to delete this video ?")){
+                this.delete_video(video_id);
+            }
+        },
+        delete_video(video_id){
+            let full_url = config.API_URL + "/api/knowledge/" + this.id +'/video/' + video_id;
+            axios.delete(full_url,this.header)
+                .then(
+                    response =>{
+                        this.$router.go();
+                    }
+                ).catch(
+                error=>alert('Wrong Username or Password')
+            );
+        },
     }
 }
 </script>
