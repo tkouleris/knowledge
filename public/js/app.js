@@ -2304,508 +2304,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2829,6 +2327,8 @@ __webpack_require__.r(__webpack_exports__);
       video_title: null,
       video_url: null,
       video_description: null,
+      knowledge_tag: null,
+      tags: null,
       header: {
         headers: {
           Authorization: "Bearer " + localStorage.token
@@ -2852,8 +2352,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.title = response.data.data.title;
         _this.description = response.data.data.description;
         _this.urls = response.data.data.urls;
-        console.log(response.data.data.videos);
         _this.videos = response.data.data.videos;
+        _this.tags = response.data.data.tags;
       })["catch"](function (error) {
         return alert(error);
       });
@@ -2929,6 +2429,19 @@ __webpack_require__.r(__webpack_exports__);
         _this6.$router.go();
       })["catch"](function (error) {
         return alert('Wrong Username or Password');
+      });
+    },
+    tag_knowledge: function tag_knowledge() {
+      var _this7 = this;
+
+      var data = {
+        'tag': this.knowledge_tag
+      };
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/tag';
+      axios.post(full_url, data, this.header).then(function (response) {
+        _this7.$router.go();
+      })["catch"](function (error) {
+        return alert('error');
       });
     }
   }
@@ -39954,7 +39467,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Submit")]
+                          [_vm._v("Save")]
                         )
                       ])
                     ])
@@ -40091,39 +39604,45 @@ var render = function() {
                       _c(
                         "table",
                         { attrs: { width: "100%" } },
-                        _vm._l(_vm.videos, function(video) {
-                          return _c("tr", { key: video.id }, [
-                            _c("td", [
-                              _c(
-                                "a",
-                                {
-                                  attrs: { href: video.url, target: "_blank" }
-                                },
-                                [_vm._v(_vm._s(video.description))]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _vm._m(5, true),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "10%" } }, [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-danger",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.delete_video_confirmation(
-                                        video.id
-                                      )
+                        [
+                          _vm._m(5),
+                          _vm._v(" "),
+                          _vm._l(_vm.videos, function(video) {
+                            return _c("tr", { key: video.id }, [
+                              _c("td", [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: { href: video.url, target: "_blank" }
+                                  },
+                                  [_vm._v(_vm._s(video.title))]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(video.description))]),
+                              _vm._v(" "),
+                              _vm._m(6, true),
+                              _vm._v(" "),
+                              _c("td", { attrs: { width: "10%" } }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.delete_video_confirmation(
+                                          video.id
+                                        )
+                                      }
                                     }
-                                  }
-                                },
-                                [_vm._v("X")]
-                              )
+                                  },
+                                  [_vm._v("X")]
+                                )
+                              ])
                             ])
-                          ])
-                        }),
-                        0
+                          })
+                        ],
+                        2
                       ),
                       _vm._v(" "),
                       _c("hr"),
@@ -40231,9 +39750,83 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(6),
-                  _vm._v(" "),
-                  _vm._m(7)
+                  _c("div", { staticClass: "card card-warning" }, [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "card-body" },
+                      [
+                        _vm._l(_vm.tags, function(tag) {
+                          return _c(
+                            "span",
+                            {
+                              key: tag.id,
+                              staticStyle: {
+                                background: "green",
+                                color: "white",
+                                padding: "3px",
+                                margin: "2px"
+                              }
+                            },
+                            [_vm._v(_vm._s(tag.tag) + " ")]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.knowledge_tag,
+                                expression: "knowledge_tag"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", placeholder: "Tag" },
+                            domProps: { value: _vm.knowledge_tag },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.knowledge_tag = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("br")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            staticStyle: { "margin-top": "10px" },
+                            on: {
+                              click: function($event) {
+                                return _vm.tag_knowledge($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Add")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger",
+                            staticStyle: { "margin-top": "10px" }
+                          },
+                          [_vm._v("Clear")]
+                        )
+                      ],
+                      2
+                    )
+                  ])
                 ])
               ])
             ])
@@ -40309,6 +39902,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", [_vm._v("Title")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Description")]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("td", { attrs: { width: "10%" } }, [
       _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Edit")])
     ])
@@ -40317,734 +39924,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card card-warning" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h3", { staticClass: "card-title" }, [_vm._v("General Elements")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("form", [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Text")]),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "text", placeholder: "Enter ..." }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Text Disabled")]),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    placeholder: "Enter ...",
-                    disabled: ""
-                  }
-                })
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Textarea")]),
-                _vm._v(" "),
-                _c("textarea", {
-                  staticClass: "form-control",
-                  attrs: { rows: "3", placeholder: "Enter ..." }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Textarea Disabled")]),
-                _vm._v(" "),
-                _c("textarea", {
-                  staticClass: "form-control",
-                  attrs: { rows: "3", placeholder: "Enter ...", disabled: "" }
-                })
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "label",
-              { staticClass: "col-form-label", attrs: { for: "inputSuccess" } },
-              [
-                _c("i", { staticClass: "fas fa-check" }),
-                _vm._v(
-                  " Input with\n                                                success"
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control is-valid",
-              attrs: {
-                type: "text",
-                id: "inputSuccess",
-                placeholder: "Enter ..."
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "label",
-              { staticClass: "col-form-label", attrs: { for: "inputWarning" } },
-              [
-                _c("i", { staticClass: "far fa-bell" }),
-                _vm._v(
-                  " Input with\n                                                warning"
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control is-warning",
-              attrs: {
-                type: "text",
-                id: "inputWarning",
-                placeholder: "Enter ..."
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "label",
-              { staticClass: "col-form-label", attrs: { for: "inputError" } },
-              [
-                _c("i", { staticClass: "far fa-times-circle" }),
-                _vm._v(
-                  " Input with\n                                                error"
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control is-invalid",
-              attrs: {
-                type: "text",
-                id: "inputError",
-                placeholder: "Enter ..."
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("div", { staticClass: "form-check" }, [
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: { type: "checkbox" }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "form-check-label" }, [
-                    _vm._v("Checkbox")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-check" }, [
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: { type: "checkbox", checked: "" }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "form-check-label" }, [
-                    _vm._v("Checkbox checked")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-check" }, [
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: { type: "checkbox", disabled: "" }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "form-check-label" }, [
-                    _vm._v("Checkbox disabled")
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("div", { staticClass: "form-check" }, [
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: { type: "radio", name: "radio1" }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "form-check-label" }, [
-                    _vm._v("Radio")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-check" }, [
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: { type: "radio", name: "radio1", checked: "" }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "form-check-label" }, [
-                    _vm._v("Radio checked")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-check" }, [
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: { type: "radio", disabled: "" }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "form-check-label" }, [
-                    _vm._v("Radio disabled")
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Select")]),
-                _vm._v(" "),
-                _c("select", { staticClass: "form-control" }, [
-                  _c("option", [_vm._v("option 1")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("option 2")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("option 3")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("option 4")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("option 5")])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Select Disabled")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  { staticClass: "form-control", attrs: { disabled: "" } },
-                  [
-                    _c("option", [_vm._v("option 1")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 2")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 3")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 4")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 5")])
-                  ]
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Select Multiple")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  { staticClass: "form-control", attrs: { multiple: "" } },
-                  [
-                    _c("option", [_vm._v("option 1")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 2")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 3")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 4")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 5")])
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Select Multiple Disabled")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    staticClass: "form-control",
-                    attrs: { multiple: "", disabled: "" }
-                  },
-                  [
-                    _c("option", [_vm._v("option 1")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 2")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 3")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 4")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 5")])
-                  ]
-                )
-              ])
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card card-secondary" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h3", { staticClass: "card-title" }, [_vm._v("Custom Elements")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("form", [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("div", { staticClass: "custom-control custom-checkbox" }, [
-                  _c("input", {
-                    staticClass: "custom-control-input",
-                    attrs: {
-                      type: "checkbox",
-                      id: "customCheckbox1",
-                      value: "option1"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "customCheckbox1" }
-                    },
-                    [_vm._v("Custom Checkbox")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "custom-control custom-checkbox" }, [
-                  _c("input", {
-                    staticClass: "custom-control-input",
-                    attrs: {
-                      type: "checkbox",
-                      id: "customCheckbox2",
-                      checked: ""
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "customCheckbox2" }
-                    },
-                    [_vm._v("Custom Checkbox checked")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "custom-control custom-checkbox" }, [
-                  _c("input", {
-                    staticClass: "custom-control-input",
-                    attrs: {
-                      type: "checkbox",
-                      id: "customCheckbox3",
-                      disabled: ""
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "customCheckbox3" }
-                    },
-                    [_vm._v("Custom Checkbox disabled")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "custom-control custom-checkbox" }, [
-                  _c("input", {
-                    staticClass:
-                      "custom-control-input custom-control-input-danger",
-                    attrs: {
-                      type: "checkbox",
-                      id: "customCheckbox4",
-                      checked: ""
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "customCheckbox4" }
-                    },
-                    [_vm._v("Custom Checkbox with custom color")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "custom-control custom-checkbox" }, [
-                  _c("input", {
-                    staticClass:
-                      "custom-control-input custom-control-input-danger custom-control-input-outline",
-                    attrs: {
-                      type: "checkbox",
-                      id: "customCheckbox5",
-                      checked: ""
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "customCheckbox5" }
-                    },
-                    [_vm._v("Custom Checkbox with custom color outline")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("div", { staticClass: "custom-control custom-radio" }, [
-                  _c("input", {
-                    staticClass: "custom-control-input",
-                    attrs: {
-                      type: "radio",
-                      id: "customRadio1",
-                      name: "customRadio"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "customRadio1" }
-                    },
-                    [_vm._v("Custom Radio")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "custom-control custom-radio" }, [
-                  _c("input", {
-                    staticClass: "custom-control-input",
-                    attrs: {
-                      type: "radio",
-                      id: "customRadio2",
-                      name: "customRadio",
-                      checked: ""
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "customRadio2" }
-                    },
-                    [_vm._v("Custom Radio checked")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "custom-control custom-radio" }, [
-                  _c("input", {
-                    staticClass: "custom-control-input",
-                    attrs: { type: "radio", id: "customRadio3", disabled: "" }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "customRadio3" }
-                    },
-                    [_vm._v("Custom Radio disabled")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "custom-control custom-radio" }, [
-                  _c("input", {
-                    staticClass:
-                      "custom-control-input custom-control-input-danger",
-                    attrs: {
-                      type: "radio",
-                      id: "customRadio4",
-                      name: "customRadio2",
-                      checked: ""
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "customRadio4" }
-                    },
-                    [_vm._v("Custom Radio with custom color")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "custom-control custom-radio" }, [
-                  _c("input", {
-                    staticClass:
-                      "custom-control-input custom-control-input-danger custom-control-input-outline",
-                    attrs: {
-                      type: "radio",
-                      id: "customRadio5",
-                      name: "customRadio2"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "customRadio5" }
-                    },
-                    [_vm._v("Custom Radio with custom color outline")]
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Custom Select")]),
-                _vm._v(" "),
-                _c("select", { staticClass: "custom-select" }, [
-                  _c("option", [_vm._v("option 1")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("option 2")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("option 3")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("option 4")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("option 5")])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Custom Select Disabled")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  { staticClass: "custom-select", attrs: { disabled: "" } },
-                  [
-                    _c("option", [_vm._v("option 1")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 2")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 3")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 4")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 5")])
-                  ]
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Custom Select Multiple")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  { staticClass: "custom-select", attrs: { multiple: "" } },
-                  [
-                    _c("option", [_vm._v("option 1")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 2")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 3")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 4")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 5")])
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Custom Select Multiple Disabled")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    staticClass: "custom-select",
-                    attrs: { multiple: "", disabled: "" }
-                  },
-                  [
-                    _c("option", [_vm._v("option 1")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 2")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 3")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 4")]),
-                    _vm._v(" "),
-                    _c("option", [_vm._v("option 5")])
-                  ]
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("div", { staticClass: "custom-control custom-switch" }, [
-              _c("input", {
-                staticClass: "custom-control-input",
-                attrs: { type: "checkbox", id: "customSwitch1" }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "custom-control-label",
-                  attrs: { for: "customSwitch1" }
-                },
-                [_vm._v("Toggle this custom switch element")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "custom-control custom-switch custom-switch-off-danger custom-switch-on-success"
-              },
-              [
-                _c("input", {
-                  staticClass: "custom-control-input",
-                  attrs: { type: "checkbox", id: "customSwitch3" }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "custom-control-label",
-                    attrs: { for: "customSwitch3" }
-                  },
-                  [
-                    _vm._v(
-                      "Toggle this custom switch element with custom colors danger/success"
-                    )
-                  ]
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("div", { staticClass: "custom-control custom-switch" }, [
-              _c("input", {
-                staticClass: "custom-control-input",
-                attrs: { type: "checkbox", disabled: "", id: "customSwitch2" }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "custom-control-label",
-                  attrs: { for: "customSwitch2" }
-                },
-                [_vm._v("Disabled custom switch element")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "customRange1" } }, [
-              _vm._v("Custom range")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "custom-range",
-              attrs: { type: "range", id: "customRange1" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "customRange2" } }, [
-              _vm._v("Custom range (custom-range-danger)")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "custom-range custom-range-danger",
-              attrs: { type: "range", id: "customRange2" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "customRange3" } }, [
-              _vm._v("Custom range (custom-range-teal)")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "custom-range custom-range-teal",
-              attrs: { type: "range", id: "customRange3" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("div", { staticClass: "custom-file" }, [
-              _c("input", {
-                staticClass: "custom-file-input",
-                attrs: { type: "file", id: "customFile" }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                {
-                  staticClass: "custom-file-label",
-                  attrs: { for: "customFile" }
-                },
-                [_vm._v("Choose file")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" })
-        ])
-      ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Tags")])
     ])
   }
 ]

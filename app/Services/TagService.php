@@ -4,9 +4,11 @@
 namespace App\Services;
 
 
+use App\Models\Knowledge;
 use App\Models\Tag;
 use App\Models\User;
 use App\Repositories\Contracts\ITagRepository;
+use DB;
 
 class TagService
 {
@@ -16,12 +18,19 @@ class TagService
     private $tagRepository;
 
     /**
-     * TagService constructor.
-     * @param $tagRepository
+     * @var KnowledgeService
      */
-    public function __construct(ITagRepository $tagRepository)
+    private $knowledgeService;
+
+    /**
+     * TagService constructor.
+     * @param ITagRepository $tagRepository
+     * @param KnowledgeService $knowledgeService
+     */
+    public function __construct(ITagRepository $tagRepository, KnowledgeService $knowledgeService)
     {
         $this->tagRepository = $tagRepository;
+        $this->knowledgeService = $knowledgeService;
     }
 
     /**
@@ -31,7 +40,7 @@ class TagService
      */
     public function create(array $data, User $user): Tag
     {
-        $data['tag'] = 'Untitled tag';
+        $data['tag'] = (isset($data['tag']) && (string)$data['tag'] !== '')?$data['tag']:'Untitled tag';
         $data['user_id'] = $user->id;
         return $this->tagRepository->create($data);
     }
@@ -54,10 +63,42 @@ class TagService
         return $this->tagRepository->findById($id);
     }
 
-    public function update(array $data)
+    /**
+     * @param array $data
+     * @return Tag
+     */
+    public function update(array $data): Tag
     {
-        return $this->tagRepository->update($data);;
+        return $this->tagRepository->update($data);
     }
 
+    /**
+     * @param Knowledge $knowledge
+     * @param User $user
+     * @param string $tag
+     * @return Knowledge
+     */
+    public function tagKnowledge(Knowledge $knowledge, User $user, string $tag): Knowledge
+    {
+        $currentTag = $this->tagRepository->findByName($tag);
+        if($currentTag === null)
+        {
+            $currentTag = $this->create(['tag'=>$tag],$user);
+        }
+
+        $relation = DB::table('knowledge_tag')->select('id')
+            ->where('knowledge_id',$knowledge->id)
+            ->where('tag_id',$currentTag->id)
+            ->first();
+
+        if(!$relation){
+            DB::table('knowledge_tag')->insert([
+                'knowledge_id' => $knowledge->id,
+                'tag_id' => $currentTag->id
+            ]);
+        }
+
+        return $this->knowledgeService->show($knowledge->id);
+    }
 
 }

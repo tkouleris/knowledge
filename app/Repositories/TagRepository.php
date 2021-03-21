@@ -56,6 +56,11 @@ class TagRepository implements ITagRepository
         return $this->model::where('id',$id)->first();
     }
 
+    public function findByName(string $tag_name)
+    {
+        return $this->model::whereRaw('LOWER(tag) = ?',[strtolower($tag_name)])->first();
+    }
+
     public function update(array $data): Tag
     {
         $id = $data['id']??0;

@@ -32,18 +32,22 @@ Route::group(['middleware' => ['jwtauth']], function() {
         Route::delete('{id}/video/{video_id}', [VideoController::class, 'delete']);
         Route::get('{id}/video/{video_id}', [VideoController::class, 'show']);
         Route::put('{id}/video/{video_id}', [VideoController::class, 'update']);
+
+        Route::post('{id}/tag', [TagController::class, 'tagCreateOrUpdate']);
+
         Route::post('create', [KnowledgeController::class, 'create']);
         Route::get('{id}', [KnowledgeController::class, 'show']);
         Route::post('{id}', [KnowledgeController::class, 'update']);
         Route::delete('{id}', [KnowledgeController::class, 'delete']);
+
     });
 
-    Route::prefix('tag')->group(function () {
-        Route::post('/create', [TagController::class, 'create']);
-        Route::delete('/{id}', [TagController::class, 'delete']);
-        Route::get('/{id}', [TagController::class, 'show']);
-        Route::put('/{id}', [TagController::class, 'update']);
-    });
+//    Route::prefix('tag')->group(function () {
+//        Route::post('/create', [TagController::class, 'create']);
+//        Route::delete('/{id}', [TagController::class, 'delete']);
+//        Route::get('/{id}', [TagController::class, 'show']);
+//        Route::put('/{id}', [TagController::class, 'update']);
+//    });
 
 });
 

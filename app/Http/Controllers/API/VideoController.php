@@ -35,9 +35,9 @@ class VideoController extends Controller
     public function create($id, Request $request, IVideoRepository $videoRepository): Response
     {
         $data['knowledge_id'] = $id;
-        $data['url'] = $request->has('url')?$request->input('url'):'';
-        $data['title'] = $request->has('title')?$request->input('title'):'';
-        $data['description'] = $request->has('description')?$request->input('description'):"";
+        $data['url'] = ($request->has('url') && $request->input('url') !== null)?$request->input('url'):'';
+        $data['title'] = ($request->has('title') && $request->input('title')!==null)?$request->input('title'):'';
+        $data['description'] = ($request->has('description') && $request->input('description') !== null)?$request->input('description'):"";
         $video = $videoRepository->create($data);
 
         return new Response($this->success($video,"created"),201);

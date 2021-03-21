@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Knowledge;
+use App\Models\Tag;
 use App\Models\User;
+use App\Services\KnowledgeService;
 use App\Services\TagService;
 use App\Traits\ApiResponse;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -62,5 +66,26 @@ class TagController extends Controller
         $data['id'] = $id;
         $tag = $this->tagService->update($data);
         return new Response($this->success($tag,"created"),200);
+    }
+
+
+    /**
+     * @param $id
+     * @param Request $request
+     * @param KnowledgeService $knowledgeService
+     * @return Response
+     */
+    public function tagCreateOrUpdate($id, Request $request, KnowledgeService $knowledgeService): Response
+    {
+        $requestedTag = ($request->has('tag') && (string)$request->input('tag') !== '')?$request->input('tag'):'';
+        /** @var User $currentUser */
+        $currentUser = auth()->user();
+
+        /** @var Knowledge $knowledge */
+        $knowledge = $knowledgeService->show($id);
+
+        $knowledge = $this->tagService->tagKnowledge($knowledge, $currentUser, $requestedTag);
+
+        return new Response($this->success($knowledge,"knowledge tagged"),200);
     }
 }
