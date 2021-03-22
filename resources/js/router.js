@@ -23,24 +23,24 @@ export default new VueRouter({
         {
             path: vue_url + 'dashboard',
             component: DashboardComponent,
-            // beforeEnter:(to, from, next) =>{
-            //     if(localStorage.token == null){
-            //         next(vue_url);
-            //     }else{
-            //         next();
-            //     }
-            // }
+            beforeEnter:(to, from, next) =>{
+                if(localStorage.token == null){
+                    next(vue_url);
+                }else{
+                    next();
+                }
+            }
         },
         {
             path: vue_url + 'knowledge/form/:id',
             component: KnowledgeFormComponent,
-            // beforeEnter:(to, from, next) =>{
-            //     if(localStorage.token == null){
-            //         next(vue_url);
-            //     }else{
-            //         next();
-            //     }
-            // }
+            beforeEnter:(to, from, next) =>{
+                if(localStorage.token == null){
+                    next(vue_url);
+                }else{
+                    next();
+                }
+            }
         },
     ]
 
