@@ -38727,14 +38727,12 @@ var staticRenderFns = [
         _vm._v(" 3.1.0-rc\n    ")
       ]),
       _vm._v(" "),
-      _c("strong", [
-        _vm._v("Copyright © 2014-2021 "),
-        _c("a", { attrs: { href: "https://adminlte.io" } }, [
-          _vm._v("AdminLTE.io")
-        ]),
-        _vm._v(".")
+      _c("strong", [_vm._v("Application Knowledge.")]),
+      _vm._v(" Developed by "),
+      _c("a", { attrs: { href: "http://tkouleris.eu", target: "_blank" } }, [
+        _c("i", [_vm._v("tkouleris")])
       ]),
-      _vm._v(" All rights reserved.\n")
+      _vm._v(".\n")
     ])
   }
 ]
@@ -39444,8 +39442,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header text-center" }, [
       _c("a", { staticClass: "h1", attrs: { href: "" } }, [
-        _c("b", [_vm._v("Admin")]),
-        _vm._v("LTE")
+        _c("b", [_vm._v("Knowledge")])
       ])
     ])
   },
