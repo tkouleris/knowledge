@@ -101,4 +101,14 @@ class TagService
         return $this->knowledgeService->show($knowledge->id);
     }
 
+    /**
+     * @param $id
+     * @param $tag_id
+     */
+    public function unrelateTagFromKnowledge($id, $tag_id): void
+    {
+        DB::table('knowledge_tag')->where('knowledge_id',$id)
+            ->where('tag_id',$tag_id)
+            ->delete();
+    }
 }

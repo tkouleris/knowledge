@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Models\Knowledge;
 use App\Models\User;
 use App\Repositories\Contracts\IKnowledgeRepository;
+use DB;
 
 class KnowledgeService
 {
@@ -65,6 +66,5 @@ class KnowledgeService
     {
         return $this->knowledgeRepository->all($user->id);
     }
-
 
 }

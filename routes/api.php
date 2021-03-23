@@ -35,6 +35,7 @@ Route::group(['middleware' => ['jwtauth']], function() {
         Route::put('{id}/video/{video_id}', [VideoController::class, 'update']);
 
         Route::post('{id}/tag', [TagController::class, 'tagCreateOrUpdate']);
+        Route::delete('{id}/tag/{tag_id}', [TagController::class, 'tagDeleteFromKnowledge']);
 
         Route::post('create', [KnowledgeController::class, 'create']);
         Route::get('{id}', [KnowledgeController::class, 'show']);

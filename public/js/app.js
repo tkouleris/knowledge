@@ -2303,32 +2303,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2465,6 +2439,16 @@ __webpack_require__.r(__webpack_exports__);
       var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/tag';
       axios.post(full_url, data, this.header).then(function (response) {
         _this7.$router.go();
+      })["catch"](function (error) {
+        return alert('error');
+      });
+    },
+    unrealateTag: function unrealateTag(tag_id) {
+      var _this8 = this;
+
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/tag/' + tag_id;
+      axios["delete"](full_url, this.header).then(function (response) {
+        _this8.$router.go();
       })["catch"](function (error) {
         return alert('error');
       });
@@ -39158,11 +39142,30 @@ var render = function() {
                               staticStyle: {
                                 background: "green",
                                 color: "white",
-                                padding: "3px",
-                                margin: "2px"
+                                padding: "5px",
+                                margin: "10px"
                               }
                             },
-                            [_vm._v(_vm._s(tag.tag) + " ")]
+                            [
+                              _vm._v(_vm._s(tag.tag) + " "),
+                              _c(
+                                "a",
+                                {
+                                  staticStyle: {
+                                    "background-color": "green",
+                                    "margin-left": "10px",
+                                    "margin-right": "5px",
+                                    cursor: "pointer"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.unrealateTag(tag.id)
+                                    }
+                                  }
+                                },
+                                [_vm._v("X")]
+                              )
+                            ]
                           )
                         }),
                         _vm._v(" "),

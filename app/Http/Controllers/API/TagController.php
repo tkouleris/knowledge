@@ -88,4 +88,15 @@ class TagController extends Controller
 
         return new Response($this->success($knowledge,"knowledge tagged"),200);
     }
+
+    /**
+     * @param $id
+     * @param $tag_id
+     * @return Response
+     */
+    public function tagDeleteFromKnowledge($id, $tag_id): Response
+    {
+        $this->tagService->unrelateTagFromKnowledge($id, $tag_id);
+        return new Response($this->success(null,"tag deleted from knowledge"),200);
+    }
 }

@@ -79,4 +79,6 @@ class KnowledgeController extends Controller
         $user = Auth::user();
         return $this->knowledgeService->all($user);
     }
+
+
 }

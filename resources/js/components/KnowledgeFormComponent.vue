@@ -46,24 +46,7 @@
                                         <div class="form-group">
                                             <label for="description">Description</label>
                                             <textarea v-model="description" class="form-control" rows="3" id="description" placeholder="Description ..."></textarea>
-<!--                                            <input type="text" class="form-control" id="description" placeholder="description">-->
                                         </div>
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="exampleInputFile">File input</label>-->
-<!--                                            <div class="input-group">-->
-<!--                                                <div class="custom-file">-->
-<!--                                                    <input type="file" class="custom-file-input" id="exampleInputFile">-->
-<!--                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>-->
-<!--                                                </div>-->
-<!--                                                <div class="input-group-append">-->
-<!--                                                    <span class="input-group-text">Upload</span>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="form-check">-->
-<!--                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
-<!--                                            <label class="form-check-label" for="exampleCheck1">Check me out</label>-->
-<!--                                        </div>-->
                                     </div>
                                     <!-- /.card-body -->
 
@@ -152,10 +135,10 @@
                                 <div class="card-body">
                                     <span style="background:green;
                                                  color:white;
-                                                 padding:3px;
-                                                 margin:2px;"
+                                                 padding:5px;
+                                                 margin:10px;"
                                           v-for="tag in tags" :key="tag.id"
-                                    >{{ tag.tag}}&nbsp;</span>
+                                    >{{ tag.tag}}&nbsp;<a style="background-color:green; margin-left:10px;margin-right: 5px;cursor: pointer;" @click="unrealateTag(tag.id)">X</a></span>
                                     <hr>
                                     <div>
                                         <input v-model="knowledge_tag" class="form-control" type="text" placeholder="Tag">
@@ -163,22 +146,13 @@
                                     </div>
                                     <button @click="tag_knowledge($event)" class="btn btn-primary" style="margin-top: 10px;">Add</button>
                                     <button class="btn btn-danger" style="margin-top: 10px;">Clear</button>
-
                                 </div>
-                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card -->
-                            <!-- general form elements disabled -->
-                            <!-- /.card -->
                         </div>
-                        <!--/.col (right) -->
                     </div>
-                    <!-- /.row -->
-                </div><!-- /.container-fluid -->
+                </div>
             </section>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
         <footer-component></footer-component>
     </div>
     </body>
@@ -321,6 +295,16 @@ export default {
             }
             let full_url = config.API_URL + "/api/knowledge/" + this.id +'/tag';
             axios.post(full_url, data, this.header)
+                .then(
+                    response =>{
+                        this.$router.go();
+                    }
+
+                ).catch(error=>alert('error'));
+        },
+        unrealateTag(tag_id){
+            let full_url = config.API_URL + "/api/knowledge/" + this.id +'/tag/' + tag_id;
+            axios.delete(full_url, this.header)
                 .then(
                     response =>{
                         this.$router.go();
