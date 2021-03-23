@@ -16,7 +16,7 @@ class CreateUrlTable extends Migration
         Schema::create('url', function (Blueprint $table) {
             $table->id();
             $table->string('url');
-            $table->foreignId('knowledge_id')->constrained();
+            $table->foreignId('knowledge_id')->constrained()->onDelete('cascade');;
             $table->timestamps();
         });
     }

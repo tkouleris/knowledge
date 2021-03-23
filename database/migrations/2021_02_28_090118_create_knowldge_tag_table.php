@@ -15,8 +15,8 @@ class CreateKnowldgeTagTable extends Migration
     {
         Schema::create('knowledge_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('knowledge_id')->default(0)->constrained('knowledge');
-            $table->foreignId('tag_id')->default(0)->constrained('tag');
+            $table->foreignId('knowledge_id')->default(0)->constrained('knowledge')->onDelete('cascade');
+            $table->foreignId('tag_id')->default(0)->constrained('tag')->onDelete('cascade');
             $table->timestamps();
         });
     }

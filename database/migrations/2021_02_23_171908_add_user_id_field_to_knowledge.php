@@ -14,7 +14,7 @@ class AddUserIdFieldToKnowledge extends Migration
     public function up()
     {
         Schema::table('knowledge', function (Blueprint $table) {
-            $table->foreignId('user_id')->default(0)->constrained('users');
+            $table->foreignId('user_id')->default(0)->constrained('users')->onDelete('cascade');;
         });
     }
 

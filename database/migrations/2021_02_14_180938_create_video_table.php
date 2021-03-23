@@ -18,7 +18,7 @@ class CreateVideoTable extends Migration
             $table->string('url');
             $table->string('title');
             $table->string('description');
-            $table->foreignId('knowledge_id')->constrained();
+            $table->foreignId('knowledge_id')->constrained()->onDelete('cascade');;
             $table->timestamps();
         });
     }

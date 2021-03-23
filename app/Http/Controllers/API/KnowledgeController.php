@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\KnowledgeService;
 use App\Services\TagService;
 use App\Traits\ApiResponse;
+use Auth;
 use DB;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -70,5 +71,12 @@ class KnowledgeController extends Controller
     {
         $knowledge = $this->knowledgeService->delete($id);
         return new Response($this->success($knowledge,"record deleted"),204);
+    }
+
+    public function index()
+    {
+        /** @var User $user */
+        $user = Auth::user();
+        return $this->knowledgeService->all($user);
     }
 }

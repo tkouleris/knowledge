@@ -68,4 +68,9 @@ class KnowledgeRepository implements IKnowledgeRepository
         $knowledge->delete();
         return $knowledge;
     }
+
+    public function all(int $id)
+    {
+        return $this->model::where('user_id',$id)->get();
+    }
 }

@@ -32,41 +32,22 @@
                                     <table class="table table-hover text-nowrap">
                                         <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>User</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                            <th>Reason</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Created</th>
+                                            <th>Updated</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>183</td>
-                                            <td>John Doe</td>
-                                            <td>11-7-2014</td>
-                                            <td><span class="tag tag-success">Approved</span></td>
-                                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>219</td>
-                                            <td>Alexander Pierce</td>
-                                            <td>11-7-2014</td>
-                                            <td><span class="tag tag-warning">Pending</span></td>
-                                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>657</td>
-                                            <td>Bob Doe</td>
-                                            <td>11-7-2014</td>
-                                            <td><span class="tag tag-primary">Approved</span></td>
-                                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>175</td>
-                                            <td>Mike Doe</td>
-                                            <td>11-7-2014</td>
-                                            <td><span class="tag tag-danger">Denied</span></td>
-                                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                        <tr v-for="knowledge in knowledge_list" :key="knowledge.id">
+                                            <td>{{ knowledge.title}}</td>
+                                            <td>{{ knowledge.description }}</td>
+                                            <td>{{ knowledge.created_at }}</td>
+                                            <td>{{ knowledge.updated_at }}</td>
+                                            <td><a :href="knowledge_form_url + knowledge.id">edit</a></td>
+                                            <td><a href="" @click="delete_knowledge_confirmation(knowledge.id)">delete</a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -89,9 +70,51 @@
 import FooterComponent from "./FooterComponent";
 import MenuComponent from "./MenuComponent";
 import NavbarComponent from "./NavbarComponent";
+import config from "../config";
 export default {
     name: "DashboardComponent",
-    components: {MenuComponent, FooterComponent, NavbarComponent}
+    components: {MenuComponent, FooterComponent, NavbarComponent},
+    data: function() {
+        return {
+            knowledge_form_url: window.location.origin + '/knowledge/form/',
+            knowledge_list:null,
+            header:{
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                },
+            }
+        }
+    },
+    mounted() {
+        this.getKnowledgeList();
+    },
+    methods:{
+        getKnowledgeList: function (){
+            let full_url = config.API_URL + "/api/knowledge/all";
+            axios.get(full_url, this.header)
+                .then(response =>{
+                    this.knowledge_list = response.data
+                })
+                .catch(
+                    error=>alert(error)
+                );
+        },
+        delete_knowledge_confirmation: function (knowledge_id){
+            if(confirm("Do you really want to delete this knowledge ?")){
+                this.delete_knowledge(knowledge_id);
+            }
+        },
+        delete_knowledge: function (knowledge_id){
+            let full_url = config.API_URL + "/api/knowledge/" + knowledge_id;
+            axios.delete(full_url, this.header)
+                .then(response =>{
+                    this.$router.go();
+                })
+                .catch(
+                    error=>alert(error)
+                );
+        }
+    }
 }
 </script>
 

@@ -61,5 +61,10 @@ class KnowledgeService
         return $this->knowledgeRepository->findById($updated_knowledge->id);
     }
 
+    public function all(User $user)
+    {
+        return $this->knowledgeRepository->all($user->id);
+    }
+
 
 }

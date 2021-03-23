@@ -24,6 +24,7 @@ Route::post('login',[AuthController::class,'login']);
 Route::group(['middleware' => ['jwtauth']], function() {
 
     Route::prefix('knowledge')->group(function () {
+        Route::get('all', [KnowledgeController::class, 'index']);
         Route::post('{id}/url', [UrlController::class, 'create']);
         Route::get('{id}/url/{url_id}', [UrlController::class, 'show']);
         Route::put('{id}/url/{url_id}', [UrlController::class, 'update']);

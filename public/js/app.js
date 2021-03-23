@@ -1979,6 +1979,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FooterComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FooterComponent */ "./resources/js/components/FooterComponent.vue");
 /* harmony import */ var _MenuComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MenuComponent */ "./resources/js/components/MenuComponent.vue");
 /* harmony import */ var _NavbarComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NavbarComponent */ "./resources/js/components/NavbarComponent.vue");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./resources/js/config.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_config__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -2047,25 +2049,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -2075,6 +2059,47 @@ __webpack_require__.r(__webpack_exports__);
     MenuComponent: _MenuComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
     FooterComponent: _FooterComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
     NavbarComponent: _NavbarComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      knowledge_form_url: window.location.origin + '/knowledge/form/',
+      knowledge_list: null,
+      header: {
+        headers: {
+          Authorization: "Bearer " + localStorage.token
+        }
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.getKnowledgeList();
+  },
+  methods: {
+    getKnowledgeList: function getKnowledgeList() {
+      var _this = this;
+
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/all";
+      axios.get(full_url, this.header).then(function (response) {
+        _this.knowledge_list = response.data;
+      })["catch"](function (error) {
+        return alert(error);
+      });
+    },
+    delete_knowledge_confirmation: function delete_knowledge_confirmation(knowledge_id) {
+      if (confirm("Do you really want to delete this knowledge ?")) {
+        this.delete_knowledge(knowledge_id);
+      }
+    },
+    delete_knowledge: function delete_knowledge(knowledge_id) {
+      var _this2 = this;
+
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + knowledge_id;
+      axios["delete"](full_url, this.header).then(function (response) {
+        _this2.$router.go();
+      })["catch"](function (error) {
+        return alert(error);
+      });
+    }
   }
 });
 
@@ -38526,7 +38551,86 @@ var render = function() {
         _vm._v(" "),
         _c("menu-component"),
         _vm._v(" "),
-        _vm._m(0),
+        _c("div", { staticClass: "content-wrapper" }, [
+          _c("section", { staticClass: "content" }, [
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c("div", { staticClass: "card" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "card-body table-responsive p-0" },
+                      [
+                        _c(
+                          "table",
+                          { staticClass: "table table-hover text-nowrap" },
+                          [
+                            _vm._m(1),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.knowledge_list, function(knowledge) {
+                                return _c("tr", { key: knowledge.id }, [
+                                  _c("td", [_vm._v(_vm._s(knowledge.title))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(knowledge.description))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(knowledge.created_at))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(knowledge.updated_at))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href:
+                                            _vm.knowledge_form_url +
+                                            knowledge.id
+                                        }
+                                      },
+                                      [_vm._v("edit")]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: { href: "" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.delete_knowledge_confirmation(
+                                              knowledge.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("delete")]
+                                    )
+                                  ])
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c("footer-component")
       ],
@@ -38539,156 +38643,57 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content-wrapper" }, [
-      _c("section", { staticClass: "content" }, [
-        _c("div", { staticClass: "container-fluid" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-12" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-header" }, [
-                  _c("h3", { staticClass: "card-title" }, [
-                    _vm._v("Responsive Hover Table")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-tools" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "input-group input-group-sm",
-                        staticStyle: { width: "150px" }
-                      },
-                      [
-                        _c("input", {
-                          staticClass: "form-control float-right",
-                          attrs: {
-                            type: "text",
-                            name: "table_search",
-                            placeholder: "Search"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "input-group-append" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-default",
-                              attrs: { type: "submit" }
-                            },
-                            [_c("i", { staticClass: "fas fa-search" })]
-                          )
-                        ])
-                      ]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body table-responsive p-0" }, [
-                  _c(
-                    "table",
-                    { staticClass: "table table-hover text-nowrap" },
-                    [
-                      _c("thead", [
-                        _c("tr", [
-                          _c("th", [_vm._v("ID")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("User")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Date")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Status")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Reason")])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("tbody", [
-                        _c("tr", [
-                          _c("td", [_vm._v("183")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("John Doe")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-success" }, [
-                              _vm._v("Approved")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", [_vm._v("219")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Alexander Pierce")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-warning" }, [
-                              _vm._v("Pending")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", [_vm._v("657")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Bob Doe")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-primary" }, [
-                              _vm._v("Approved")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", [_vm._v("175")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Mike Doe")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-danger" }, [
-                              _vm._v("Denied")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                            )
-                          ])
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [
+        _vm._v("Responsive Hover Table")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" }, [
+        _c(
+          "div",
+          {
+            staticClass: "input-group input-group-sm",
+            staticStyle: { width: "150px" }
+          },
+          [
+            _c("input", {
+              staticClass: "form-control float-right",
+              attrs: {
+                type: "text",
+                name: "table_search",
+                placeholder: "Search"
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group-append" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-default", attrs: { type: "submit" } },
+                [_c("i", { staticClass: "fas fa-search" })]
+              )
             ])
-          ])
-        ])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Created")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Updated")]),
+        _vm._v(" "),
+        _c("th"),
+        _vm._v(" "),
+        _c("th")
       ])
     ])
   }
@@ -55182,14 +55187,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************!*\
   !*** ./resources/js/components/DashboardComponent.vue ***!
   \********************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DashboardComponent_vue_vue_type_template_id_01ab55f4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DashboardComponent.vue?vue&type=template&id=01ab55f4&scoped=true& */ "./resources/js/components/DashboardComponent.vue?vue&type=template&id=01ab55f4&scoped=true&");
 /* harmony import */ var _DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DashboardComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/DashboardComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -55219,7 +55225,7 @@ component.options.__file = "resources/js/components/DashboardComponent.vue"
 /*!*********************************************************************************!*\
   !*** ./resources/js/components/DashboardComponent.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
