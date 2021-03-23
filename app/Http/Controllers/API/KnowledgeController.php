@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tag;
 use App\Models\User;
 use App\Services\KnowledgeService;
-use App\Services\TagService;
 use App\Traits\ApiResponse;
 use Auth;
-use DB;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 

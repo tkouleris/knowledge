@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Video;
 use App\Repositories\Contracts\IVideoRepository;
 use App\Services\VideoService;
 use App\Traits\ApiResponse;

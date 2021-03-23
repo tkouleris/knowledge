@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Models\Tag;
 use App\Repositories\Contracts\ITagRepository;
+use DB;
 
 class TagRepository implements ITagRepository
 {
@@ -71,5 +72,12 @@ class TagRepository implements ITagRepository
         $tag_record->save();
 
         return $tag_record;
+    }
+
+    public function unrelateTagFromKnowledge(int $knowledge_id, int $tag_id):void
+    {
+        DB::table('knowledge_tag')->where('knowledge_id',$knowledge_id)
+            ->where('tag_id',$tag_id)
+            ->delete();
     }
 }

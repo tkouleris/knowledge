@@ -13,4 +13,5 @@ interface ITagRepository
     public function create(array $data):Tag;
     public function delete(int $id):Tag;
     public function update(array $data): Tag;
+    public function unrelateTagFromKnowledge(int $knowledge_id, int $tag_id):void;
 }
