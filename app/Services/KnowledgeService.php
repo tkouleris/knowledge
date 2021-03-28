@@ -62,9 +62,12 @@ class KnowledgeService
         return $this->knowledgeRepository->findById($updated_knowledge->id);
     }
 
-    public function all(User $user)
+    public function findByTags(User $user, $searchTags = [])
     {
-        return $this->knowledgeRepository->all($user->id);
+        $searchTags = convert_array_elements_to_lowercase($searchTags);
+        $searchTags = trim_array_elements($searchTags);
+        $searchTags = add_single_quotes_at_array_elements($searchTags);
+        return $this->knowledgeRepository->findByTags($user->id, $searchTags);
     }
 
 }

@@ -70,11 +70,15 @@ class KnowledgeController extends Controller
         return new Response($this->success($knowledge,"record deleted"),204);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         /** @var User $user */
         $user = Auth::user();
-        return $this->knowledgeService->all($user);
+        $searchTags = [];
+        if($request->has('tag_search')){
+            $searchTags = explode(",",$request->input('tag_search'));
+        }
+        return $this->knowledgeService->findByTags($user, $searchTags);
     }
 
 

@@ -2064,6 +2064,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       knowledge_form_url: window.location.origin + '/knowledge/form/',
       knowledge_list: null,
+      tag_search: null,
       header: {
         headers: {
           Authorization: "Bearer " + localStorage.token
@@ -2079,6 +2080,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/all";
+
+      if (this.tag_search !== null) {
+        full_url = full_url + '?tag_search=' + this.tag_search;
+      }
+
       axios.get(full_url, this.header).then(function (response) {
         _this.knowledge_list = response.data;
       })["catch"](function (error) {
@@ -38614,7 +38620,59 @@ var render = function() {
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-12" }, [
                   _c("div", { staticClass: "card" }, [
-                    _vm._m(0),
+                    _c("div", { staticClass: "card-header" }, [
+                      _c("h3", { staticClass: "card-title" }, [
+                        _vm._v("Responsive Hover Table")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-tools" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "input-group input-group-sm",
+                            staticStyle: { width: "150px" }
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.tag_search,
+                                  expression: "tag_search"
+                                }
+                              ],
+                              staticClass: "form-control float-right",
+                              attrs: { type: "text", placeholder: "Search" },
+                              domProps: { value: _vm.tag_search },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.tag_search = $event.target.value
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "input-group-append" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-default",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.getKnowledgeList()
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-search" })]
+                              )
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -38624,7 +38682,7 @@ var render = function() {
                           "table",
                           { staticClass: "table table-hover text-nowrap" },
                           [
-                            _vm._m(1),
+                            _vm._m(0),
                             _vm._v(" "),
                             _c(
                               "tbody",
@@ -38696,44 +38754,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h3", { staticClass: "card-title" }, [
-        _vm._v("Responsive Hover Table")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "div",
-          {
-            staticClass: "input-group input-group-sm",
-            staticStyle: { width: "150px" }
-          },
-          [
-            _c("input", {
-              staticClass: "form-control float-right",
-              attrs: {
-                type: "text",
-                name: "table_search",
-                placeholder: "Search"
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group-append" }, [
-              _c(
-                "button",
-                { staticClass: "btn btn-default", attrs: { type: "submit" } },
-                [_c("i", { staticClass: "fas fa-search" })]
-              )
-            ])
-          ]
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

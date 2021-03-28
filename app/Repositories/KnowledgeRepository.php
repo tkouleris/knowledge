@@ -69,8 +69,14 @@ class KnowledgeRepository implements IKnowledgeRepository
         return $knowledge;
     }
 
-    public function all(int $id)
+    public function findByTags(int $id, $searchTags = [])
     {
-        return $this->model::where('user_id',$id)->get();
+         $knowledge = $this->model::with('tags')->where('user_id',$id);
+         if(count($searchTags) > 0){
+             $knowledge->whereHas('tags', function($q) use($searchTags){
+                 $q->whereRaw("LOWER(tag) in (".implode(",",$searchTags).")");
+             });
+         }
+        return $knowledge->get();
     }
 }

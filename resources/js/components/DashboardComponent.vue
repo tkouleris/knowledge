@@ -17,10 +17,10 @@
 
                                     <div class="card-tools">
                                         <div class="input-group input-group-sm" style="width: 150px;">
-                                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                            <input type="text" v-model="tag_search" class="form-control float-right" placeholder="Search">
 
                                             <div class="input-group-append">
-                                                <button type="submit" class="btn btn-default">
+                                                <button @click="getKnowledgeList()" class="btn btn-default">
                                                     <i class="fas fa-search"></i>
                                                 </button>
                                             </div>
@@ -78,6 +78,7 @@ export default {
         return {
             knowledge_form_url: window.location.origin + '/knowledge/form/',
             knowledge_list:null,
+            tag_search:null,
             header:{
                 headers: {
                     Authorization: "Bearer " + localStorage.token
@@ -91,6 +92,9 @@ export default {
     methods:{
         getKnowledgeList: function (){
             let full_url = config.API_URL + "/api/knowledge/all";
+            if(this.tag_search !== null){
+                full_url = full_url + '?tag_search=' + this.tag_search;
+            }
             axios.get(full_url, this.header)
                 .then(response =>{
                     this.knowledge_list = response.data

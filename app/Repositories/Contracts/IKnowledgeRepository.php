@@ -12,5 +12,5 @@ interface IKnowledgeRepository
     public function update(array $data):Knowledge;
     public function findById(int $id):Knowledge;
     public function delete(int $id):Knowledge;
-    public function all(int $id);
+    public function findByTags(int $id, $searchTags = []);
 }
