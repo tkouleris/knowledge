@@ -2049,6 +2049,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2105,6 +2111,13 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         return alert(error);
       });
+    },
+    search_by_tag: function search_by_tag(event) {
+      if (event.keyCode !== 13) {
+        return;
+      }
+
+      this.getKnowledgeList();
     }
   }
 });
@@ -38620,56 +38633,52 @@ var render = function() {
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-12" }, [
                   _c("div", { staticClass: "card" }, [
-                    _c("div", { staticClass: "card-header" }, [
-                      _c("h3", { staticClass: "card-title" }, [
-                        _vm._v("Responsive Hover Table")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-tools" }, [
-                        _c(
-                          "div",
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group input-group-sm" }, [
+                      _c("input", {
+                        directives: [
                           {
-                            staticClass: "input-group input-group-sm",
-                            staticStyle: { width: "150px" }
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.tag_search,
+                            expression: "tag_search"
+                          }
+                        ],
+                        staticClass: "form-control float-right",
+                        staticStyle: { "margin-left": "10px" },
+                        attrs: {
+                          type: "text",
+                          placeholder:
+                            "Search by tags, seperated with commas..."
+                        },
+                        domProps: { value: _vm.tag_search },
+                        on: {
+                          keypress: function($event) {
+                            return _vm.search_by_tag($event)
                           },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.tag_search,
-                                  expression: "tag_search"
-                                }
-                              ],
-                              staticClass: "form-control float-right",
-                              attrs: { type: "text", placeholder: "Search" },
-                              domProps: { value: _vm.tag_search },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.tag_search = $event.target.value
-                                }
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.tag_search = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group-append" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default",
+                            staticStyle: { "margin-right": "10px" },
+                            on: {
+                              click: function($event) {
+                                return _vm.getKnowledgeList()
                               }
-                            }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "input-group-append" }, [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-default",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.getKnowledgeList()
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-search" })]
-                              )
-                            ])
-                          ]
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-search" })]
                         )
                       ])
                     ]),
@@ -38682,7 +38691,7 @@ var render = function() {
                           "table",
                           { staticClass: "table table-hover text-nowrap" },
                           [
-                            _vm._m(0),
+                            _vm._m(1),
                             _vm._v(" "),
                             _c(
                               "tbody",
@@ -38754,6 +38763,18 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [
+        _vm._v("My Knowledge Collection")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

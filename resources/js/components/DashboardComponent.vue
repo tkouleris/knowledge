@@ -13,18 +13,24 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Responsive Hover Table</h3>
+                                    <h3 class="card-title">My Knowledge Collection</h3>
 
                                     <div class="card-tools">
-                                        <div class="input-group input-group-sm" style="width: 150px;">
-                                            <input type="text" v-model="tag_search" class="form-control float-right" placeholder="Search">
 
-                                            <div class="input-group-append">
-                                                <button @click="getKnowledgeList()" class="btn btn-default">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group input-group-sm" >
+                                    <input type="text" @keypress="search_by_tag($event)" v-model="tag_search" class="form-control float-right"
+                                           style="margin-left:10px;"
+                                           placeholder="Search by tags, seperated with commas..."
+                                    >
+
+                                    <div class="input-group-append">
+                                        <button @click="getKnowledgeList()" class="btn btn-default"
+                                                style="margin-right:10px;"
+                                        >
+                                            <i class="fas fa-search"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <!-- /.card-header -->
@@ -117,6 +123,12 @@ export default {
                 .catch(
                     error=>alert(error)
                 );
+        },
+        search_by_tag(event){
+            if(event.keyCode !== 13){
+                return;
+            }
+            this.getKnowledgeList();
         }
     }
 }
