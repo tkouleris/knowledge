@@ -69,17 +69,17 @@
                                 <div class="card-body">
                                     <table width="100%">
                                         <template v-for="url in urls" >
-                                        <tr :id="'url_data_' + url.id">
-                                            <td colspan="2"><a :href="url.url" target="_blank">{{url.description}}</a></td>
-                                            <td width="10%"><button @click="enable_edit_url(url.id)" class="btn btn-secondary">Edit</button></td>
-                                            <td width="10%"><button @click="delete_url_confirmation(url.id)" class="btn btn-danger">Delete</button></td>
-                                        </tr>
-                                        <tr :id="'url_edit_' + url.id" class="d-none">
-                                            <td><input :id="'edit_url_description_'+url.id" class="form-control" type="text" placeholder="Url description..."></td>
-                                            <td><input :id="'edit_url_string_'+url.id" class="form-control" type="text" placeholder="Url description..."></td>
-                                            <td width="10%"><button @click="save_url(url.id)" class="btn btn-success">Save</button></td>
-                                            <td width="10%"><button @click="disable_edit_url(url.id)" class="btn btn-danger">Cancel</button></td>
-                                        </tr>
+                                            <tr :id="'url_data_' + url.id">
+                                                <td colspan="2"><a :href="url.url" target="_blank">{{url.description}}</a></td>
+                                                <td width="10%"><button @click="enable_edit_url(url.id)" class="btn btn-secondary">Edit</button></td>
+                                                <td width="10%"><button @click="delete_url_confirmation(url.id)" class="btn btn-danger">Delete</button></td>
+                                            </tr>
+                                            <tr :id="'url_edit_' + url.id" class="d-none">
+                                                <td><input :id="'edit_url_description_'+url.id" class="form-control" type="text" placeholder="Url description..."></td>
+                                                <td><input :id="'edit_url_string_'+url.id" class="form-control" type="text" placeholder="Url description..."></td>
+                                                <td width="10%"><button @click="save_url(url.id)" class="btn btn-success">Save</button></td>
+                                                <td width="10%"><button @click="disable_edit_url(url.id)" class="btn btn-danger">Cancel</button></td>
+                                            </tr>
                                         </template>
                                     </table>
                                     <hr>
@@ -89,7 +89,7 @@
                                         <input v-model="url_string" class="form-control form-control-sm" type="text" placeholder="url...">
                                     </div>
                                     <button @click="create_url($event)" class="btn btn-primary" style="margin-top: 10px;">Add</button>
-                                    <button class="btn btn-danger" style="margin-top: 10px;">Clear</button>
+<!--                                    <button class="btn btn-danger" style="margin-top: 10px;">Clear</button>-->
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -102,18 +102,21 @@
                                 </div>
                                 <div class="card-body">
                                     <table width="100%">
-                                        <tr>
-                                            <td>Title</td>
-                                            <td>Description</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr v-for="video in videos" :key="video.id">
-                                            <td><a :href="video.url" target="_blank">{{video.title}}</a></td>
-                                            <td>{{video.description}}</td>
-                                            <td width="10%"><button class="btn btn-secondary">Edit</button></td>
-                                            <td width="10%"><button @click="delete_video_confirmation(video.id)" class="btn btn-danger">X</button></td>
-                                        </tr>
+                                        <template v-for="video in videos" >
+                                            <tr :id="'video_data_'+video.id">
+                                                <td><a :href="video.url" target="_blank">{{video.title}}</a></td>
+                                                <td colspan="2"><i>{{video.description}}</i></td>
+                                                <td width="10%"><button @click="enable_edit_video(video.id)" class="btn btn-secondary">Edit</button></td>
+                                                <td width="10%"><button @click="delete_video_confirmation(video.id)" class="btn btn-danger">Delete</button></td>
+                                            </tr>
+                                            <tr :id="'video_edit_' + video.id" class="d-none">
+                                                <td><input :id="'edit_video_title_'+video.id" class="form-control" type="text" placeholder="Url description..."></td>
+                                                <td><input :id="'edit_video_url_'+video.id" class="form-control" type="text" placeholder="Url description..."></td>
+                                                <td><input :id="'edit_video_description_'+video.id" class="form-control" type="text" placeholder="Url description..."></td>
+                                                <td width="10%"><button @click="save_video(video.id)" class="btn btn-success">Save</button></td>
+                                                <td width="10%"><button @click="disable_edit_video(video.id)" class="btn btn-danger">Cancel</button></td>
+                                            </tr>
+                                        </template>
                                     </table>
                                     <hr>
                                     <div>
@@ -124,7 +127,7 @@
                                         <input v-model="video_description" class="form-control" type="text" placeholder="Video description...">
                                     </div>
                                     <button @click="create_video($event)" class="btn btn-primary" style="margin-top: 10px;">Add</button>
-                                    <button class="btn btn-danger" style="margin-top: 10px;">Clear</button>
+<!--                                    <button class="btn btn-danger" style="margin-top: 10px;">Clear</button>-->
 
                                 </div>
                                 <!-- /.card-body -->
@@ -343,6 +346,43 @@ export default {
                 'description': $('#edit_url_description_' + url_id).val()
             }
             let full_url = config.API_URL + "/api/knowledge/" + this.id +'/url/' + url_id;
+            axios.put(full_url, data, this.header)
+                .then(
+                    response =>{
+                        this.$router.go();
+                    }
+
+                ).catch(error=>alert('Wrong Username or Password'));
+        },
+        enable_edit_video(video_id){
+            $('#video_data_'+video_id).addClass('d-none');
+            $('#video_edit_'+video_id).removeClass('d-none');
+            let full_url = config.API_URL + "/api/knowledge/" + this.id +'/video/' + video_id;
+            axios.get(full_url, this.header)
+                .then(
+                    response =>{
+                        $('#edit_video_title_'+video_id).val(response.data.data.title)
+                        $('#edit_video_url_'+video_id).val(response.data.data.url)
+                        $('#edit_video_description_'+video_id).val(response.data.data.description)
+
+                    }
+
+                ).catch(error=>alert('error'));
+        },
+        disable_edit_video(video_id){
+            $('#video_data_'+video_id).removeClass('d-none');
+            $('#video_edit_'+video_id).addClass('d-none');
+            $('#edit_video_title_'+video_id).val('')
+            $('#edit_video_url_'+video_id).val('')
+            $('#edit_video_description_'+video_id).val('')
+        },
+        save_video(video_id){
+            let data = {
+                'title': $('#edit_video_title' + video_id).val(),
+                'url': $('#edit_video_url_' + video_id).val(),
+                'description': $('#edit_video_description_' + video_id).val()
+            }
+            let full_url = config.API_URL + "/api/knowledge/" + this.id +'/video/' + video_id;
             axios.put(full_url, data, this.header)
                 .then(
                     response =>{

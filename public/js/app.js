@@ -2308,6 +2308,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2485,6 +2488,40 @@ __webpack_require__.r(__webpack_exports__);
       var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/url/' + url_id;
       axios.put(full_url, data, this.header).then(function (response) {
         _this9.$router.go();
+      })["catch"](function (error) {
+        return alert('Wrong Username or Password');
+      });
+    },
+    enable_edit_video: function enable_edit_video(video_id) {
+      $('#video_data_' + video_id).addClass('d-none');
+      $('#video_edit_' + video_id).removeClass('d-none');
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/video/' + video_id;
+      axios.get(full_url, this.header).then(function (response) {
+        $('#edit_video_title_' + video_id).val(response.data.data.title);
+        $('#edit_video_url_' + video_id).val(response.data.data.url);
+        $('#edit_video_description_' + video_id).val(response.data.data.description);
+      })["catch"](function (error) {
+        return alert('error');
+      });
+    },
+    disable_edit_video: function disable_edit_video(video_id) {
+      $('#video_data_' + video_id).removeClass('d-none');
+      $('#video_edit_' + video_id).addClass('d-none');
+      $('#edit_video_title_' + video_id).val('');
+      $('#edit_video_url_' + video_id).val('');
+      $('#edit_video_description_' + video_id).val('');
+    },
+    save_video: function save_video(video_id) {
+      var _this10 = this;
+
+      var data = {
+        'title': $('#edit_video_title' + video_id).val(),
+        'url': $('#edit_video_url_' + video_id).val(),
+        'description': $('#edit_video_description_' + video_id).val()
+      };
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/video/' + video_id;
+      axios.put(full_url, data, this.header).then(function (response) {
+        _this10.$router.go();
       })["catch"](function (error) {
         return alert('Wrong Username or Password');
       });
@@ -39084,15 +39121,6 @@ var render = function() {
                           }
                         },
                         [_vm._v("Add")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger",
-                          staticStyle: { "margin-top": "10px" }
-                        },
-                        [_vm._v("Clear")]
                       )
                     ])
                   ])
@@ -39107,41 +39135,140 @@ var render = function() {
                         "table",
                         { attrs: { width: "100%" } },
                         [
-                          _vm._m(4),
-                          _vm._v(" "),
                           _vm._l(_vm.videos, function(video) {
-                            return _c("tr", { key: video.id }, [
-                              _c("td", [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: { href: video.url, target: "_blank" }
-                                  },
-                                  [_vm._v(_vm._s(video.title))]
-                                )
-                              ]),
+                            return [
+                              _c(
+                                "tr",
+                                { attrs: { id: "video_data_" + video.id } },
+                                [
+                                  _c("td", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: video.url,
+                                          target: "_blank"
+                                        }
+                                      },
+                                      [_vm._v(_vm._s(video.title))]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { attrs: { colspan: "2" } }, [
+                                    _c("i", [_vm._v(_vm._s(video.description))])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { attrs: { width: "10%" } }, [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-secondary",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.enable_edit_video(
+                                              video.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Edit")]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { attrs: { width: "10%" } }, [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.delete_video_confirmation(
+                                              video.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Delete")]
+                                    )
+                                  ])
+                                ]
+                              ),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(video.description))]),
-                              _vm._v(" "),
-                              _vm._m(5, true),
-                              _vm._v(" "),
-                              _c("td", { attrs: { width: "10%" } }, [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.delete_video_confirmation(
-                                          video.id
-                                        )
+                              _c(
+                                "tr",
+                                {
+                                  staticClass: "d-none",
+                                  attrs: { id: "video_edit_" + video.id }
+                                },
+                                [
+                                  _c("td", [
+                                    _c("input", {
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        id: "edit_video_title_" + video.id,
+                                        type: "text",
+                                        placeholder: "Url description..."
                                       }
-                                    }
-                                  },
-                                  [_vm._v("X")]
-                                )
-                              ])
-                            ])
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        id: "edit_video_url_" + video.id,
+                                        type: "text",
+                                        placeholder: "Url description..."
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        id:
+                                          "edit_video_description_" + video.id,
+                                        type: "text",
+                                        placeholder: "Url description..."
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { attrs: { width: "10%" } }, [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-success",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.save_video(video.id)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Save")]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { attrs: { width: "10%" } }, [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.disable_edit_video(
+                                              video.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Cancel")]
+                                    )
+                                  ])
+                                ]
+                              )
+                            ]
                           })
                         ],
                         2
@@ -39239,21 +39366,12 @@ var render = function() {
                           }
                         },
                         [_vm._v("Add")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger",
-                          staticStyle: { "margin-top": "10px" }
-                        },
-                        [_vm._v("Clear")]
                       )
                     ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card card-warning" }, [
-                    _vm._m(6),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -39409,28 +39527,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title" }, [_vm._v("Videos")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", [_vm._v("Title")]),
-      _vm._v(" "),
-      _c("td", [_vm._v("Description")]),
-      _vm._v(" "),
-      _c("td"),
-      _vm._v(" "),
-      _c("td")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "10%" } }, [
-      _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Edit")])
     ])
   },
   function() {
