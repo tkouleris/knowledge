@@ -2303,6 +2303,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2451,6 +2456,37 @@ __webpack_require__.r(__webpack_exports__);
         _this8.$router.go();
       })["catch"](function (error) {
         return alert('error');
+      });
+    },
+    enable_edit_url: function enable_edit_url(url_id) {
+      $('#url_data_' + url_id).addClass('d-none');
+      $('#url_edit_' + url_id).removeClass('d-none');
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/url/' + url_id;
+      axios.get(full_url, this.header).then(function (response) {
+        $('#edit_url_string_' + url_id).val(response.data.data.url);
+        $('#edit_url_description_' + url_id).val(response.data.data.description);
+      })["catch"](function (error) {
+        return alert('error');
+      });
+    },
+    disable_edit_url: function disable_edit_url(url_id) {
+      $('#url_data_' + url_id).removeClass('d-none');
+      $('#url_edit_' + url_id).addClass('d-none');
+      $('#edit_url_string_' + url_id).val('');
+      $('#edit_url_description_' + url_id).val('');
+    },
+    save_url: function save_url(url_id) {
+      var _this9 = this;
+
+      var data = {
+        'url': $('#edit_url_string_' + url_id).val(),
+        'description': $('#edit_url_description_' + url_id).val()
+      };
+      var full_url = _config__WEBPACK_IMPORTED_MODULE_3___default.a.API_URL + "/api/knowledge/" + this.id + '/url/' + url_id;
+      axios.put(full_url, data, this.header).then(function (response) {
+        _this9.$router.go();
+      })["catch"](function (error) {
+        return alert('Wrong Username or Password');
       });
     }
   }
@@ -38863,35 +38899,124 @@ var render = function() {
                       _c(
                         "table",
                         { attrs: { width: "100%" } },
-                        _vm._l(_vm.urls, function(url) {
-                          return _c("tr", { key: url.id }, [
-                            _c("td", [
+                        [
+                          _vm._l(_vm.urls, function(url) {
+                            return [
                               _c(
-                                "a",
-                                { attrs: { href: url.url, target: "_blank" } },
-                                [_vm._v(_vm._s(url.description))]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _vm._m(3, true),
-                            _vm._v(" "),
-                            _c("td", { attrs: { width: "10%" } }, [
+                                "tr",
+                                { attrs: { id: "url_data_" + url.id } },
+                                [
+                                  _c("td", { attrs: { colspan: "2" } }, [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href: url.url,
+                                          target: "_blank"
+                                        }
+                                      },
+                                      [_vm._v(_vm._s(url.description))]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { attrs: { width: "10%" } }, [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-secondary",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.enable_edit_url(url.id)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Edit")]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { attrs: { width: "10%" } }, [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.delete_url_confirmation(
+                                              url.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Delete")]
+                                    )
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
                               _c(
-                                "button",
+                                "tr",
                                 {
-                                  staticClass: "btn btn-danger",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.delete_url_confirmation(url.id)
-                                    }
-                                  }
+                                  staticClass: "d-none",
+                                  attrs: { id: "url_edit_" + url.id }
                                 },
-                                [_vm._v("X")]
+                                [
+                                  _c("td", [
+                                    _c("input", {
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        id: "edit_url_description_" + url.id,
+                                        type: "text",
+                                        placeholder: "Url description..."
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c("input", {
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        id: "edit_url_string_" + url.id,
+                                        type: "text",
+                                        placeholder: "Url description..."
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { attrs: { width: "10%" } }, [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-success",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.save_url(url.id)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Save")]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { attrs: { width: "10%" } }, [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.disable_edit_url(url.id)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Cancel")]
+                                    )
+                                  ])
+                                ]
                               )
-                            ])
-                          ])
-                        }),
-                        0
+                            ]
+                          })
+                        ],
+                        2
                       ),
                       _vm._v(" "),
                       _c("hr"),
@@ -38975,14 +39100,14 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12" }, [
                   _c("div", { staticClass: "card card-danger" }, [
-                    _vm._m(4),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-body" }, [
                       _c(
                         "table",
                         { attrs: { width: "100%" } },
                         [
-                          _vm._m(5),
+                          _vm._m(4),
                           _vm._v(" "),
                           _vm._l(_vm.videos, function(video) {
                             return _c("tr", { key: video.id }, [
@@ -38998,7 +39123,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(video.description))]),
                               _vm._v(" "),
-                              _vm._m(6, true),
+                              _vm._m(5, true),
                               _vm._v(" "),
                               _c("td", { attrs: { width: "10%" } }, [
                                 _c(
@@ -39128,7 +39253,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "card card-warning" }, [
-                    _vm._m(7),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -39276,14 +39401,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title" }, [_vm._v("  Urls")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { attrs: { width: "10%" } }, [
-      _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Edit")])
     ])
   },
   function() {
@@ -55190,15 +55307,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!********************************************************!*\
   !*** ./resources/js/components/DashboardComponent.vue ***!
   \********************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DashboardComponent_vue_vue_type_template_id_01ab55f4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DashboardComponent.vue?vue&type=template&id=01ab55f4&scoped=true& */ "./resources/js/components/DashboardComponent.vue?vue&type=template&id=01ab55f4&scoped=true&");
 /* harmony import */ var _DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DashboardComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/DashboardComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -55228,7 +55344,7 @@ component.options.__file = "resources/js/components/DashboardComponent.vue"
 /*!*********************************************************************************!*\
   !*** ./resources/js/components/DashboardComponent.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

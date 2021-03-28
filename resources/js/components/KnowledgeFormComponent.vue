@@ -55,12 +55,9 @@
                                     </div>
                                 </form>
                             </div>
-                            <!-- /.card -->
                         </div>
                     </div>
                 </div>
-                        <!--/.col (left) -->
-                        <!-- right column -->
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
@@ -71,11 +68,19 @@
                                 </div>
                                 <div class="card-body">
                                     <table width="100%">
-                                        <tr v-for="url in urls" :key="url.id">
-                                            <td><a :href="url.url" target="_blank">{{url.description}}</a></td>
-                                            <td width="10%"><button class="btn btn-secondary">Edit</button></td>
-                                            <td width="10%"><button @click="delete_url_confirmation(url.id)" class="btn btn-danger">X</button></td>
+                                        <template v-for="url in urls" >
+                                        <tr :id="'url_data_' + url.id">
+                                            <td colspan="2"><a :href="url.url" target="_blank">{{url.description}}</a></td>
+                                            <td width="10%"><button @click="enable_edit_url(url.id)" class="btn btn-secondary">Edit</button></td>
+                                            <td width="10%"><button @click="delete_url_confirmation(url.id)" class="btn btn-danger">Delete</button></td>
                                         </tr>
+                                        <tr :id="'url_edit_' + url.id" class="d-none">
+                                            <td><input :id="'edit_url_description_'+url.id" class="form-control" type="text" placeholder="Url description..."></td>
+                                            <td><input :id="'edit_url_string_'+url.id" class="form-control" type="text" placeholder="Url description..."></td>
+                                            <td width="10%"><button @click="save_url(url.id)" class="btn btn-success">Save</button></td>
+                                            <td width="10%"><button @click="disable_edit_url(url.id)" class="btn btn-danger">Cancel</button></td>
+                                        </tr>
+                                        </template>
                                     </table>
                                     <hr>
                                     <div id="url_form">
@@ -311,6 +316,40 @@ export default {
                     }
 
                 ).catch(error=>alert('error'));
+        },
+        enable_edit_url(url_id){
+            $('#url_data_'+url_id).addClass('d-none');
+            $('#url_edit_'+url_id).removeClass('d-none');
+            let full_url = config.API_URL + "/api/knowledge/" + this.id +'/url/' + url_id;
+            axios.get(full_url, this.header)
+                .then(
+                    response =>{
+                        $('#edit_url_string_'+url_id).val(response.data.data.url)
+                        $('#edit_url_description_'+url_id).val(response.data.data.description)
+
+                    }
+
+                ).catch(error=>alert('error'));
+        },
+        disable_edit_url(url_id){
+            $('#url_data_'+url_id).removeClass('d-none');
+            $('#url_edit_'+url_id).addClass('d-none');
+            $('#edit_url_string_'+url_id).val('')
+            $('#edit_url_description_'+url_id).val('')
+        },
+        save_url(url_id){
+            let data = {
+                'url': $('#edit_url_string_' + url_id).val(),
+                'description': $('#edit_url_description_' + url_id).val()
+            }
+            let full_url = config.API_URL + "/api/knowledge/" + this.id +'/url/' + url_id;
+            axios.put(full_url, data, this.header)
+                .then(
+                    response =>{
+                        this.$router.go();
+                    }
+
+                ).catch(error=>alert('Wrong Username or Password'));
         }
     }
 }
