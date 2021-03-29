@@ -2636,7 +2636,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODUL
     return {
       email: null,
       password: null,
-      registration_url: window.location.origin + '/register'
+      registration_url: window.location.origin + '/register',
+      password_reset_url: window.location.origin + '/password/reset'
     };
   },
   methods: {
@@ -39680,7 +39681,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("p", { staticClass: "mb-1" }, [
-            _c("a", { attrs: { href: _vm.registration_url } }, [
+            _c("a", { attrs: { href: _vm.password_reset_url } }, [
               _vm._v("I forgot my password")
             ])
           ]),

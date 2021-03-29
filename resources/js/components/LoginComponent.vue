@@ -43,7 +43,7 @@
                     </div>
                 </form>
                 <p class="mb-1">
-                    <a :href="registration_url">I forgot my password</a>
+                    <a :href="password_reset_url">I forgot my password</a>
                 </p>
                 <p class="mb-0">
                     <a :href="registration_url" class="text-center">Register a new membership</a>
@@ -69,7 +69,8 @@ export default {
         return {
             email: null,
             password: null,
-            registration_url: window.location.origin + '/register'
+            registration_url: window.location.origin + '/register',
+            password_reset_url: window.location.origin + '/password/reset'
         }
     },
     methods:{
