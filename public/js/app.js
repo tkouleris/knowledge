@@ -2625,17 +2625,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2646,7 +2635,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_axios__WEBPACK_IMPORTED_MODUL
   data: function data() {
     return {
       email: null,
-      password: null
+      password: null,
+      registration_url: window.location.origin + '/register'
     };
   },
   methods: {
@@ -39689,9 +39679,22 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(4),
+          _c("p", { staticClass: "mb-1" }, [
+            _c("a", { attrs: { href: _vm.registration_url } }, [
+              _vm._v("I forgot my password")
+            ])
+          ]),
           _vm._v(" "),
-          _vm._m(5)
+          _c("p", { staticClass: "mb-0" }, [
+            _c(
+              "a",
+              {
+                staticClass: "text-center",
+                attrs: { href: _vm.registration_url }
+              },
+              [_vm._v("Register a new membership")]
+            )
+          ])
         ])
       ])
     ])
@@ -39738,32 +39741,10 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("label", { attrs: { for: "remember" } }, [
           _vm._v(
-            "\n                                    Remember Me\n                                "
+            "\n                                Remember Me\n                            "
           )
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "mb-1" }, [
-      _c("a", { attrs: { href: "forgot-password.html" } }, [
-        _vm._v("I forgot my password")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "mb-0" }, [
-      _c(
-        "a",
-        { staticClass: "text-center", attrs: { href: "register.html" } },
-        [_vm._v("Register a new membership")]
-      )
     ])
   }
 ]
