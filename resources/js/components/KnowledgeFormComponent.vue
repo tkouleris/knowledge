@@ -199,6 +199,9 @@ export default {
         this.load_knowledge();
     },
     methods:{
+        setToken: function (token){
+            this.header.headers.Authorization = "Bearer " + token
+        },
         submit_form: function (event){
             event.preventDefault();
             this.save_knowledge();
@@ -207,11 +210,19 @@ export default {
             let full_url = config.API_URL + "/api/knowledge/"+this.id;
             axios.get(full_url, this.header)
                 .then(response =>{
-                    this.title = response.data.data.title;
-                    this.description = response.data.data.description;
-                    this.urls = response.data.data.urls;
-                    this.videos = response.data.data.videos;
-                    this.tags = response.data.data.tags
+                    if(response.data.success === false && response.data.status === 'expired'){
+                        localStorage.token = response.data.token;
+                        this.setToken(localStorage.token);
+                        this.load_knowledge();
+                    }
+
+                    if(response.data.success === true){
+                        this.title = response.data.data.title;
+                        this.description = response.data.data.description;
+                        this.urls = response.data.data.urls;
+                        this.videos = response.data.data.videos;
+                        this.tags = response.data.data.tags
+                    }
                 })
                 .catch(
                     error=>alert(error)
@@ -226,14 +237,22 @@ export default {
             axios.post(full_url, data, this.header)
                 .then(
                     response =>{
-                        this.$router.go();
+                        if(response.data.success === false && response.data.status === 'expired'){
+                            localStorage.token = response.data.token;
+                            this.setToken(localStorage.token);
+                            this.save_knowledge();
+                        }
+
+                        if(response.data.success === true){
+                            this.$router.go();
+                        }
                     }
 
                 ).catch(
                 error=>alert('Wrong Username or Password')
             );
         },
-        create_url: function (event){
+        create_url: function (){
 
             let data = {
                 'url': this.url_string,
@@ -243,7 +262,15 @@ export default {
             axios.post(full_url, data, this.header)
                 .then(
                     response =>{
-                        this.$router.go();
+                        if(response.data.success === false && response.data.status === 'expired'){
+                            localStorage.token = response.data.token;
+                            this.setToken(localStorage.token);
+                            this.create_url();
+                        }
+
+                        if(response.data.success === true){
+                            this.$router.go();
+                        }
                     }
 
                 ).catch(
@@ -260,7 +287,15 @@ export default {
             axios.delete(full_url,this.header)
                 .then(
                     response =>{
-                        this.$router.go();
+                        if(response.data.success === false && response.data.status === 'expired'){
+                            localStorage.token = response.data.token;
+                            this.setToken(localStorage.token);
+                            this.delete_url(url_id);
+                        }
+
+                        if(response.status === 204){
+                            this.$router.go();
+                        }
                     }
                 ).catch(
                 error=>alert('Wrong Username or Password')
@@ -276,7 +311,15 @@ export default {
             axios.post(full_url, data, this.header)
                 .then(
                     response =>{
-                        this.$router.go();
+                        if(response.data.success === false && response.data.status === 'expired'){
+                            localStorage.token = response.data.token;
+                            this.setToken(localStorage.token);
+                            this.create_video(event);
+                        }
+
+                        if(response.data.success === true){
+                            this.$router.go();
+                        }
                     }
 
                 ).catch(error=>alert('Wrong Username or Password'));
@@ -291,7 +334,15 @@ export default {
             axios.delete(full_url,this.header)
                 .then(
                     response =>{
-                        this.$router.go();
+                        if(response.data.success === false && response.data.status === 'expired'){
+                            localStorage.token = response.data.token;
+                            this.setToken(localStorage.token);
+                            this.delete_video(video_id);
+                        }
+
+                        if(response.status === 204){
+                            this.$router.go();
+                        }
                     }
                 ).catch(
                 error=>alert('Wrong Username or Password')
@@ -305,7 +356,15 @@ export default {
             axios.post(full_url, data, this.header)
                 .then(
                     response =>{
-                        this.$router.go();
+                        if(response.data.success === false && response.data.status === 'expired'){
+                            localStorage.token = response.data.token;
+                            this.setToken(localStorage.token);
+                            this.tag_knowledge();
+                        }
+
+                        if(response.data.success === true){
+                            this.$router.go();
+                        }
                     }
 
                 ).catch(error=>alert('error'));
@@ -315,7 +374,15 @@ export default {
             axios.delete(full_url, this.header)
                 .then(
                     response =>{
-                        this.$router.go();
+                        if(response.data.success === false && response.data.status === 'expired'){
+                            localStorage.token = response.data.token;
+                            this.setToken(localStorage.token);
+                            this.unrealateTag(tag_id);
+                        }
+
+                        if(response.data.success === true){
+                            this.$router.go();
+                        }
                     }
 
                 ).catch(error=>alert('error'));
@@ -327,9 +394,16 @@ export default {
             axios.get(full_url, this.header)
                 .then(
                     response =>{
-                        $('#edit_url_string_'+url_id).val(response.data.data.url)
-                        $('#edit_url_description_'+url_id).val(response.data.data.description)
+                        if(response.data.success === false && response.data.status === 'expired'){
+                            localStorage.token = response.data.token;
+                            this.setToken(localStorage.token);
+                            this.enable_edit_url(url_id);
+                        }
 
+                        if(response.data.success === true){
+                            $('#edit_url_string_'+url_id).val(response.data.data.url)
+                            $('#edit_url_description_'+url_id).val(response.data.data.description)
+                        }
                     }
 
                 ).catch(error=>alert('error'));
@@ -349,7 +423,15 @@ export default {
             axios.put(full_url, data, this.header)
                 .then(
                     response =>{
-                        this.$router.go();
+                        if(response.data.success === false && response.data.status === 'expired'){
+                            localStorage.token = response.data.token;
+                            this.setToken(localStorage.token);
+                            this.save_url(url_id);
+                        }
+
+                        if(response.data.success === true){
+                            this.$router.go();
+                        }
                     }
 
                 ).catch(error=>alert('Wrong Username or Password'));
@@ -361,10 +443,17 @@ export default {
             axios.get(full_url, this.header)
                 .then(
                     response =>{
-                        $('#edit_video_title_'+video_id).val(response.data.data.title)
-                        $('#edit_video_url_'+video_id).val(response.data.data.url)
-                        $('#edit_video_description_'+video_id).val(response.data.data.description)
+                        if(response.data.success === false && response.data.status === 'expired'){
+                            localStorage.token = response.data.token;
+                            this.setToken(localStorage.token);
+                            this.enable_edit_video(video_id);
+                        }
 
+                        if(response.data.success === true){
+                            $('#edit_video_title_'+video_id).val(response.data.data.title)
+                            $('#edit_video_url_'+video_id).val(response.data.data.url)
+                            $('#edit_video_description_'+video_id).val(response.data.data.description)
+                        }
                     }
 
                 ).catch(error=>alert('error'));
@@ -386,7 +475,15 @@ export default {
             axios.put(full_url, data, this.header)
                 .then(
                     response =>{
-                        this.$router.go();
+                        if(response.data.success === false && response.data.status === 'expired'){
+                            localStorage.token = response.data.token;
+                            this.setToken(localStorage.token);
+                            this.save_video(video_id);
+                        }
+
+                        if(response.data.success === true){
+                            this.$router.go();
+                        }
                     }
 
                 ).catch(error=>alert('Wrong Username or Password'));

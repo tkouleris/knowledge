@@ -77,6 +77,8 @@ import FooterComponent from "./FooterComponent";
 import MenuComponent from "./MenuComponent";
 import NavbarComponent from "./NavbarComponent";
 import config from "../config";
+import refreshToken from '../mixins/refreshToken'
+
 export default {
     name: "DashboardComponent",
     components: {MenuComponent, FooterComponent, NavbarComponent},
@@ -96,6 +98,9 @@ export default {
         this.getKnowledgeList();
     },
     methods:{
+        setToken: function (token){
+            this.header.headers.Authorization = "Bearer " + token
+        },
         getKnowledgeList: function (){
             let full_url = config.API_URL + "/api/knowledge/all";
             if(this.tag_search !== null){
@@ -103,10 +108,25 @@ export default {
             }
             axios.get(full_url, this.header)
                 .then(response =>{
-                    this.knowledge_list = response.data
+                    // Learn about mixins or interceptors in VUE
+                    if(response.data.success === false && response.data.status === 'expired'){
+                        localStorage.token = response.data.token;
+                        this.setToken(localStorage.token);
+                        this.getKnowledgeList();
+                    }
+
+                    if(response.data.success === true){
+                        this.knowledge_list = response.data.data
+                    }
                 })
                 .catch(
-                    error=>alert(error)
+                    error => {
+                        if (error.response.status === 401) {
+                            localStorage.clear();
+                            this.$router.push('/');
+                            return;
+                        }
+                    }
                 );
         },
         delete_knowledge_confirmation: function (knowledge_id){
@@ -118,7 +138,16 @@ export default {
             let full_url = config.API_URL + "/api/knowledge/" + knowledge_id;
             axios.delete(full_url, this.header)
                 .then(response =>{
-                    this.$router.go();
+                    if(response.data.success === false && response.data.status === 'expired'){
+                        localStorage.token = response.data.token;
+                        this.setToken(localStorage.token);
+                        this.delete_knowledge(knowledge_id);
+                    }
+
+                    if(response.data.success === true){
+                        this.$router.go();
+                    }
+
                 })
                 .catch(
                     error=>alert(error)
@@ -130,7 +159,10 @@ export default {
             }
             this.getKnowledgeList();
         }
-    }
+    },
+    mixins:[
+        refreshToken
+    ]
 }
 </script>
 

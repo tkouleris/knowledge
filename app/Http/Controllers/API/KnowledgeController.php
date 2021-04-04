@@ -78,7 +78,11 @@ class KnowledgeController extends Controller
         if($request->has('tag_search')){
             $searchTags = explode(",",$request->input('tag_search'));
         }
-        return $this->knowledgeService->findByTags($user, $searchTags);
+        return new Response(
+            $this->success($this->knowledgeService->findByTags($user, $searchTags)
+            ,"knowledge index")
+            ,200
+        );
     }
 
 
