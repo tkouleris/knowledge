@@ -49,7 +49,8 @@
                                         <tbody>
                                         <tr v-for="knowledge in knowledge_list" :key="knowledge.id">
                                             <td>{{ knowledge.title}}</td>
-                                            <td>{{ knowledge.description }}</td>
+                                            <td v-if="knowledge.description.length<50">{{ knowledge.description }}</td>
+                                            <td v-else>{{ knowledge.description.substring(0,50)+".." }}</td>
                                             <td>{{ knowledge.created_at }}</td>
                                             <td>{{ knowledge.updated_at }}</td>
                                             <td><a :href="knowledge_form_url + knowledge.id">edit</a></td>
