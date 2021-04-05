@@ -87,7 +87,7 @@ export default {
         return {
             knowledge_form_url: window.location.origin + '/knowledge/form/',
             knowledge_list:null,
-            tag_search:null,
+            tag_search:'',
             header:{
                 headers: {
                     Authorization: "Bearer " + localStorage.token
@@ -104,7 +104,8 @@ export default {
         },
         getKnowledgeList: function (){
             let full_url = config.API_URL + "/api/knowledge/all";
-            if(this.tag_search !== null){
+
+            if(this.tag_search !== ''){
                 full_url = full_url + '?tag_search=' + this.tag_search;
             }
             axios.get(full_url, this.header)
