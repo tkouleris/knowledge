@@ -225,7 +225,10 @@ export default {
                     }
                 })
                 .catch(
-                    error=>alert(error)
+                    error=>{
+                        alert(error.response.data.message);
+                        this.$router.push('/dashboard');
+                    }
                 );
         },
         save_knowledge: function (){

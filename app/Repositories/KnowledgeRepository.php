@@ -30,11 +30,12 @@ class KnowledgeRepository implements IKnowledgeRepository
         return $this->model::create($data);
     }
 
+
     /**
      * @param int $id
-     * @return Knowledge
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
-    public function findById(int $id): Knowledge
+    public function findById(int $id)
     {
         return $this->model::with(['tags','urls','videos'])
             ->where('id',$id)
@@ -78,5 +79,10 @@ class KnowledgeRepository implements IKnowledgeRepository
              });
          }
         return $knowledge->get();
+    }
+
+    public function findByIdAndUserID(int $id, int $user_id)
+    {
+        // TODO: Implement findByIdAndUserID() method.
     }
 }

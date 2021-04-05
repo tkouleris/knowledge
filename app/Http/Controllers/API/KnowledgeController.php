@@ -39,10 +39,13 @@ class KnowledgeController extends Controller
     /**
      * @param int $id
      * @return Response
+     * @throws \App\Exceptions\KnowledgeNotFoundException
      */
     public function show(int $id): Response
     {
-        $found_record = $this->knowledgeService->show($id);
+        /** @var User $user */
+        $user = Auth::user();
+        $found_record = $this->knowledgeService->show($id, $user);
         return new Response($this->success($found_record,"record"),200);
     }
 

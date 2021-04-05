@@ -34,7 +34,17 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+
+        });
+
+        $this->renderable(function (Throwable $e) {
+
+            if($e instanceof KnowledgeNotFoundException){
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage(),
+                ],404);
+            }
         });
     }
 }

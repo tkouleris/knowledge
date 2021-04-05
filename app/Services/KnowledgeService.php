@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Exceptions\KnowledgeNotFoundException;
 use App\Models\Knowledge;
 use App\Models\User;
 use App\Repositories\Contracts\IKnowledgeRepository;
@@ -34,13 +35,20 @@ class KnowledgeService
         return $this->knowledgeRepository->create($data);
     }
 
+
     /**
      * @param int $id
+     * @param User $user
      * @return Knowledge
+     * @throws KnowledgeNotFoundException
      */
-    public function show(int $id): Knowledge
+    public function show(int $id, User $user): Knowledge
     {
-        return $this->knowledgeRepository->findById($id);
+        $knowledge = $this->knowledgeRepository->findByIdAndUserID($id, $user->id);
+        if($knowledge === null){
+            throw new KnowledgeNotFoundException("Knowledge not found");
+        }
+        return $knowledge;
     }
 
     /**
