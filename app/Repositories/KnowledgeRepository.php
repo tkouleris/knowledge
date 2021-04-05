@@ -83,6 +83,9 @@ class KnowledgeRepository implements IKnowledgeRepository
 
     public function findByIdAndUserID(int $id, int $user_id)
     {
-        // TODO: Implement findByIdAndUserID() method.
+        return $this->model::with(['tags','urls','videos'])
+            ->where('id',$id)
+            ->where('user_id',$user_id)
+            ->first();
     }
 }
