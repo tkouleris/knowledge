@@ -51,9 +51,11 @@ class KnowledgeService
         return $knowledge;
     }
 
+
     /**
      * @param int $id
      * @return Knowledge
+     * @throws KnowledgeNotFoundException
      */
     public function delete(int $id): Knowledge
     {

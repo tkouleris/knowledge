@@ -45,6 +45,13 @@ class Handler extends ExceptionHandler
                     'message' => $e->getMessage(),
                 ],404);
             }
+
+            if($e instanceof UrlNotFoundException){
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage(),
+                ],404);
+            }
         });
     }
 }

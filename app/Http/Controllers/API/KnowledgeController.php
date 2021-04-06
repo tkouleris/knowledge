@@ -66,6 +66,7 @@ class KnowledgeController extends Controller
     /**
      * @param $id
      * @return Response
+     * @throws \App\Exceptions\KnowledgeNotFoundException
      */
     public function delete($id): Response
     {

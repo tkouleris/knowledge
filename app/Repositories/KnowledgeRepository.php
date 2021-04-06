@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\Exceptions\KnowledgeNotFoundException;
 use App\Models\Knowledge;
 use App\Repositories\Contracts\IKnowledgeRepository;
 
@@ -59,13 +60,18 @@ class KnowledgeRepository implements IKnowledgeRepository
         return $knowledge;
     }
 
+
     /**
      * @param int $id
      * @return Knowledge
+     * @throws KnowledgeNotFoundException
      */
     public function delete(int $id): Knowledge
     {
         $knowledge = $this->model::where('id',$id)->first();
+        if($knowledge === null){
+            throw new KnowledgeNotFoundException("Knowledge not found");
+        }
         $knowledge->delete();
         return $knowledge;
     }

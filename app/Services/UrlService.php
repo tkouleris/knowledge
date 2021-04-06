@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Exceptions\UrlNotFoundException;
 use App\Models\Url;
 use App\Repositories\Contracts\IUrlRepository;
 
@@ -42,10 +43,15 @@ class UrlService
     /**
      * @param $url_id
      * @return Url
+     * @throws UrlNotFoundException
      */
     public function find($url_id): Url
     {
-        return $this->urlRepository->findById($url_id);
+        $url = $this->urlRepository->findById($url_id);
+        if($url === null){
+            throw new UrlNotFoundException("Url record not found");
+        }
+        return $url;
     }
 
     /**

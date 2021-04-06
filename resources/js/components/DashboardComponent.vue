@@ -152,7 +152,10 @@ export default {
 
                 })
                 .catch(
-                    error=>alert(error)
+                    error=>{
+                        alert(error.response.data.message);
+                        this.$router.push('/dashboard');
+                    }
                 );
         },
         search_by_tag(event){
