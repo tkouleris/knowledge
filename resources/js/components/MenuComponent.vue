@@ -37,7 +37,7 @@
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Settings
-                                <span class="right badge badge-danger">todo</span>
+<!--                                <span class="right badge badge-danger">todo</span>-->
                             </p>
                         </a>
                     </li>
