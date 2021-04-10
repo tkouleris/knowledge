@@ -8,6 +8,7 @@ use App\Models\Knowledge;
 use App\Models\Tag;
 use App\Models\User;
 use App\Repositories\Contracts\ITagRepository;
+use Auth;
 use DB;
 
 class TagService
@@ -77,6 +78,7 @@ class TagService
      * @param User $user
      * @param string $tag
      * @return Knowledge
+     * @throws \App\Exceptions\KnowledgeNotFoundException
      */
     public function tagKnowledge(Knowledge $knowledge, User $user, string $tag): Knowledge
     {
@@ -97,8 +99,8 @@ class TagService
                 'tag_id' => $currentTag->id
             ]);
         }
-
-        return $this->knowledgeService->show($knowledge->id);
+        $user = Auth::user();
+        return $this->knowledgeService->show($knowledge->id,$user);
     }
 
     /**

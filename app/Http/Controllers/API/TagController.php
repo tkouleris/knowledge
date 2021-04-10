@@ -72,6 +72,7 @@ class TagController extends Controller
      * @param Request $request
      * @param KnowledgeService $knowledgeService
      * @return Response
+     * @throws \App\Exceptions\KnowledgeNotFoundException
      */
     public function tagCreateOrUpdate($id, Request $request, KnowledgeService $knowledgeService): Response
     {
@@ -80,7 +81,7 @@ class TagController extends Controller
         $currentUser = auth()->user();
 
         /** @var Knowledge $knowledge */
-        $knowledge = $knowledgeService->show($id);
+        $knowledge = $knowledgeService->show($id, $currentUser);
 
         $knowledge = $this->tagService->tagKnowledge($knowledge, $currentUser, $requestedTag);
 
