@@ -4,6 +4,7 @@ use App\Http\Controllers\API\KnowledgeController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\TagController;
 use App\Http\Controllers\API\UrlController;
+use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\VideoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,8 @@ Route::group(['middleware' => ['jwtauth']], function() {
         Route::delete('{id}', [KnowledgeController::class, 'delete']);
 
     });
+
+    Route::post('user/update', [UserController::class, 'update']);
 
     Route::prefix('tag')->group(function () {
         Route::post('/create', [TagController::class, 'create']);

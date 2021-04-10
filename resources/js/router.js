@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import LoginComponent from "./components/LoginComponent";
 import DashboardComponent from "./components/DashboardComponent";
 import KnowledgeFormComponent from "./components/KnowledgeFormComponent";
+import SettingsComponent from "./components/SettingsComponent";
 
 Vue.use(VueRouter);
 var vue_url = "/"
@@ -34,6 +35,17 @@ export default new VueRouter({
         {
             path: vue_url + 'knowledge/form/:id',
             component: KnowledgeFormComponent,
+            beforeEnter:(to, from, next) =>{
+                if(localStorage.token == null){
+                    next(vue_url);
+                }else{
+                    next();
+                }
+            }
+        },
+        {
+            path: vue_url + 'settings',
+            component: SettingsComponent,
             beforeEnter:(to, from, next) =>{
                 if(localStorage.token == null){
                     next(vue_url);

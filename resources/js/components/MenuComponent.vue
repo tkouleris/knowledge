@@ -33,7 +33,7 @@
 <!--                        <router-link class="nav-link" :to="url_dashboard"><i class="nav-icon fas fa-tachometer-alt"></i>Dashboard</router-link>-->
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <a :href="url_settings" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Settings
@@ -57,7 +57,8 @@ export default {
             name:'',
             logo: window.location.origin + '/img/logo.jpg',
             user_image: window.location.origin + '/img/user.jpg',
-            url_dashboard: window.location.origin + '/dashboard'
+            url_dashboard: window.location.origin + '/dashboard',
+            url_settings: window.location.origin + '/settings'
         }
     },
     mounted() {

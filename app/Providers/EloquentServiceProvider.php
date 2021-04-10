@@ -5,10 +5,12 @@ namespace App\Providers;
 use App\Repositories\Contracts\IKnowledgeRepository;
 use App\Repositories\Contracts\ITagRepository;
 use App\Repositories\Contracts\IUrlRepository;
+use App\Repositories\Contracts\IUserRepository;
 use App\Repositories\Contracts\IVideoRepository;
 use App\Repositories\KnowledgeRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\UrlRepository;
+use App\Repositories\UserRepository;
 use App\Repositories\VideoRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +27,7 @@ class EloquentServiceProvider extends ServiceProvider
         $this->app->bind(IUrlRepository::class, UrlRepository::class);
         $this->app->bind(IVideoRepository::class, VideoRepository::class);
         $this->app->bind(ITagRepository::class, TagRepository::class);
+        $this->app->bind(IUserRepository::class, UserRepository::class);
     }
 
     /**
