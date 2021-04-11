@@ -16,8 +16,8 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">General Form</li>
+<!--                                <li class="breadcrumb-item"><a href="#">Home</a></li>-->
+<!--                                <li class="breadcrumb-item active">General Form</li>-->
                             </ol>
                         </div>
                     </div>
@@ -171,6 +171,7 @@ import FooterComponent from "./FooterComponent";
 import NavbarComponent from "./NavbarComponent";
 import MenuComponent from "./MenuComponent";
 import config from "../config";
+import {bus} from "../app";
 export default {
     name: "KnowledgeFormComponent",
     components: {MenuComponent, NavbarComponent, FooterComponent},
@@ -197,6 +198,9 @@ export default {
     },
     mounted() {
         this.load_knowledge();
+        bus.$on('knowledge_created', () => {
+            this.$router.go();
+        })
     },
     methods:{
         setToken: function (token){
@@ -231,7 +235,7 @@ export default {
                     }
                 );
         },
-        save_knowledge: function (){
+        save_knowledge: function (reload_page = true){
             let data = {
                 'title': this.title,
                 'description': this.description
@@ -246,7 +250,9 @@ export default {
                             this.save_knowledge();
                         }
 
-                        if(response.data.success === true){
+                        if(response.data.success === true
+                            && reload_page === true
+                        ){
                             this.$router.go();
                         }
                     }
@@ -256,7 +262,7 @@ export default {
             );
         },
         create_url: function (){
-
+            this.save_knowledge(false);
             let data = {
                 'url': this.url_string,
                 'description': this.url_description
@@ -282,6 +288,7 @@ export default {
         },
         delete_url_confirmation(url_id){
             if(confirm("Do you really want to delete this url ?")){
+                this.save_knowledge(false);
                 this.delete_url(url_id);
             }
         },
@@ -305,6 +312,7 @@ export default {
             );
         },
         create_video(event){
+            this.save_knowledge(false);
             let data = {
                 'title': this.video_title,
                 'url': this.video_url,
@@ -329,6 +337,7 @@ export default {
         },
         delete_video_confirmation(video_id){
             if(confirm("Do you really want to delete this video ?")){
+                this.save_knowledge(false);
                 this.delete_video(video_id);
             }
         },
@@ -352,6 +361,7 @@ export default {
             );
         },
         tag_knowledge(){
+            this.save_knowledge(false);
             let data = {
                 'tag': this.knowledge_tag
             }
@@ -373,6 +383,7 @@ export default {
                 ).catch(error=>alert('error'));
         },
         unrealateTag(tag_id){
+            this.save_knowledge(false);
             let full_url = config.API_URL + "/api/knowledge/" + this.id +'/tag/' + tag_id;
             axios.delete(full_url, this.header)
                 .then(
@@ -391,6 +402,7 @@ export default {
                 ).catch(error=>alert('error'));
         },
         enable_edit_url(url_id){
+            this.save_knowledge(false);
             $('#url_data_'+url_id).addClass('d-none');
             $('#url_edit_'+url_id).removeClass('d-none');
             let full_url = config.API_URL + "/api/knowledge/" + this.id +'/url/' + url_id;
@@ -418,6 +430,7 @@ export default {
             $('#edit_url_description_'+url_id).val('')
         },
         save_url(url_id){
+            this.save_knowledge(false);
             let data = {
                 'url': $('#edit_url_string_' + url_id).val(),
                 'description': $('#edit_url_description_' + url_id).val()
@@ -440,6 +453,7 @@ export default {
                 ).catch(error=>alert('Wrong Username or Password'));
         },
         enable_edit_video(video_id){
+            this.save_knowledge(false);
             $('#video_data_'+video_id).addClass('d-none');
             $('#video_edit_'+video_id).removeClass('d-none');
             let full_url = config.API_URL + "/api/knowledge/" + this.id +'/video/' + video_id;
@@ -469,6 +483,7 @@ export default {
             $('#edit_video_description_'+video_id).val('')
         },
         save_video(video_id){
+            this.save_knowledge(false);
             let data = {
                 'title': $('#edit_video_title' + video_id).val(),
                 'url': $('#edit_video_url_' + video_id).val(),

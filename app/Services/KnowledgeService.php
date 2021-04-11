@@ -12,11 +12,15 @@ use DB;
 
 class KnowledgeService
 {
+    /**
+     * @var IKnowledgeRepository
+     */
     private $knowledgeRepository;
+
 
     /**
      * KnowledgeService constructor.
-     * @param $knowledgeRepository
+     * @param IKnowledgeRepository $knowledgeRepository
      */
     public function __construct(IKnowledgeRepository $knowledgeRepository)
     {
@@ -30,7 +34,7 @@ class KnowledgeService
     public function createDefaultRecord(User $user): Knowledge
     {
         $data['title'] = "Untitled knowledge";
-        $data['description'] = "No description";
+        $data['description'] = "";
         $data['user_id'] = $user->id;
         return $this->knowledgeRepository->create($data);
     }
