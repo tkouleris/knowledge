@@ -22,7 +22,7 @@ class KnowledgeTest extends TestCase
         $json = $response->decodeResponseJson();
 
         $this->assertEquals( "Untitled knowledge", $json['data']['title']);
-        $this->assertEquals("No description", $json['data']['description']);
+        $this->assertEquals("", $json['data']['description']);
         $this->assertEquals($token['id'], $json['data']['user_id']);
         $this->assertTrue($json['success']);
         $response->assertStatus(201);
