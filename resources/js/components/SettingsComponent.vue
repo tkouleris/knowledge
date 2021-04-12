@@ -41,18 +41,18 @@
                                                 <label for="exampleInputPassword1">Password</label>
                                                 <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                                             </div>
-<!--                                            <div class="form-group">-->
-<!--                                                <label for="exampleInputFile">File input</label>-->
-<!--                                                <div class="input-group">-->
-<!--                                                    <div class="custom-file">-->
-<!--                                                        <input type="file" class="custom-file-input" id="exampleInputFile">-->
-<!--                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="input-group-append">-->
-<!--                                                        <span class="input-group-text">Upload</span>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Upload Avatar</label>
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="exampleInputFile" @change="selectFile">
+                                                        <label id="avatar_file" class="custom-file-label" for="exampleInputFile">Choose file and click Upload</label>
+                                                    </div>
+                                                    <div class="input-group-append">
+                                                        <span @click="uploadAvatar" class="input-group-text">Upload</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <!-- /.card-body -->
 
@@ -87,6 +87,7 @@ export default {
         return {
             id: localStorage.id,
             name:null,
+            selectedFile:null,
             password:'',
             header:{
                 headers: {
@@ -129,6 +130,31 @@ export default {
                     alert(error.response.data.message);
                 }
             );
+        },
+        selectFile(event){
+            this.selectedFile = event.target.files[0]
+            $('#avatar_file').html(event.target.files[0].name)
+        },
+        uploadAvatar(){
+            const fd = new FormData();
+            console.log(fd);
+            fd.append('image',this.selectedFile, this.selectedFile.name);
+            let full_url = config.API_URL + "/api/user/avatar";
+            axios.post(full_url,fd,this.header)
+                .then(response=>{
+                    if(response.data.success === false && response.data.status === 'expired'){
+                        localStorage.token = response.data.token;
+                        this.setToken(localStorage.token);
+                        this.uploadAvatar();
+                    }
+
+                    if(response.data.success === true){
+                        this.$router.go();
+                    }
+                }).catch(
+                    error=>{
+                        alert(error.response.data.message);
+                });
         },
     }
 }

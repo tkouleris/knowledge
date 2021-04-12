@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\KnowledgeController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\TagController;
@@ -46,6 +47,7 @@ Route::group(['middleware' => ['jwtauth']], function() {
     });
 
     Route::post('user/update', [UserController::class, 'update']);
+    Route::post('user/avatar',[ImageController::class, 'ImageUpload']);
 
     Route::prefix('tag')->group(function () {
         Route::post('/create', [TagController::class, 'create']);

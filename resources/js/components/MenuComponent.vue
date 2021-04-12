@@ -11,7 +11,7 @@
             <!-- Sidebar user (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img :src="user_image" class="img-circle elevation-2" alt="User Image">
+                    <img :src="user_image" @error="imageLoadError" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">{{ name }}</a>
@@ -56,13 +56,18 @@ export default {
         return {
             name:'',
             logo: window.location.origin + '/img/logo.jpg',
-            user_image: window.location.origin + '/img/user.jpg',
+            user_image: window.location.origin + '/img/avatar/'+localStorage.id+'/avatar.jpg',
             url_dashboard: window.location.origin + '/dashboard',
             url_settings: window.location.origin + '/settings'
         }
     },
     mounted() {
         this.name = localStorage.name;
+    },
+    methods:{
+        imageLoadError: function (){
+            this.user_image = window.location.origin + '/img/user.jpg'
+        }
     }
 }
 </script>

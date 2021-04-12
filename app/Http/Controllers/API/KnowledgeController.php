@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 class KnowledgeController extends Controller
 {
     use ApiResponse;
+
     private $knowledgeService;
 
     /**
@@ -23,7 +24,6 @@ class KnowledgeController extends Controller
     {
         $this->knowledgeService = $knowledgeService;
     }
-
 
     /**
      * @return Response
