@@ -5,7 +5,6 @@ namespace App\Services;
 
 
 use App\Exceptions\BadRequestException;
-use App\Models\User;
 use App\Repositories\Contracts\IUserRepository;
 use Illuminate\Hashing\HashManager;
 
@@ -14,10 +13,11 @@ class UserService
     private $userRepository;
     private $hashManager;
 
+
     /**
      * UserService constructor.
-     * @param $userRepository
-     * @param $hashManager
+     * @param IUserRepository $userRepository
+     * @param HashManager $hashManager
      */
     public function __construct(IUserRepository $userRepository, HashManager $hashManager)
     {

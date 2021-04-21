@@ -15,9 +15,10 @@ class VideoService
      */
     private $videoRepository;
 
+
     /**
      * VideoService constructor.
-     * @param $videoRepository
+     * @param IVideoRepository $videoRepository
      */
     public function __construct(IVideoRepository $videoRepository)
     {
